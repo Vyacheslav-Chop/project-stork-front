@@ -1,0 +1,111 @@
+.mainContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  /* gap: 16px; */
+  max-width: 400px;
+  /* margin: 40px auto; */
+  padding: 24px;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin: 0 auto;
+}
+
+.formTitle {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: #000;
+  margin-bottom: 32px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #000;
+  gap: 8px;
+}
+
+.input {
+  margin-top: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding-block: 8px;
+  padding-inline: 12px;
+  color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.input:focus {
+  border: 2px solid #ff96d5;
+  outline: none;
+  background-color: #fff;
+}
+
+.submitButton {
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000;
+  background-color: #ffdae0;
+  color: #fff;
+  border-bottom: 4px solid #ffcbd3;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #ff96d5;
+}
+
+.submitButton:disabled {
+  background-color: #b1c7ae;
+  cursor: not-allowed;
+}
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 5px;
+}
+.contenText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  color: #000;
+}
+.link {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-align: center;
+  color: #000;
+  margin-top: 24px;
+}
+.error {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  text-align: center;
+}
