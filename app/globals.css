@@ -1,14 +1,8 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-lato: 'Lato', Arial, Helvetica, sans-serif;
+  --font-comfortaa: 'Comfortaa', cursive, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 html,
 body {
@@ -17,17 +11,11 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+ font-family: var(--font-lato);
+  color: #000000;
+  background-color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
 }
 
 a {
@@ -35,8 +23,12 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+button {
+  font-family: var(--font-lato);
+  color: #000000;
+}
+
+* {
+   margin: 0;
+   padding: 0;
 }
