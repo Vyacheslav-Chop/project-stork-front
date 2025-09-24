@@ -1,0 +1,49 @@
+.wrapper {
+    margin-left: 0;
+    padding-top: 24px;
+    padding-left: 32px;
+}
+
+@media screen and (min-width: 1440px) {
+    .wrapper {
+        margin-left: 375px;
+    }
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.link {
+    color: #000000;
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.sep {
+    color: #000000;
+}
+
+.current {
+    color: #7f7f7f;
+    pointer-events: none;
+}
+
+.greeting {
+    margin-top: 18.5px;
+    font-family: Comfortaa, sans-serif;
+    font-weight: 700;
+}
