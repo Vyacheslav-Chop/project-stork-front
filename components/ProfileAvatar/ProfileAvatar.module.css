@@ -1,0 +1,58 @@
+.input {
+  display: none;
+}
+
+.wrap {
+  padding-top: 16px;
+}
+
+.avatarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  border-radius: 100%;
+}
+
+.profileInfo {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.textName {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  text-align: center;
+}
+
+.textEmail {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.uploadBtn {
+  font-weight: 500;
+  border: none;
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  border-radius: 100px;
+  padding: 8px 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 100%;
+}
