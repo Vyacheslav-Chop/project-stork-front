@@ -2,7 +2,7 @@
 import { nextServer } from "./api";
 import { Task } from "@/types/tasks";
 import { ApiResponse, UserResponse, NewUser } from "../../types/user";
-import { BabyWeekData } from "@/types/BabyWeekData";
+import { BabyWeekData } from "@/types/babyWeekData";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
