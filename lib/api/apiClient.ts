@@ -5,6 +5,7 @@ import { ApiResponse, UserResponse, NewUser } from "../../types/user";
 import { BabyWeekData } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
 
+
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
   return res.data.data;
