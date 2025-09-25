@@ -2,7 +2,9 @@
 import { nextServer } from "./api";
 import { Task } from "@/types/tasks";
 import { ApiResponse, UserResponse, NewUser } from "../../types/user";
-import { BabyWeekData } from "@/types/BabyWeekData";
+import { BabyWeekData } from "@/types/babyWeekData";
+import { Emotion } from "@/types/emotions";
+
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
@@ -119,7 +121,7 @@ export const getBabyState = async (week: number): Promise<BabyWeekData> => {
   return res.data;
 };
 
-export const getEmotions = async () => {
+export const getEmotions = async (): Promise<Emotion[]> => {
   const res = await nextServer.get("/emotions");
 
   return res.data.data;
