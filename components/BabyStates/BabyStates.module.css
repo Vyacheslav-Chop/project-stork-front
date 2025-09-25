@@ -1,0 +1,159 @@
+
+.baby-state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  gap: 32px;
+  width: 100%;
+  max-width: 335px;
+  background: #FFF4F6;
+  border-radius: 32px;
+}
+
+.img-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.img {
+  max-width: 287px;
+  max-height: 379px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  width: 100%;
+  height: auto; 
+}
+
+.analogy {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #000000;
+}
+
+.info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.development-card {
+  width: 100%;
+  max-width: 287px;
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.development {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #000000;
+}
+
+.fact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 12px;
+  gap: 8px;
+  width: 100%;
+  max-width: 287px;
+  background: #FFDAE0;
+  border-radius: 12px;
+}
+
+.fact-title-container {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.fact-title {
+  font-family: 'Lato';
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 150%;
+  color: #000000;
+}
+
+.fact-text {
+  font-family: 'Lato';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #000000;
+}
+
+
+@media (min-width: 768px) {
+  .baby-state-container {
+    width: 704px;
+    max-width: none;
+  }
+
+  .img {
+    width: 656px;
+    height: var(--hero-h);
+    max-width: none;
+    max-height: none;
+    object-fit: cover;
+  }
+
+  .development-card,
+  .fact-card {
+    max-width: 656px; 
+  }
+}
+
+
+@media (min-width: 1440px) {
+  .baby-state-container {
+    flex-direction: row;
+    width: var(--desk-card-w);
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .img {
+    width: 461px;
+    height: var(--hero-h);
+    object-fit: cover; 
+  }
+
+  .analogy,
+  .development,
+  .fact-title,
+  .fact-text {
+    font-size: 16px;
+  }
+
+  .development-card {
+    max-width: 571px;       
+    max-height: var(--desk-text-h);
+    overflow-y: auto;
+  }
+
+  .fact-card {
+    max-width: 571px;
+    max-height: var(--desk-fact-h);
+    overflow-y: auto;
+  }
+
+  .development-card::-webkit-scrollbar,
+  .fact-card::-webkit-scrollbar {
+    width: 8px;
+  }
+  .development-card::-webkit-scrollbar-thumb,
+  .fact-card::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.15);
+    border-radius: 6px;
+  }
+}

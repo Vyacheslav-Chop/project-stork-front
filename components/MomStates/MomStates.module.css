@@ -1,0 +1,97 @@
+.mom-state-card {
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.feelings-card {
+display: flex;
+flex-direction: row;
+align-items: flex-end;
+padding: 24px;
+gap: 8px;
+width: 100%;
+max-width: 311px;
+border: 0px solid rgba(0, 0, 0, 0.15);
+border-radius: 32px;
+}
+
+.title {
+font-family: 'Comfortaa';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+letter-spacing: 0.01em;
+color: #000000;
+}
+
+.feelings-list {
+display: flex;
+flex-direction: row;
+align-items: center;
+gap: 8px;
+}
+
+.item-container {
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 4px 10px;
+width: 61px;
+height: 27px;
+background: rgba(0, 0, 0, 0.05);
+border-radius: 100px;
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 12px;
+line-height: 160%;
+color: #000000;
+}
+
+.sensations {
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 150%;
+color: #000000;
+}
+
+.tips-card {
+display: flex;
+flex-direction: row;
+align-items: flex-end;
+padding: 24px;
+gap: 8px;
+width: 100%;
+max-width: 311px;
+border: 0px solid rgba(0, 0, 0, 0.15);
+border-radius: 32px;
+}
+
+.tips-list {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 8px
+}
+
+.category {
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 160%;
+color: #000000;
+}
+
+.tip {
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 150%;
+color: #000000;
+}
