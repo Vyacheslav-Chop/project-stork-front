@@ -1,5 +1,6 @@
 import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
+import { Task } from "@/types/tasks";
 
 export const register = async (payload) => {
   const res = await nextServer.post("/auth/register", payload);
@@ -51,10 +52,10 @@ export const getDiaryById = async (diaryId) => {
   return res.data.data;
 };
 
-export const getTasks = async () => {
-  const res = await nextServer.get("/tasks");
+export const getTasks = async (): Promise<Task[]> => {
+  const res = await nextServer.get<Task[]>("/tasks");
 
-  return res.data.data;
+  return res.data;
 };
 
 export const createTask = async (payload) => {

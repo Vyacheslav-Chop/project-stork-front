@@ -20,23 +20,12 @@ export default function TasksReminderCard() {
     isError,
   } = useQuery({
     queryKey: ["tasks"],
-    queryFn: getTasks,
+    queryFn: () => getTasks(),
     enabled: isAuthenticated,
-    select: (list) =>
-      list
-        .map((t) => ({
-          _id: t._id,
-          name: t.name,
-          date: t.date,
-          isDone: t.isDone,
-        }))
-        .sort(
-          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-        ),
   });
 
   const handleAdd = () => {
-    router.push(isAuthenticated ? "/tasks/new" : "/login");
+    router.push(isAuthenticated ? "/tasks/new" : "/auth/register");
   };
 
   if (isError) {
@@ -50,6 +39,10 @@ export default function TasksReminderCard() {
       </div>
     );
   }
+
+  const sorted = [...tasks].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
 
   return (
     <div className={styles.card}>
@@ -65,7 +58,7 @@ export default function TasksReminderCard() {
       </div>
 
       <div className={styles.content}>
-        {tasks.length === 0 ? (
+        {sorted.length === 0 ? (
           <>
             <h3 className={styles.subtitle}>Наразі немає жодних завдань</h3>
             <p className={styles.description}>Створіть перший нове завдання!</p>
@@ -74,7 +67,7 @@ export default function TasksReminderCard() {
             </button>
           </>
         ) : (
-          tasks.map((t) => (
+          sorted.map((t) => (
             <div key={t._id} className={styles.taskRow}>
               <span className={styles.taskDate}>
                 {new Date(t.date).toLocaleDateString("uk-UA", {
