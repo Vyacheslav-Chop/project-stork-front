@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./TasksReminderCard.module.css";
@@ -9,34 +9,45 @@ import { useAuth } from "@/lib/store/authStore";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../Loader/Loader";
 import ErrorText from "../ErrorText/ErrorText";
-import { Task } from "@/types/tasks";
 
 export default function TasksReminderCard() {
-  const [tasks, setTasks] = useState<Task[]>([]);
   const router = useRouter();
   const { isAuthenticated } = useAuth();
-  const { data, isLoading, isError } = useQuery({});
+
+  const {
+    data: tasks = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["tasks"],
+    queryFn: getTasks,
+    enabled: isAuthenticated,
+    select: (list) =>
+      list
+        .map((t) => ({
+          _id: t._id,
+          name: t.name,
+          date: t.date,
+          isDone: t.isDone,
+        }))
+        .sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        ),
+  });
 
   const handleAdd = () => {
     router.push(isAuthenticated ? "/tasks/new" : "/login");
   };
+
   if (isError) {
     return <ErrorText message="Помилка завантаження завдань" />;
   }
 
   if (isLoading) {
     return (
-      <Loader
-        size={80}
-        thickness={8}
-        color="#ffb385"
-        borderColor="rgba(255, 179, 133, 0.3)"
-        shadowColor="rgba(255, 179, 133, 0.5)"
-        innerSize={70}
-        innerThickness={4}
-        innerColor="#ffe5d1"
-        innerBorderColor="rgba(255, 229, 209, 0.2)"
-      />
+      <div className={styles.card}>
+        <Loader />
+      </div>
     );
   }
 
@@ -49,7 +60,7 @@ export default function TasksReminderCard() {
           onClick={handleAdd}
           aria-label="Додати завдання"
         >
-          <Image src="/icon_add_task.svg" width={22} height={22} alt="" />
+          <Image src="/icons/icon_add_task.svg" width={22} height={22} alt="" />
         </button>
       </div>
 
