@@ -46,9 +46,6 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <div>
-          <TasksReminderCard />
-        </div>
       </main>
       <footer className={styles.footer}>
         <a
