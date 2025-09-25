@@ -1,11 +1,13 @@
-import { ApiResponse } from "@/types/user";
+// import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
+import { ApiResponse, UserResponse, NewUser } from '../../types/user'; 
 
-export const register = async (payload) => {
-  const res = await nextServer.post("/auth/register", payload);
 
-  return res.data;
+export async function register(newUser: NewUser): Promise<UserResponse> {
+  const res = await nextServer.post<ApiResponse>('/auth/register', newUser);
+  return res.data.data;
 };
+
 
 export const login = async (payload) => {
   const res = await nextServer.post("/auth/login", payload);
