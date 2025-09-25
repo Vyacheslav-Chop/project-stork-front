@@ -1,9 +1,7 @@
-export default function LoginForm() {
+const LoginForm = () => {
   return (
-    <form>
-      {/* Поля входа */}
-      <h1>Вхід</h1>
-      {/* ... */}
-    </form>
-  );
+    <div>Login</div>
+  )
 }
+
+export default LoginForm
