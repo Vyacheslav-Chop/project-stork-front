@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <defs>
-    <symbol id="icon-stork" viewBox="0 0 31 32">
+     <symbol id="icon-stork" viewBox="0 0 31 32">
       <path fill="#33adc1" d="M30.964 16c0 8.444-6.845 15.288-15.288 15.288a15.173 15.173 0 0 1-6.053-1.246C4.19 27.698.388 22.292.388 15.999.388 7.555 7.233.711 15.676.711s15.288 6.845 15.288 15.288z" style="fill:var(--color1, #33adc1)"/>
       <path fill="#eae0d3" d="M14.733 31.26a15.213 15.213 0 0 1-5.11-1.217c5.92-7.982-4.329-15.584-4.329-15.584l5.167-1.275S21.52 19.93 14.732 31.26z" style="fill:var(--color2, #eae0d3)"/>
       <path fill="#d6c8b0" d="M10.962 30.548a15.032 15.032 0 0 1-1.339-.504c5.92-7.982-4.329-15.584-4.329-15.584l1.494-.369c.362.271.869.623 1.386 1.107 2.696 2.518 6.607 7.877 2.788 15.35z" style="fill:var(--color3, #d6c8b0)"/>
