@@ -1,3 +1,4 @@
+
 import { getDiaryById } from "@/lib/api/apiClient";
 import styles from "./DiaryDetailsPage.module.css";
 
@@ -39,3 +40,4 @@ export default async function DiaryDetailsPage({ params }: Props) {
     </article>
   );
 }
+
