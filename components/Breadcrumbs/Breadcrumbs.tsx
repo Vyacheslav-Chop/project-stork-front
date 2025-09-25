@@ -7,7 +7,7 @@ import styles from "./Breadcrumbs.module.css";
 type Props = { lastLabel?: string };
 
 const HIDE_ON = [/^\/sign-in(?:\/|$)/, /^\/sign-up(?:\/|$)/, /^\/auth(?:\/|$)/];
-const DIARY_ALIASES = ["diary"]; 
+const DIARY_ALIASES = ["diary"];
 
 const LABELS: Record<string, string> = {
   "": "Лелека",
