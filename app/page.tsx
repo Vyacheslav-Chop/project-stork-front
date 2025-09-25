@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import TasksReminderCard from "@/components/TasksReminderCard/TasksReminderCard";
 
 export default function Home() {
   return (
@@ -44,6 +45,9 @@ export default function Home() {
           >
             Read our docs
           </a>
+        </div>
+        <div>
+          <TasksReminderCard />
         </div>
       </main>
       <footer className={styles.footer}>
