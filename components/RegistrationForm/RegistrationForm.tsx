@@ -11,11 +11,12 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import Image from 'next/image';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string().required('Ім’я є обов’язковим'),
   email: Yup.string().email('Невірна пошта').required('Пошта є обов’язковою'),
-  password: Yup.string().min(6, 'Мінімум 6 символів').required('Пароль є обов’язковим'),
+  password: Yup.string().min(8, 'Мінімум 8 символів').required('Пароль є обов’язковим'),
 });
 
 const RegistrationForm = () => {
@@ -24,27 +25,32 @@ const RegistrationForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (values: { name: string; email: string; password: string }) => {
+    console.log("📤 Form submitted with:", values);
     try {
       const res = await register(values);
+    
+
       if (res) {
         toast.success('Реєстрація пройшла успішно');
+        
         setUser(res);
         router.push('/onboarding');
       }
-    } catch {
+    } catch { 
       setErrorMessage('Не вдалося зареєструватися. Можливо, акаунт вже існує або сталася помилка.');
     }
   };
 
   return (
     <main className={css.mainContent}>
-      <h1 className={css.formTitle}>Реєстрація</h1>
-
+      <div className={css.wrapper}>
+        <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
         initialValues={{ name: '', email: '', password: '' }}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
+              
         <Form className={css.form}>
           <div className={css.formGroup}>
             <label htmlFor="name">Імʼя</label>
@@ -71,13 +77,24 @@ const RegistrationForm = () => {
           {errorMessage && <p className={css.error}>{errorMessage}</p>}
         </Form>
       </Formik>
-
       <div className={css.content}>
         <p className={css.contenText}>Вже маєте аккаунт?</p>
         <Link href="/auth/login" className={css.link}>
           Увійти
         </Link>
+        </div>
       </div>
+   <div className={css.imageWrapper}>
+  <Image
+    src="/imagies/stork.jpg"
+    alt="Ілюстрація реєстрації"
+    width={720} 
+    height={900}
+    className={css.image}
+    priority
+  />
+</div>
+      
     </main>
   );
 };
