@@ -5,57 +5,39 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./TasksReminderCard.module.css";
 import { getTasks } from "@/lib/api/apiClient";
-
-interface Task {
-  _id: string;
-  name: string;
-  date: string;
-  isDone: boolean;
-}
+import { useAuth } from "@/lib/store/authStore";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../Loader/Loader";
+import ErrorText from "../ErrorText/ErrorText";
+import { Task } from "@/types/tasks";
 
 export default function TasksReminderCard() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("token") : null;
-    const auth = Boolean(token);
-    setIsAuth(auth);
-
-    if (!auth) {
-      setLoading(false);
-      return;
-    }
-
-    getTasks()
-      .then((data) => {
-        const sorted = data
-          .map((t: any) => ({
-            _id: t._id,
-            name: t.name,
-            date: t.date,
-            isDone: t.isDone,
-          }))
-          .sort(
-            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-          );
-        setTasks(sorted);
-      })
-      .catch(() => {
-        setTasks([]);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  const { isAuthenticated } = useAuth();
+  const { data, isLoading, isError } = useQuery({});
 
   const handleAdd = () => {
-    router.push(isAuth ? "/tasks/new" : "/login");
+    router.push(isAuthenticated ? "/tasks/new" : "/login");
   };
+  if (isError) {
+    return <ErrorText message="Помилка завантаження завдань" />;
+  }
 
-  if (loading) {
-    return <div className={styles.card}>Завантаження…</div>;
+  if (isLoading) {
+    return (
+      <Loader
+        size={80}
+        thickness={8}
+        color="#ffb385"
+        borderColor="rgba(255, 179, 133, 0.3)"
+        shadowColor="rgba(255, 179, 133, 0.5)"
+        innerSize={70}
+        innerThickness={4}
+        innerColor="#ffe5d1"
+        innerBorderColor="rgba(255, 229, 209, 0.2)"
+      />
+    );
   }
 
   return (
