@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./Breadcrumbs.module.css";
+import { getUser } from "@/lib/api/apiClient";
 
 type Props = { lastLabel?: string };
 
@@ -17,8 +18,6 @@ const LABELS: Record<string, string> = {
   "profile": "Профіль",
 };
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL ?? "";
-
 function toFirstName(raw?: unknown): string | null {
   if (!raw) return null;
   let s = String(raw).trim();
@@ -31,21 +30,6 @@ function toFirstName(raw?: unknown): string | null {
   s = s.replace(/\s+/g, " ");
   const [first] = s.split(" ");
   return first || null;
-}
-
-function getUserId(): string | null {
-  if (typeof document === "undefined") return null;
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; user_id=`);
-  if (parts.length === 2) {
-    const v = parts.pop()?.split(";").shift();
-    if (v) return v;
-  }
-  try {
-    return localStorage.getItem("user_id");
-  } catch {
-    return null;
-  }
 }
 
 export default function Breadcrumbs({ lastLabel }: Props) {
@@ -63,24 +47,22 @@ export default function Breadcrumbs({ lastLabel }: Props) {
   const isProfilePage = segs.includes("profile");
 
   useEffect(() => {
-    if (isHidden || !API_BASE) return;
-    const userId = getUserId();
-    if (!userId) { setUserName(null); return; }
-
-    fetch(`${API_BASE}/api/users/${encodeURIComponent(userId)}`, {
-      credentials: "include",
-      cache: "no-store",
-    })
-      .then(res => (res.ok ? res.json() : null))
-      .then(data => {
-        if (!data) { setUserName(null); return; }
-        const u = data.data ?? data;
-        const first = toFirstName(
-          u.givenName ?? u.firstName ?? u.first_name ?? u.name ?? u.Name ?? u.displayName ?? u.username
-        );
+    if (isHidden) return;
+    let mounted = true;
+    getUser()
+      .then((resp) => {
+        if (!mounted) return;
+        const u = resp?.data;
+        const first = toFirstName(u?.name);
         setUserName(first);
       })
-      .catch(() => setUserName(null));
+      .catch(() => {
+        if (!mounted) return;
+        setUserName(null);
+      });
+    return () => {
+      mounted = false;
+    };
   }, [pathname, isHidden]);
 
   const crumbs = [{ href: "/", label: LABELS[""] }];
