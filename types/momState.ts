@@ -1,13 +1,13 @@
 export interface MomState {
-    weekNumber: number,
-    feelings: {
-      states: string[],
-      sensationDescr: string
-    },
-    comfortTips: [
-      {
-        category: string,
-        tip: string
-      }
-    ]
-}
+  _id: string;
+  weekNumber: number;
+  feelings: {
+    states: string[];
+    sensationDescr?: string;
+  };
+  comfortTips: Array<{
+    _id: string;
+    category: string;
+    tip: string;
+  }>;
+};

@@ -5,8 +5,8 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query"
 import Loader from "../../../../components/Loader/Loader"
 import css from './JourneyDetails.module.css'
 import { getBabyState, getMomState } from "../../../../lib/api/apiClient"
-import BabyStateCard from "../../../../components/BabyStates/BabyStates"
-import MomStateCard from "../../../../components/MomStates/MomStates"
+import BabyStates from "../../../../components/BabyStates/BabyStates"
+import MomStates from "../../../../components/MomStates/MomStates"
 import { BabyState } from "../../../../types/babyState"
 import { MomState } from "../../../../types/momState"
 import { useParams } from "next/navigation"
@@ -50,9 +50,9 @@ export default function JourneyDetails() {
         <div className={css['card-container']}>
         {isLoading && <Loader />}
         {activeTab === 'baby' ? (
-            babyData && <BabyStateCard week={weekNum} data={babyData}/>
+            babyData && <BabyStates week={weekNum} data={babyData}/>
         ) : (
-            momData && <MomStateCard week={weekNum} data={momData}/>
+            momData && <MomStates week={weekNum} data={momData}/>
         )}
         </div>
         </div>

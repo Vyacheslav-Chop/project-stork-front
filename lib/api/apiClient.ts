@@ -1,10 +1,14 @@
+// import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
+import { Task } from "@/types/tasks";
+import { ApiResponse, UserResponse, NewUser } from "../../types/user";
+import { BabyWeekData } from "@/types/babyWeekData";
+import { MomState } from "@/types/momState";
 
-export const register = async (payload) => {
-  const res = await nextServer.post("/auth/register", payload);
-
-  return res.data;
-};
+export async function register(newUser: NewUser): Promise<UserResponse> {
+  const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
+  return res.data.data;
+}
 
 export const login = async (payload) => {
   const res = await nextServer.post("/auth/login", payload);
@@ -18,9 +22,9 @@ export const refresh = async () => {
   return res.data;
 };
 
-export const logOut = async () => {
+export async function logout(): Promise<void> {
   await nextServer.post("/auth/logout");
-};
+}
 
 export const getDiaries = async () => {
   const res = await nextServer.get("/diaries");
@@ -50,10 +54,10 @@ export const getDiaryById = async (diaryId) => {
   return res.data.data;
 };
 
-export const getTasks = async () => {
-  const res = await nextServer.get("/tasks");
+export const getTasks = async (): Promise<Task[]> => {
+  const res = await nextServer.get<Task[]>("/tasks");
 
-  return res.data.data;
+  return res.data;
 };
 
 export const createTask = async (payload) => {
@@ -68,10 +72,10 @@ export const updateTaskStatusById = async (taskId) => {
   return res.data.data;
 };
 
-export const getUser = async () => {
-  const res = await nextServer.get("/users");
+export const getUser = async (): Promise<ApiResponse> => {
+  const res = await nextServer.get<ApiResponse>("/users");
 
-  return res.data.data;
+  return res.data;
 };
 
 export const updateUser = async (payload) => {
@@ -104,16 +108,16 @@ export const getWeekDynamic = async () => {
   return res.data.data;
 };
 
-export const getMomState = async (week) => {
+export const getMomState = async (week: number): Promise<MomState> => {
   const res = await nextServer.get(`/weeks/mom-state/${week}`);
 
   return res.data.data;
 };
 
-export const getBabyState = async (week) => {
+export const getBabyState = async (week: number): Promise<BabyWeekData> => {
   const res = await nextServer.get(`/weeks/baby-state/${week}`);
 
-  return res.data.data;
+  return res.data;
 };
 
 export const getEmotions = async () => {

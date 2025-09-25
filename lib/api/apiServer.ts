@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { nextServer } from "./api";
+import { Task } from "@/types/tasks";
 
 export const refreshServer = async () => {
   const cookieStore = await cookies();
@@ -81,16 +82,16 @@ export const getDiaryByIdServer = async (diaryId) => {
   return res.data.data;
 };
 
-export const getTasksServer = async () => {
+export const getTasksServer = async (): Promise<Task[]> => {
   const cookieStore = await cookies();
 
-  const res = await nextServer.get("/tasks", {
+  const res = await nextServer.get<Task[]>("/tasks", {
     headers: {
       Cookie: cookieStore.toString(),
     },
   });
 
-  return res.data.data;
+  return res.data;
 };
 
 export const createTaskServer = async (payload) => {

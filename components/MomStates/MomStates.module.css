@@ -38,8 +38,6 @@ display: flex;
 flex-direction: row;
 align-items: flex-start;
 padding: 4px 10px;
-width: 61px;
-height: 27px;
 background: rgba(0, 0, 0, 0.05);
 border-radius: 100px;
 font-family: 'Lato';
@@ -87,6 +85,26 @@ line-height: 160%;
 color: #000000;
 }
 
+.icon {
+  width: 24px;
+  height: 24px;        
+  -webkit-mask: no-repeat center / contain;
+  mask: no-repeat center / contain;
+}
+
+.category[data-cat="nutrition"] .icon {
+  -webkit-mask-image: url("/icons/nutrition.svg");
+  mask-image: url("/icons/nutrition.svg");
+}
+.category[data-cat="activity"] .icon {
+  -webkit-mask-image: url("/icons/activity.svg");
+  mask-image: url("/icons/activity.svg");
+}
+.category[data-cat="rest"] .icon {
+  -webkit-mask-image: url("/icons/rest.svg");
+  mask-image: url("/icons/rest.svg");
+}
+
 .tip {
 font-family: 'Lato';
 font-style: normal;
@@ -94,4 +112,39 @@ font-weight: 400;
 font-size: 14px;
 line-height: 150%;
 color: #000000;
+}
+
+@media (min-width: 768px) {
+.feelings-card {
+    width: 704px;
+    max-width: none;
+}
+
+.tips-card {
+    width: 704px;
+    max-width: none;
+}
+
+}
+
+@media (min-width: 1440px) {
+.mom-state-container {
+    display: grid;
+
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.feelings-card {
+    width: 650px;
+}
+
+.tips-card {
+    width: 650px;
+}
 }

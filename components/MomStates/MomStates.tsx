@@ -11,7 +11,7 @@ type MomStateProps = {
 
 const CAT_KEY: Record<string, string> = {
   "Харчування": "nutrition",
-  "Aктивність": "activity",
+  "Активність": "activity",
   "Відпочинок": "rest"
 };
 
@@ -25,9 +25,11 @@ export default function MomStates({data, week}: MomStateProps) {
                         {data.feelings.states.length > 0 && (
                             <ul className={css["feelings-list"]}>
                                 {data.feelings.states.map((state, index) => (
-                                    <li className={css["feelings-item"]} key={index}>
-                                        <div className={css["item-conatiner"]}>{state}</div>
-                                    </li>
+                                    <div className={css["item-conatiner"]}>
+                                      <li className={css["feelings-item"]} key={index}>
+                                        {state}
+                                      </li>
+                                    </div>
                                 ))}
                             </ul>
                         )}
@@ -41,9 +43,9 @@ export default function MomStates({data, week}: MomStateProps) {
                             {data.comfortTips.map((tip, index) => {
                                 const key = CAT_KEY[tip.category];
                                 return (
-                                    <div key={index} className="">
+                                    <div key={index} className={css["tip-row"]}>
                                         <dt className={css["category"]} data-cat={key}>
-                                            <span className=""/>
+                                            <span className={css["icon"]}/>
                                             {tip.category}
                                         </dt>
                                         <dd className={css["tip"]}>{tip.tip}</dd>
@@ -55,7 +57,7 @@ export default function MomStates({data, week}: MomStateProps) {
                 )}
             </div>
             <div className={css["right-column"]}>
-                {/* {data.tasks.length > 0 && <TasksReminderCard tasks={data.tasks} week={week} />} */}
+              <TasksReminderCard />
             </div>
         </div>
     );

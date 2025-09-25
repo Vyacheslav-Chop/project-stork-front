@@ -16,7 +16,7 @@ const lato = Lato({
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["500", "700"],
   variable: "--font-comfortaa",
 });
 

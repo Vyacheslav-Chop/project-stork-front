@@ -3,14 +3,19 @@ export interface UserResponse {
   name: string;
   email: string;
   dueDate: string | null;
-  babyGender: 'Дівчинка' | 'Хлопчик' | 'Ще не знаю' | null;
+  babyGender: "Дівчинка" | "Хлопчик" | "Ще не знаю" | null;
   avatar: string | null;
-    createdAt: string;
+  createdAt: string;
   updatedAt: string;
 }
 
 export interface ApiResponse {
   status: number;
   message: string;
-  data:  UserResponse ;
+  data: UserResponse;
+}
+export interface NewUser {
+  name: string;
+  email: string;
+  password: string;
 }
