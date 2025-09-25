@@ -33,3 +33,32 @@ button {
   margin: 0;
   padding: 0;
 }
+
+main {
+  padding: 0 20px;
+  margin: 0 auto;
+  min-width: 320px;
+  max-width: 375px;
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    padding: 0 32px;
+    max-width: 768px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main {
+    padding: 0 32px;
+    margin: 0;
+    max-width: 1128px;
+  }
+
+    body {
+    display: flex;
+    justify-content: center;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+}
