@@ -1,6 +1,6 @@
-import { ApiResponse } from "@/types/user";
+// import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
-import { ApiResponse, UserResponse, NewUser } from './types'; 
+import { ApiResponse, UserResponse, NewUser } from '../../types/user'; 
 
 
 export async function register(newUser: NewUser): Promise<UserResponse> {

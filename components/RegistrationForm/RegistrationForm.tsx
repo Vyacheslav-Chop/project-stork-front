@@ -14,27 +14,28 @@ import * as Yup from 'yup';
 import Image from 'next/image';
 
 const SignupSchema = Yup.object().shape({
-  name: Yup.string().required('Ім’я є обов’язковим'),
+  name: Yup.string().required('Ім’я є обов’язковим').matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ\s'-]+$/, 'Ім’я може містити лише літери'),
   email: Yup.string().email('Невірна пошта').required('Пошта є обов’язковою'),
   password: Yup.string().min(8, 'Мінімум 8 символів').required('Пароль є обов’язковим'),
 });
-
+type ValuesProps = {
+  name: string;
+  email: string;
+  password: string
+}
 const RegistrationForm = () => {
   const router = useRouter();
   const setUser = useAuth(state => state.setUser);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (values: { name: string; email: string; password: string }) => {
+  const handleSubmit = async (values: ValuesProps) => {
     console.log("📤 Form submitted with:", values);
     try {
       const res = await register(values);
-    
-
       if (res) {
         toast.success('Реєстрація пройшла успішно');
-        
-        setUser(res);
-        router.push('/onboarding');
+            setUser(res);
+        router.push('/profile/edit');
       }
     } catch { 
       setErrorMessage('Не вдалося зареєструватися. Можливо, акаунт вже існує або сталася помилка.');
