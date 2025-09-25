@@ -1,3 +1,4 @@
+import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
 import { ApiResponse, UserResponse, NewUser } from './types'; 
 
@@ -20,9 +21,9 @@ export const refresh = async () => {
   return res.data;
 };
 
-export const logOut = async () => {
+export async function logout(): Promise<void> {
   await nextServer.post("/auth/logout");
-};
+}
 
 export const getDiaries = async () => {
   const res = await nextServer.get("/diaries");
@@ -70,10 +71,10 @@ export const updateTaskStatusById = async (taskId) => {
   return res.data.data;
 };
 
-export const getUser = async () => {
-  const res = await nextServer.get("/users");
+export const getUser = async (): Promise<ApiResponse> => {
+  const res = await nextServer.get<ApiResponse>("/users");
 
-  return res.data.data;
+  return res.data;
 };
 
 export const updateUser = async (payload) => {
