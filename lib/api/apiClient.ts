@@ -1,13 +1,13 @@
 // import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
-import { ApiResponse, UserResponse, NewUser } from '../../types/user'; 
-
+import { Task } from "@/types/tasks";
+import { ApiResponse, UserResponse, NewUser } from "../../types/user";
+import { BabyWeekData } from "@/types/BabyWeekData";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
-  const res = await nextServer.post<ApiResponse>('/auth/register', newUser);
+  const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
   return res.data.data;
-};
-
+}
 
 export const login = async (payload) => {
   const res = await nextServer.post("/auth/login", payload);
@@ -53,10 +53,10 @@ export const getDiaryById = async (diaryId) => {
   return res.data.data;
 };
 
-export const getTasks = async () => {
-  const res = await nextServer.get("/tasks");
+export const getTasks = async (): Promise<Task[]> => {
+  const res = await nextServer.get<Task[]>("/tasks");
 
-  return res.data.data;
+  return res.data;
 };
 
 export const createTask = async (payload) => {
@@ -113,10 +113,10 @@ export const getMomState = async (week) => {
   return res.data.data;
 };
 
-export const getBabyState = async (week) => {
+export const getBabyState = async (week: number): Promise<BabyWeekData> => {
   const res = await nextServer.get(`/weeks/baby-state/${week}`);
 
-  return res.data.data;
+  return res.data;
 };
 
 export const getEmotions = async () => {
