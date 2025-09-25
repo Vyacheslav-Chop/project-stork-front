@@ -1,5 +1,5 @@
 import styles from "./BabyTodayCard.module.css";
-import { BabyWeekData } from "@/types/BabyWeekData";
+import { BabyWeekData } from "../../types/babyWeekData";
 import Image from "next/image";
 
 interface Props {
@@ -13,7 +13,6 @@ const BabyTodayCard = ({ data }: Props) => {
         <h2 className={styles.title}>Малюк сьогодні</h2>
 
         <div className={styles.content}>
-          {/* Левая колонка */}
           <div className={styles.imageBlock}>
             <Image
               src={data.image}
@@ -22,8 +21,6 @@ const BabyTodayCard = ({ data }: Props) => {
               height={216}
             />
           </div>
-
-          {/* Правая колонка */}
           <div className={styles.infoBlock}>
             <p>
               <strong>Розмір:</strong> Приблизно {data.babySize} см.
@@ -36,8 +33,6 @@ const BabyTodayCard = ({ data }: Props) => {
             </p>
           </div>
         </div>
-
-        {/* Текст снизу */}
         <p className={styles.development}>{data.babyDevelopment}</p>
       </div>
     </section>
