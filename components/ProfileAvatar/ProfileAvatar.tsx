@@ -16,7 +16,10 @@ const ProfileAvatar = () => {
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleClickBtn = () => fileInputRef.current?.click();
+  const handleClickBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    fileInputRef.current?.click();
+    e.currentTarget.blur();
+  };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setErr("");
@@ -66,7 +69,7 @@ const ProfileAvatar = () => {
         <p className={css.textEmail}>test.rest1@gmail.com{user?.email}</p>
         <button
           className={css.uploadBtn}
-          onClick={handleClickBtn}
+          onClick={(e) => handleClickBtn(e)}
           disabled={isLoading}
         >
           Завантажити нове фото

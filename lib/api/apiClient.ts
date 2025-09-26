@@ -1,7 +1,7 @@
 // import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
 import { Task } from "@/types/tasks";
-import { ApiResponse, UserResponse, NewUser } from "../../types/user";
+import { ApiResponse, UserResponse, NewUser, UserPayload } from "../../types/user";
 import { BabyWeekData } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
 
@@ -78,10 +78,10 @@ export const getUser = async (): Promise<ApiResponse> => {
   return res.data;
 };
 
-export const updateUser = async (payload) => {
-  const res = await nextServer.patch("/users", payload);
+export const updateUser = async (payload: UserPayload): Promise<UserResponse> => {
+  const res = await nextServer.patch<UserResponse>("/users", payload);
 
-  return res.data.data;
+  return res.data;
 };
 
 export const updateUserAvatar = async (file) => {
