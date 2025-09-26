@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import css from "./ProfileEditForm.module.css";
 import { Gender, UserPayload } from "@/types/user";
+import CustomSelect from "./CustomSelectProfileEditForm";
 
 const ProfileSchema = Yup.object().shape({
   username: Yup.string()
@@ -75,13 +76,15 @@ const ProfileEditForm = () => {
             : undefined,
         dueDate: values.dueDate || undefined,
       };
+      console.log(payload);
+
       const res = await updateUser(payload);
       if (res) {
         toast.success("Дані оновлено успішно!");
         setUser(res);
       }
     } catch {
-      toast.error("не вдалося оновити дані. Спробуйте пізніше!");
+      toast.error("Не вдалося оновити дані. Спробуйте пізніше!");
     }
   };
 
@@ -148,19 +151,23 @@ const ProfileEditForm = () => {
               Стать дитини
             </label>
             <div className={css.selectWrap}>
-              <Field
+              {/* <Field
                 className={css.formSelect}
                 as="select"
                 name="babyGender"
                 id={`${fieldId}-babyGender`}
               >
-                <option value="" disabled>
+                {" "}
+                <option className={css.option} value="" disabled>
                   Оберіть стать дитини
                 </option>
                 <option value="Хлопчик">Хлопчик</option>
                 <option value="Дівчинка">Дівчинка</option>
                 <option value="Ще не знаю">Ще не знаю</option>
-              </Field>
+              </Field> */}
+
+              <Field name="babyGender" component={CustomSelect} />
+
               <svg width={24} height={24} className={css.selectIcon}>
                 <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
               </svg>
