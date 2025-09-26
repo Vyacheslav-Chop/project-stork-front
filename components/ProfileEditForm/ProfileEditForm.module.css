@@ -1,16 +1,190 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.selectWrap {
+  position: relative;
+  width: 100%;
+}
+
+.formLabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.formInput {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  transition: boder 0.3s ease, outline 0.3s ease;
+}
+
+.formInput:focus {
+  border: 2px solid #ffcbd3;
+  outline: none;
+}
+
+.formSelect {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  transition: boder 0.3s ease, outline 0.3s ease;
+}
+
+.formSelect:hover,
+.formSelect:focus {
+  border: 2px solid #ffcbd3;
+  outline: none;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  fill: rgba(0, 0, 0, 0.6);
+}
+
 .dateWrap {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
 .dateWrap svg {
   position: absolute;
-  right: 8px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
+  fill: rgba(0, 0, 0, 0.6);
+}
+
+.dateWrapper {
+  width: 100%;
 }
 
 .dateInput {
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
   padding-right: 32px;
+  width: 100%;
+  transition: boder 0.3s ease, outline 0.3s ease;
+}
+
+.dateInput:focus {
+  border: 2px solid #ffcbd3;
+  outline: none;
+}
+
+.btnWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid #ffcbd3;
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: #ffdae0;
+  width: 100%;
+  transition: border-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+.submitBtn:hover,
+.submitBtn:focus {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+.submitBtn:active {
+  background-color: #ffcbd3;
+  border: none;
+}
+
+.cancelBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 100%;
+  transition: border-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+.cancelBtn:hover,
+.cancelBtn:focus {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff4f6;
+}
+
+.cancelBtn:active {
+  background-color: #b2b2b2;
+  border: none;
+}
+
+.error {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #c60000;
+}
+
+.inputError {
+  border: 1px solid #c60000;
+  color: #c60000;
 }

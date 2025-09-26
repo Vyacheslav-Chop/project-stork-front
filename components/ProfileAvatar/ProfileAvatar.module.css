@@ -55,4 +55,16 @@
   padding: 8px 20px;
   background-color: rgba(0, 0, 0, 0.05);
   width: 100%;
+  transition: border-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+.uploadBtn:hover,
+.uploadBtn:focus {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff4f6;
+}
+
+.uploadBtn:active {
+  background-color: #b2b2b2;
+  border: none;
 }
