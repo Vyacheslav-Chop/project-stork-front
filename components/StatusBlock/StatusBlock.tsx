@@ -3,8 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import styles from "./StatusBlock.module.css";
-import { getWeekDynamicServer, getWeekStaticServer } from "@/lib/api/apiServer";
 import { useAuth } from "@/lib/store/authStore";
+import { getWeekDynamic, getWeekStatic } from "@/lib/api/apiClient";
 
 const StatusBlock = () => {
   const { isAuthenticated } = useAuth();
@@ -13,9 +13,7 @@ const StatusBlock = () => {
     queryKey: ["weekData", isAuthenticated],
     queryFn: async () => {
       try {
-        return isAuthenticated
-          ? await getWeekDynamicServer()
-          : await getWeekStaticServer();
+        return isAuthenticated ? await getWeekDynamic() : await getWeekStatic();
       } catch (err) {
         toast.error("Помилка завантаження даних");
         return { currentWeek: 0, daysToBirth: 0 };

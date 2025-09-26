@@ -20,6 +20,7 @@
     "react-datepicker": "^8.7.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.6.0",
+    "react-responsive": "^10.0.1",
     "toast": "^0.5.4",
     "yup": "^1.7.1",
     "zustand": "^5.0.8"
@@ -30,6 +31,7 @@
     "@types/react": "^19",
     "@types/react-datepicker": "^7.0.0",
     "@types/react-dom": "^19",
+    "@types/react-responsive": "^8.0.8",
     "eslint": "^9",
     "eslint-config-next": "15.5.4",
     "typescript": "^5"

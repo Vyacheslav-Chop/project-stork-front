@@ -96,10 +96,8 @@ export const updateUserAvatar = async (file) => {
   return res.data.data;
 };
 
-export const getWeekStatic = async (week: number): Promise<BabyWeekData> => {
-  const res = await nextServer.get("/weeks/public", {
-    params: { week },
-  });
+export const getWeekStatic = async (): Promise<BabyWeekData> => {
+  const res = await nextServer.get("/weeks/public");
 
   return res.data.data.weekData;
 };
