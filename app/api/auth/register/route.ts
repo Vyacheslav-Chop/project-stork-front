@@ -6,7 +6,6 @@ import { api } from '../../api';
 export async function POST(req: NextRequest) {
   
   const body = await req.json();
-    console.log('🔥 API /api/auth/register called with:', body);
   const apiRes = await api.post('auth/register', body);
 
   const cookieStore = await cookies();
