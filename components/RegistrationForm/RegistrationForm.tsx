@@ -56,7 +56,8 @@ const RegistrationForm = () => {
       <div className={css.wrapper}>
         <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
-        initialValues={{ name: '', email: '', password: '' }}
+          initialValues={{ name: '', email: '', password: '' }}
+          validateOnBlur
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
@@ -64,19 +65,34 @@ const RegistrationForm = () => {
         <Form className={css.form}>
           <div className={css.formGroup}>
             <label htmlFor="name">Імʼя</label>
-            <Field id="name" name="name" type="text" className={css.input} />
+              <Field
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Your Name"
+                className={css.input} />
             <ErrorMessage name="name" component="div" className={css.error} />
           </div>
 
           <div className={css.formGroup}>
             <label htmlFor="email">Пошта</label>
-            <Field id="email" name="email" type="email" className={css.input} />
+              <Field
+                id="email"
+                name="email"
+                type="email"
+                placeholder="you@example.com"
+                className={css.input} />
             <ErrorMessage name="email" component="div" className={css.error} />
           </div>
 
           <div className={css.formGroup}>
-            <label htmlFor="password">Пароль</label>
-            <Field id="password" name="password" type="password" className={css.input} />
+            <label htmlFor="password">Пароль*</label>
+              <Field
+                id="password"
+                name="password"
+                type="password"
+                placeholder="********"
+                className={css.input} />
             <ErrorMessage name="password" component="div" className={css.error} />
           </div>
 
