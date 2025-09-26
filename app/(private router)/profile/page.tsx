@@ -1,13 +1,16 @@
 import css from "./page.module.css";
 import { Metadata } from "next";
 import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
+import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
 
 export const metadata: Metadata = {
   title: "Ваш профіль — Лелека",
-  description: "Керуйте своїм профілем, налаштуваннями та особистими даними на шляху до материнства.",
+  description:
+    "Керуйте своїм профілем, налаштуваннями та особистими даними на шляху до материнства.",
   openGraph: {
     title: "Ваш профіль — Лелека",
-    description: "Налаштовуйте профіль і зберігайте важливу інформацію для своєї подорожі до материнства.",
+    description:
+      "Налаштовуйте профіль і зберігайте важливу інформацію для своєї подорожі до материнства.",
     siteName: "Лелека",
     images: [
       {
@@ -27,13 +30,11 @@ export const metadata: Metadata = {
 };
 
 const Profile = async () => {
-
   return (
-
-      <div className={css.profileCard}>
-        <ProfileAvatar/>
-      </div>
-
+    <div className={css.profileCard}>
+      <ProfileAvatar />
+      <ProfileEditForm />
+    </div>
   );
 };
 
