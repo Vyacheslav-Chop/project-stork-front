@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  if (isPublicRoute) {
+    if (isPublicRoute) {
     return NextResponse.next();
   }
 
@@ -27,14 +27,19 @@ export async function middleware(request: NextRequest) {
 
     try {
       const refreshUrl = new URL("/api/refresh", request.url);
+
       const apiRes = await fetch(refreshUrl.toString(), {
-        headers: { Cookie: cookieStore.toString() },
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
       });
 
       if (apiRes.ok) {
         const res = NextResponse.next();
         const setCookie = apiRes.headers.get("set-cookie");
-        if (setCookie) res.headers.set("set-cookie", setCookie);
+        if (setCookie) {
+          res.headers.set("set-cookie", setCookie);
+        }
         return res;
       }
 
