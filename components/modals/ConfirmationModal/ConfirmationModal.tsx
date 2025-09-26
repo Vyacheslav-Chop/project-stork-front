@@ -46,14 +46,14 @@ const ConfirmationModal = ({
           <h2 className={styles.title}>{title}</h2>
           <div className={styles.buttons}>
             <button type="button"
-              className={styles.confirmButton}
-              onClick={onConfirm}
+              className={styles.cancelButton}
+              onClick={onCancel}
             >
               {cancelButtonText}
             </button>
             <button type="button"
-              className={styles.cancelButton}
-              onClick={onCancel}
+              className={styles.confirmButton}
+              onClick={onConfirm}
             >
               {confirmButtonText}
             </button>
