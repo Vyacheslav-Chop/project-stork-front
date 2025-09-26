@@ -35,12 +35,13 @@
   font-size: 14px;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.6);
-  transition: boder 0.3s ease, outline 0.3s ease;
+  transition: boder 0.3s ease, outline 0.3s ease color 0.3s ease;
 }
 
 .formInput:focus {
   border: 2px solid #ffcbd3;
   outline: none;
+  color: #000000;
 }
 
 .formSelect {
@@ -61,13 +62,13 @@
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  transition: boder 0.3s ease, outline 0.3s ease;
+  transition: boder 0.3s ease, outline 0.3s ease color 0.3s ease;
 }
 
-.formSelect:hover,
 .formSelect:focus {
   border: 2px solid #ffcbd3;
   outline: none;
+  color: #000000;
 }
 
 .selectIcon {
@@ -110,12 +111,13 @@
   color: rgba(0, 0, 0, 0.6);
   padding-right: 32px;
   width: 100%;
-  transition: boder 0.3s ease, outline 0.3s ease;
+  transition: boder 0.3s ease, outline 0.3s ease color 0.3s ease;
 }
 
 .dateInput:focus {
   border: 2px solid #ffcbd3;
   outline: none;
+  color: #000000;
 }
 
 .btnWrap {
@@ -123,6 +125,7 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
+  padding-top: 24px;
 }
 
 .submitBtn {
@@ -187,4 +190,48 @@
 .inputError {
   border: 1px solid #c60000;
   color: #c60000;
+}
+
+@media screen and (min-width: 768px) {
+  .btnWrap {
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-left: auto;
+  }
+
+  .submitBtn {
+    min-width: 150px;
+  }
+
+  .cancelBtn {
+    min-width: 150px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .formLabel {
+    font-size: 16px;
+  }
+
+  .formInput {
+    font-size: 16px;
+  }
+
+  .formSelect {
+    font-size: 16px;
+  }
+
+  .dateInput {
+    font-size: 16px;
+  }
+
+  .submitBtn {
+    font-size: 16px;
+    min-width: 165px;
+  }
+
+  .cancelBtn {
+    font-size: 16px;
+    min-width: 165px;
+  }
 }
