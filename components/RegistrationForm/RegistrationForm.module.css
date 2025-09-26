@@ -1,12 +1,9 @@
 
-.mainContent {
-  display: flex;
-  align-items: center;
-}
+
 .wrapper{
- display: flex;
+ display: block;
  flex-direction: column;
- width: 592px;
+ width: 100%;
  padding: 56px;
 }
 .formTitle {
@@ -23,8 +20,6 @@
   flex-direction: column;
   gap: 24px;
   width: 100%;
-  background-color: #fff;
-  /* border-radius: 8px; */
   margin-bottom: 24px;
 
 }
@@ -35,7 +30,7 @@
   font-size: 14px;
   line-height: 1.5;
   font-family: "Lato", sans-serif;
-  color: #000;
+  /* color: #000; */
   gap: 8px;
   width: 100%;
 }
@@ -47,10 +42,17 @@
   border-radius: 12px;
   padding-block: 8px;
   padding-inline: 12px;
-  color: rgba(0, 0, 0, 0.6);
+  /* color: rgba(0, 0, 0, 0.6); */
   background-color: rgba(0, 0, 0, 0.05);
   width: 100%;
   height: 40px;
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #f2f2f2 inset !important;
+  -webkit-box-shadow: 0 0 0px 1000px #f2f2f2 inset !important;
+  -webkit-text-fill-color: #000 !important; 
+  transition: background-color 5000s ease-in-out 0s; 
 }
 .input:focus {
   border: 2px solid #ff96d5;
@@ -65,9 +67,9 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 1.6;
-  color: #000;
+  /* color: #000; */
   background-color: #ffdae0;
-  border: none;
+  /* border: none; */
   border-bottom: 4px solid #ffcbd3;
  width: 100%;
 height: 46px;
@@ -76,9 +78,13 @@ height: 46px;
 }
 
 .submitButton:hover {
-  background-color: #ff96d5;
+  background-color: #fff4f6;
 }
-
+.submitButton:active {
+  background-color: #ffcbd3; 
+  border-bottom: 2px solid #ffb3bf; 
+  transform: translateY(1px); 
+}
 .submitButton:disabled {
   background-color: #b1c7ae;
   cursor: not-allowed;
@@ -110,33 +116,25 @@ height: 46px;
 }
 
 
-@media only screen and (min-width: 768px) {
-  .wrapper{
- display: flex;
- flex-direction: column;
- /* width: 480px; */
- padding: 0 auto;
-}
+@media only screen and (max-width: 768px) {
+
 .input {
   height: 37px;
 }
 }
+
+
 @media only screen and (min-width: 1440px) {
   .mainContent {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-.wrapper{
  display: flex;
- flex-direction: column;
- width: 592px;
- padding: 56px;
-}
+  align-items: center;
+  }
+
  .imageWrapper {
   display: block;
 }
 
-.image {
+/* .image {
   display: block;
-} 
+}  */
 }

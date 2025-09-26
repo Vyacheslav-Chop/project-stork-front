@@ -13,6 +13,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
 
+
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
     .required('Ім’я є обов’язковим')
