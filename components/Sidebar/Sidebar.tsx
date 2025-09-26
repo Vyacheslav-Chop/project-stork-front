@@ -15,14 +15,13 @@ interface SidebarProps {
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
   const isAuth = false;
   const router = useRouter();
-  const isDesktop = useMediaQuery({ minWidth: 1440 }); // для ПК
+  const isDesktop = useMediaQuery({ minWidth: 1440 });
 
   const handleLogout = async () => {
     await logout();
     router.replace("/sign-in");
   };
 
-  // якщо це десктоп → завжди показуємо відкриту версію без overlay
   if (isDesktop) {
     return (
       <div className={`${css.sidebar} ${css.desktop}`}>
@@ -61,7 +60,6 @@ const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     );
   }
 
-  // мобільна версія
   return (
     <div
       className={`${css.overlay} ${isOpen ? css.show : ""}`}
