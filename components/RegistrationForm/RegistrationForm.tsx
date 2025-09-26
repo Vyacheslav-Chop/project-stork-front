@@ -13,11 +13,19 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
 
+
 const SignupSchema = Yup.object().shape({
-  name: Yup.string().required('Ім’я є обов’язковим').matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ\s'-]+$/, 'Ім’я може містити лише літери'),
-  email: Yup.string().email('Невірна пошта').required('Пошта є обов’язковою'),
-  password: Yup.string().min(8, 'Мінімум 8 символів').required('Пароль є обов’язковим'),
+  name: Yup.string()
+    .required('Ім’я є обов’язковим')
+    .matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9\s'-]+$/, 'Ім’я може містити лише літери та цифри'),
+  email: Yup.string()
+    .email('Невірна пошта')
+    .required('Пошта є обов’язковою'),
+  password: Yup.string()
+    .min(8, 'Мінімум 8 символів')
+    .required('Пароль є обов’язковим'),
 });
+
 type ValuesProps = {
   name: string;
   email: string;
@@ -29,7 +37,6 @@ const RegistrationForm = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (values: ValuesProps) => {
-    console.log("📤 Form submitted with:", values);
     try {
       const res = await register(values);
       if (res) {
@@ -43,7 +50,9 @@ const RegistrationForm = () => {
   };
 
   return (
+    
     <main className={css.mainContent}>
+      
       <div className={css.wrapper}>
         <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
@@ -87,7 +96,7 @@ const RegistrationForm = () => {
       </div>
    <div className={css.imageWrapper}>
   <Image
-    src="/imagies/stork.jpg"
+    src="/image/registration/stork.jpg"
     alt="Ілюстрація реєстрації"
     width={720} 
     height={900}
