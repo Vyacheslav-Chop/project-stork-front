@@ -16,9 +16,10 @@
 
 .sidebar.desktop {
   transform: translateX(0) !important;
-  position: static; /* або fixed якщо хочеш */
+  position: static;
   height: 100vh;
   box-shadow: none;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .header {
