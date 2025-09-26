@@ -21,7 +21,7 @@ const ProfileSchema = Yup.object().shape({
     ["Хлопчик", "Дівчинка", "Ще не знаю"],
     "Невірна стать!"
   ),
-  dueDate: Yup.date(),
+  dueDate: Yup.date().min(new Date(), "Оберіть правильну дату!"),
 });
 
 type InitialValues = {
