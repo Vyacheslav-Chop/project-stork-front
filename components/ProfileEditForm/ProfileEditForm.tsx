@@ -69,12 +69,12 @@ const ProfileEditForm = () => {
         email: values.email || undefined,
         babyGender:
           values.babyGender === "Хлопчик" ||
-            values.babyGender === "Дівчинка" ||
-            values.babyGender === "Ще не знаю"
+          values.babyGender === "Дівчинка" ||
+          values.babyGender === "Ще не знаю"
             ? values.babyGender
             : undefined,
         dueDate: values.dueDate || undefined,
-      }
+      };
       const res = await updateUser(payload);
       if (res) {
         toast.success("Дані оновлено успішно!");
@@ -185,6 +185,9 @@ const ProfileEditForm = () => {
                 minDate={new Date()}
                 className={css.dateInput}
                 wrapperClassName={css.dateWrapper}
+                onChangeRaw={(e) => {
+                  if (e) e.preventDefault();
+                }}
               />
               <svg width={24} height={24} className={css.dateIcon}>
                 <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>

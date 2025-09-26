@@ -1,0 +1,43 @@
+.header {
+  width: 100%;
+  height: 68px;
+  padding: 0;
+  background: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 16px 20px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 36px;
+}
+
+.logoBlock {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  justify-content: center;
+  gap: 4.69px;
+  width: 105px;
+  height: 45px;
+}
+
+/* .logoSvg{
+    margin-right: 4.69px;
+} */
+
+
+.burger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  fill: #000;
+}

@@ -11,8 +11,6 @@ export default function AuthPage() {
     return <RegistrationForm />;
   }
 
-
-
   if (authType === 'login') {
     return <LoginForm />;
   }
