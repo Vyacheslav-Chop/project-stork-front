@@ -16,6 +16,10 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
+  if (isPublicRoute) {
+    return NextResponse.next();
+  }
+
   if (isPrivateRoute) {
     if (!refreshToken) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
@@ -23,19 +27,14 @@ export async function middleware(request: NextRequest) {
 
     try {
       const refreshUrl = new URL("/api/refresh", request.url);
-
       const apiRes = await fetch(refreshUrl.toString(), {
-        headers: {
-          Cookie: cookieStore.toString(),
-        },
+        headers: { Cookie: cookieStore.toString() },
       });
 
       if (apiRes.ok) {
         const res = NextResponse.next();
         const setCookie = apiRes.headers.get("set-cookie");
-        if (setCookie) {
-          res.headers.set("set-cookie", setCookie);
-        }
+        if (setCookie) res.headers.set("set-cookie", setCookie);
         return res;
       }
 
@@ -43,10 +42,6 @@ export async function middleware(request: NextRequest) {
     } catch {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
-  }
-
-  if (isPublicRoute && refreshToken) {
-    return NextResponse.redirect(new URL("/profile", request.url));
   }
 
   return NextResponse.next();

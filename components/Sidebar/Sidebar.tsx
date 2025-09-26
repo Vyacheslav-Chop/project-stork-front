@@ -45,10 +45,10 @@ const Sidebar = ({ onClose }: SidebarProps) => {
           </button>
         ) : (
           <div className={css.authLinks}>
-            <Link href="/sign-in" className={css.authLoginBtn}>
+            <Link href="/auth/login" className={css.authLoginBtn}>
               Увійти
             </Link>
-            <Link href="/sign-up" className={css.registerBtn}>
+            <Link href="/auth/register" className={css.registerBtn}>
               Зареєструватися
             </Link>
           </div>
