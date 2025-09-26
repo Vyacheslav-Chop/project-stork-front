@@ -5,7 +5,6 @@ import { ApiResponse, UserResponse, NewUser } from "../../types/user";
 import { BabyWeekData } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
 
-
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
   return res.data.data;
@@ -97,10 +96,12 @@ export const updateUserAvatar = async (file) => {
   return res.data.data;
 };
 
-export const getWeekStatic = async () => {
-  const res = await nextServer.get("/weeks/public");
+export const getWeekStatic = async (week: number): Promise<BabyWeekData> => {
+  const res = await nextServer.get("/weeks/public", {
+    params: { week },
+  });
 
-  return res.data.data;
+  return res.data.data.weekData;
 };
 
 export const getWeekDynamic = async () => {
