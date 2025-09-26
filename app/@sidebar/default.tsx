@@ -1,7 +1,9 @@
-const SideBarPage = () => {
-  return (
-    <div>default</div>
-  )
+import SideBar from "@/components/Sidebar/Sidebar";
+
+interface SidebarProps {
+  onClose: () => void;
 }
 
-export default SideBarPage;
+export default function SidebarPage({ onClose }: SidebarProps) {
+  return <SideBar onClose={onClose} />;
+}

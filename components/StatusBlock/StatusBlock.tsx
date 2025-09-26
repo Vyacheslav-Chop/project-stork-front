@@ -3,36 +3,33 @@
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import styles from "./StatusBlock.module.css";
-import { getWeekDynamic, getWeekStatic } from "@/lib/api/apiClient";
-import { WeekData } from "@/types/week";
+import { getWeekDynamicServer, getWeekStaticServer } from "@/lib/api/apiServer";
+import { useAuth } from "@/lib/store/authStore";
 
 const StatusBlock = () => {
-  const { data, isLoading, isError } = useQuery<WeekData>({
-    queryKey: ["weekData"],
-    queryFn: async (): Promise<WeekData> => {
+  const { isAuthenticated } = useAuth();
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["weekData", isAuthenticated],
+    queryFn: async () => {
       try {
-        const res = await getWeekDynamic();
-        return {
-          currentWeek: res.currentWeek,
-          daysToBirth: res.daysToBirth,
-        };
+        return isAuthenticated
+          ? await getWeekDynamicServer()
+          : await getWeekStaticServer();
       } catch (err) {
-        try {
-          const res = await getWeekStatic();
-          return {
-            currentWeek: res.currentWeek,
-            daysToBirth: res.daysToBirth,
-          };
-        } catch {
-          toast.error("Помилка завантаження даних");
-          return { currentWeek: 0, daysToBirth: 0 };
-        }
+        toast.error("Помилка завантаження даних");
+        return { currentWeek: 0, daysToBirth: 0 };
       }
     },
   });
 
-  if (isLoading) return <div className={styles.loader}>Завантаження…</div>;
-  if (isError || !data) return null;
+  if (isLoading) {
+    return <div className={styles.loader}>Завантаження…</div>;
+  }
+
+  if (isError || !data) {
+    return null;
+  }
 
   return (
     <div className={styles.wrapper}>

@@ -4,7 +4,7 @@ import { Lato, Comfortaa } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import Header from "@/components/Header/Header";
-// import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
 // import AuthProvider from '@/components/AuthProvider/AuthProvider';
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
@@ -16,7 +16,7 @@ const lato = Lato({
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["500", "700"],
   variable: "--font-comfortaa",
 });
 
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   modal,
-  sidebar,
+  // sidebar,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
@@ -47,7 +47,7 @@ export default function RootLayout({
           {/* <AuthProvider> */}
           <Header />
           {/* <Breadcrumbs /> */}
-          <aside>{sidebar}</aside>
+          {/* <aside>{sidebar}</aside> */}
 
           <main>{children}</main>
           {modal}

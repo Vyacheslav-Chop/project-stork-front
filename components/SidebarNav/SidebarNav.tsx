@@ -1,7 +1,48 @@
-const SidebarNav = () => {
-  return (
-    <div>SidebarNav</div>
-  )
+import css from "./SidebarNav.module.css";
+import Link from "next/link";
+
+interface SidebarNavProps {
+  isAuth: boolean;
 }
 
-export default SidebarNav
+const SidebarNav = ({ isAuth }: SidebarNavProps) => {
+  return (
+    <nav>
+      <ul className={css.navList}>
+        <li>
+          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+            <svg width={24} height={24}>
+              <use href="/icons/iconsSideBar.svg#icon-myDay"></use>
+            </svg>
+            Мій день
+          </Link>
+        </li>
+        <li>
+          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+            <svg width={24} height={24}>
+              <use href="/icons/iconsSideBar.svg#icon-travel"></use>
+            </svg>
+            Подорож
+          </Link>
+        </li>
+        <li>
+          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+            <svg width={24} height={24}>
+              <use href="/icons/iconsSideBar.svg#icon-book"></use>
+            </svg>
+            Щоденник
+          </Link>
+        </li>
+        <li>
+          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+            <svg width={24} height={24}>
+              <use href="/icons/iconsSideBar.svg#icon-account"></use>
+            </svg>
+            Профіль
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+export default SidebarNav;

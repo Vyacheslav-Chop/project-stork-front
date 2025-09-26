@@ -1,9 +1,24 @@
+<<<<<<< HEAD
 import StatusBlock from "@/components/StatusBlock/StatusBlock";
 import Image from "next/image";
 import styles from "./page.module.css";
+=======
+import css from './page.module.css';
+import GreetingBlock from '@/components/GreetingBlock/GreetingBlock';
+import StatusBlock from '@/components/StatusBlock/StatusBlock';
+import BabyTodayCard from '@/components/BabyTodayCard/BabyTodayCard';
+import MomTipCard from '@/components/MomTipCard/MomTipCard';
+import TasksReminderCard from '@/components/TasksReminderCard/TasksReminderCard';
+import FeelingCheckCard from '@/components/FeelingCheckCard/FeelingCheckCard';
+import { getBabyState } from '@/lib/api/apiClient';
+import { BabyWeekData } from '@/types/BabyWeekData';
+>>>>>>> main
 
-export default function Home() {
+
+export default async function Dashboard() {
+  const babyData: BabyWeekData = await getBabyState(14);
   return (
+<<<<<<< HEAD
     <div className={styles.page}>
       <main className={styles.main}>
         
@@ -46,52 +61,21 @@ export default function Home() {
           >
             Read our docs
           </a>
+=======
+    <div className={css.mainWrapper}>
+      <GreetingBlock />
+      <div className={css.innerWrapper}>
+        <div className={css.firstWrapper}>
+          <StatusBlock />
+          <BabyTodayCard data={babyData} />
+          <MomTipCard />
+>>>>>>> main
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className={css.lastWrapper}>
+          <TasksReminderCard />
+          <FeelingCheckCard />
+        </div>
+      </div>
     </div>
   );
 }

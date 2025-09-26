@@ -1,5 +1,7 @@
 import { cookies } from "next/headers";
 import { nextServer } from "./api";
+import { Task } from "@/types/tasks";
+import { WeekData } from "@/types/week";
 
 export const refreshServer = async () => {
   const cookieStore = await cookies();
@@ -81,16 +83,16 @@ export const getDiaryByIdServer = async (diaryId) => {
   return res.data.data;
 };
 
-export const getTasksServer = async () => {
+export const getTasksServer = async (): Promise<Task[]> => {
   const cookieStore = await cookies();
 
-  const res = await nextServer.get("/tasks", {
+  const res = await nextServer.get<Task[]>("/tasks", {
     headers: {
       Cookie: cookieStore.toString(),
     },
   });
 
-  return res.data.data;
+  return res.data;
 };
 
 export const createTaskServer = async (payload) => {
@@ -157,7 +159,7 @@ export const updateUserAvatarServer = async (file: File) => {
   return res.data.data;
 };
 
-export const getWeekStaticServer = async () => {
+export const getWeekStaticServer = async (): Promise<WeekData> => {
   const cookieStore = await cookies();
 
   const res = await nextServer.get("/weeks/public", {
@@ -169,7 +171,7 @@ export const getWeekStaticServer = async () => {
   return res.data.data;
 };
 
-export const getWeekDynamicServer = async () => {
+export const getWeekDynamicServer = async (): Promise<WeekData> => {
   const cookieStore = await cookies();
 
   const res = await nextServer.get("/weeks/private", {

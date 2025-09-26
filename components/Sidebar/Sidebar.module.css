@@ -1,0 +1,133 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 100vh;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 0px 16px;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px 8px;
+  width: 300px;
+  height: 77px;
+}
+
+.iconStork {
+  margin: 0 5px;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-family: Comfortaa, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  align-items: center;
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 0px 16px 8px;
+  width: 300px;
+  height: 80px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoutBtn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+}
+
+.authLinks {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.authLoginBtn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  background: #ffdae0;
+  border: none;
+  border-bottom: 4px solid var(--color-scheme-accent);
+  border-radius: 100px;
+  padding: 10px 24px;
+  width: 480px;
+  height: 41px;
+  box-shadow: 0 4px 0 #f5c5cc;
+}
+
+.authLoginBtn:hover,
+.authLoginBtn:focus {
+  background: #f5c5cc;
+  transition: transform 0.3s ease, color 0.3s ease;
+  transform: scale(1.1);
+}
+.registerBtn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: #000;
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-decoration-thickness: 1px;
+  transition: color 0.3s ease, text-decoration-thickness 0.3s ease,
+    transform 0.2s ease;
+}
+
+.registerBtn:hover,
+.registerBtn:focus {
+  text-decoration-thickness: 2px;
+  transform: translateY(-2px);
+  outline: none;
+}
+@media screen and (min-width: 768px) {
+  .desctop {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .desctop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+}
