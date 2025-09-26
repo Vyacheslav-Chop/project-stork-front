@@ -14,7 +14,7 @@ const Header: React.FC = () => {
     if (isDesktop) setIsOpen(false);
   }, [isDesktop]);
 
-  if (isDesktop) return null;
+  if (isDesktop) return <SideBar isOpen={true} onClose={() => {}} />;
 
   return (
     <header className={styles.header}>
