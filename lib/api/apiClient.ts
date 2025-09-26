@@ -1,10 +1,10 @@
 // import { ApiResponse } from "@/types/user";
 import { nextServer } from "./api";
 import { Task } from "@/types/tasks";
-import { ApiResponse, UserResponse, NewUser } from "../../types/user";
+import { ApiResponse, UserResponse, NewUser, UserPayload } from "../../types/user";
 import { BabyWeekData } from "@/types/babyWeekData";
-import { MomState } from "@/types/momState";
-import { BabyState } from "@/types/babyState";
+import { Emotion } from "@/types/emotions";
+
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
@@ -79,10 +79,10 @@ export const getUser = async (): Promise<ApiResponse> => {
   return res.data;
 };
 
-export const updateUser = async (payload) => {
-  const res = await nextServer.patch("/users", payload);
+export const updateUser = async (payload: UserPayload): Promise<UserResponse> => {
+  const res = await nextServer.patch<UserResponse>("/users", payload);
 
-  return res.data.data;
+  return res.data;
 };
 
 export const updateUserAvatar = async (file) => {
@@ -97,10 +97,12 @@ export const updateUserAvatar = async (file) => {
   return res.data.data;
 };
 
-export const getWeekStatic = async () => {
-  const res = await nextServer.get("/weeks/public");
+export const getWeekStatic = async (week: number): Promise<BabyWeekData> => {
+  const res = await nextServer.get("/weeks/public", {
+    params: { week },
+  });
 
-  return res.data.data;
+  return res.data.data.weekData;
 };
 
 export const getWeekDynamic = async () => {

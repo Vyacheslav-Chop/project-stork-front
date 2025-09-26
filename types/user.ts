@@ -19,3 +19,12 @@ export interface NewUser {
   email: string;
   password: string;
 }
+
+export interface UserPayload {
+  name?: string;
+  email?: string;
+  babyGender?: "Дівчинка" | "Хлопчик" | "Ще не знаю";
+  dueDate?: string;
+}
+
+export type Gender = "Дівчинка" | "Хлопчик" | "Ще не знаю";

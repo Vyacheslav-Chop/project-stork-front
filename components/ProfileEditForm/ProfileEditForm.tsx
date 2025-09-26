@@ -1,8 +1,8 @@
 "use client";
 
 import { useAuth } from "@/lib/store/authStore";
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import { useId } from "react";
+import { ErrorMessage, Field, FieldProps, Form, Formik } from "formik";
+import React, { useId } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, isValid, parse } from "date-fns";
@@ -10,6 +10,7 @@ import { updateUser } from "@/lib/api/apiClient";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 import css from "./ProfileEditForm.module.css";
+import { Gender, UserPayload } from "@/types/user";
 
 const ProfileSchema = Yup.object().shape({
   username: Yup.string()
@@ -20,16 +21,13 @@ const ProfileSchema = Yup.object().shape({
     ["Хлопчик", "Дівчинка", "Ще не знаю"],
     "Невірна стать!"
   ),
-  dueDate: Yup.string().matches(
-    /^\d{2}\.\d{2}\.\d{4}$/,
-    "Невірний формат дати"
-  ),
+  dueDate: Yup.date().min(new Date(), "Оберіть правильну дату!"),
 });
 
 type InitialValues = {
   username: string;
   email: string;
-  gender: string;
+  babyGender: Gender | "";
   dueDate: string;
 };
 
@@ -41,7 +39,7 @@ const ProfileEditForm = () => {
   const formValues: InitialValues = {
     username: user?.name ?? "",
     email: user?.email ?? "",
-    gender: user?.babyGender ?? "",
+    babyGender: user?.babyGender ?? "",
     dueDate: user?.dueDate ?? format(new Date(), "dd.MM.yyyy"),
   };
 
@@ -66,7 +64,18 @@ const ProfileEditForm = () => {
 
   const handleSubmit = async (values: InitialValues) => {
     try {
-      const res = await updateUser(values);
+      const payload: UserPayload = {
+        name: values.username || undefined,
+        email: values.email || undefined,
+        babyGender:
+          values.babyGender === "Хлопчик" ||
+            values.babyGender === "Дівчинка" ||
+            values.babyGender === "Ще не знаю"
+            ? values.babyGender
+            : undefined,
+        dueDate: values.dueDate || undefined,
+      }
+      const res = await updateUser(payload);
       if (res) {
         toast.success("Дані оновлено успішно!");
         setUser(res);
@@ -76,41 +85,97 @@ const ProfileEditForm = () => {
     }
   };
 
+  const handleCancel = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    reset: () => void
+  ) => {
+    e.currentTarget.blur();
+    reset();
+  };
+
   return (
     <Formik
       initialValues={formValues}
       onSubmit={handleSubmit}
       validationSchema={ProfileSchema}
     >
-      {({ values, setFieldValue, isSubmitting }) => (
-        <Form>
+      {({ values, setFieldValue, isSubmitting, resetForm }) => (
+        <Form className={css.form}>
           <div className={css.formGroup}>
-            <label className={css.formLabel} htmlFor={`${fieldId}-username`}>Ім&apos;я</label>
-            <Field type="text" name="username" id={`${fieldId}-username`} />
-            <ErrorMessage className={css.error} name="username" />
-          </div>
-
-          <div className={css.formGroup}>
-            <label className={css.formLabel} htmlFor={`${fieldId}-email`}>Пошта</label>
-            <Field type="email" name="email" id={`${fieldId}-email`} />
-            <ErrorMessage className={css.error} name="email" />
-          </div>
-
-          <div className={css.formGroup}>
-            <label className={css.formLabel} htmlFor={`${fieldId}-gender`}>Стать дитини</label>
-            <Field as="select" name="gender" id={`${fieldId}-gender`}>
-              <option value="" disabled>
-                Оберіть стать дитини
-              </option>
-              <option value="Хлопчик">Хлопчик</option>
-              <option value="Дівчинка">Дівчинка</option>
-              <option value="Ще не знаю">Ще не знаю</option>
+            <label className={css.formLabel} htmlFor={`${fieldId}-username`}>
+              Ім&apos;я
+            </label>
+            <Field name="username">
+              {({ field, meta }: FieldProps<string>) => (
+                <input
+                  {...field}
+                  id={`${fieldId}-username`}
+                  className={`${css.formInput} ${
+                    meta.touched && meta.error ? css.inputError : ""
+                  }`}
+                  type="text"
+                />
+              )}
             </Field>
-            <ErrorMessage className={css.error} name="gender" />
+            <ErrorMessage
+              component="div"
+              className={css.error}
+              name="username"
+            />
           </div>
 
           <div className={css.formGroup}>
-            <label className={css.formLabel} htmlFor={`${fieldId}-dueDate`}>Планова дата пологів</label>
+            <label className={css.formLabel} htmlFor={`${fieldId}-email`}>
+              Пошта
+            </label>
+            <Field name="email">
+              {({ field, meta }: FieldProps<string>) => (
+                <input
+                  {...field}
+                  id={`${fieldId}-email`}
+                  className={`${css.formInput} ${
+                    meta.touched && meta.error ? css.inputError : ""
+                  }`}
+                  type="email"
+                />
+              )}
+            </Field>
+            <ErrorMessage component="div" className={css.error} name="email" />
+          </div>
+
+          <div className={css.formGroup}>
+            <label className={css.formLabel} htmlFor={`${fieldId}-babyGender`}>
+              Стать дитини
+            </label>
+            <div className={css.selectWrap}>
+              <Field
+                className={css.formSelect}
+                as="select"
+                name="babyGender"
+                id={`${fieldId}-babyGender`}
+              >
+                <option value="" disabled>
+                  Оберіть стать дитини
+                </option>
+                <option value="Хлопчик">Хлопчик</option>
+                <option value="Дівчинка">Дівчинка</option>
+                <option value="Ще не знаю">Ще не знаю</option>
+              </Field>
+              <svg width={24} height={24} className={css.selectIcon}>
+                <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
+              </svg>
+            </div>
+            <ErrorMessage
+              component="div"
+              className={css.error}
+              name="babyGender"
+            />
+          </div>
+
+          <div className={css.formGroup}>
+            <label className={css.formLabel} htmlFor={`${fieldId}-dueDate`}>
+              Планова дата пологів
+            </label>
             <div className={css.dateWrap}>
               <DatePicker
                 id={`${fieldId}-dueDate`}
@@ -119,19 +184,33 @@ const ProfileEditForm = () => {
                 dateFormat="dd.MM.yyyy"
                 minDate={new Date()}
                 className={css.dateInput}
+                wrapperClassName={css.dateWrapper}
               />
               <svg width={24} height={24} className={css.dateIcon}>
                 <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
               </svg>
             </div>
-            <ErrorMessage className={css.error} name="dueDate" />
+            <ErrorMessage
+              component="div"
+              className={css.error}
+              name="dueDate"
+            />
           </div>
 
-          <div>
-            <button type="button" disabled={isSubmitting} className={css.submitBtn}>
+          <div className={css.btnWrap}>
+            <button
+              type="button"
+              disabled={isSubmitting}
+              className={css.cancelBtn}
+              onClick={(e) => handleCancel(e, resetForm)}
+            >
               Відмінити зміни
             </button>
-            <button type="submit" disabled={isSubmitting} className={css.cancelBtn}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={css.submitBtn}
+            >
               Зберегти зміни
             </button>
           </div>
