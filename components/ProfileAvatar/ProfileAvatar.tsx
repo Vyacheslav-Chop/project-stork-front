@@ -39,13 +39,17 @@ const ProfileAvatar = ({user}: ProfileProps) => {
         setErr("Файл занадто великий. Максимум 5 МБ.");
         return;
       }
+
+      // для локального прев’ю — як і було
       const reader = new FileReader();
       reader.onloadend = async () => {
         const localPreview = reader.result as string;
         setAvatar(localPreview);
+
         setIsLoading(true);
         try {
-          const updatedUser = await updateUserAvatar(localPreview);
+          // ✅ тепер на сервер шлемо сам file
+          const updatedUser = await updateUserAvatar(file);
           setUser(updatedUser);
           setAvatar(updatedUser.avatar ?? localPreview);
         } catch {

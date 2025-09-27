@@ -10,6 +10,10 @@ export async function PATCH(request: Request) {
     const formData = await request.formData();
     const file = formData.get("avatar");
 
+    console.log(file instanceof File);
+    // console.log(file.name, file.type, file.size);
+    
+
     if (!file || !(file instanceof File)) {
       return NextResponse.json(
         { error: "Файл аватара обов'язковий" },
@@ -17,13 +21,14 @@ export async function PATCH(request: Request) {
       );
     }
 
+    console.log(file.name, file.type, file.size);
+
     const uploadData = new FormData();
-    uploadData.append("avatar", file);
+    uploadData.append("avatar", file, file.name);
 
     const { data } = await api.patch("/users/avatar", uploadData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     });
 

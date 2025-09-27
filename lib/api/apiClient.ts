@@ -95,13 +95,13 @@ export const updateUser = async (payload: UserPayload): Promise<UserResponse> =>
 
 export const updateUserAvatar = async (file) => {
   const formData = new FormData();
+console.log(file instanceof File);
+
   formData.append("avatar", file);
 
-  const res = await nextServer.patch("/users/avatar", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
+  console.log(file.name, file.type, file.size);
+
+  const res = await nextServer.patch("/users/avatar", formData);
   return res.data.data;
 };
 
