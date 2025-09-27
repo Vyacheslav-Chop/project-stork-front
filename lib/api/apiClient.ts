@@ -1,12 +1,7 @@
 // import { ApiResponse } from "@/types/user";
 import { nextClient, nextServer } from "./api";
 import { CreateTaskProps, Task, UpdateTaskProps } from "@/types/tasks";
-import {
-  ApiResponse,
-  UserResponse,
-  NewUser,
-  UserPayload,
-} from "../../types/user";
+import { UserResponse, NewUser, UserPayload } from "../../types/user";
 import {
   ApiWeekResponse,
   BabyWeekData,
@@ -95,29 +90,33 @@ export const updateTaskStatusById = async (
   return res.data.data;
 };
 
-export const getUser = async (): Promise<ApiResponse> => {
-  const res = await nextServer.get<ApiResponse>("/users");
+export const getUser = async (): Promise<UserResponse> => {
+  const res = await nextServer.get<AxiosRes<UserResponse>>("/users");
 
-  return res.data;
+  return res.data.data;
 };
 
 export const updateUser = async (
   payload: UserPayload
 ): Promise<UserResponse> => {
-  const res = await nextServer.patch<UserResponse>("/users", payload);
+  const res = await nextServer.patch<AxiosRes<UserResponse>>(
+    "/users",
+    payload
+  );
 
-  return res.data;
+  return res.data.data;
 };
 
-export const updateUserAvatar = async (file) => {
+export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
   const formData = new FormData();
-console.log(file instanceof File);
-
-  formData.append("avatar", file);
+  formData.append("avatar", file, file.name);
 
   console.log(file.name, file.type, file.size);
 
-  const res = await nextServer.patch("/users/avatar", formData);
+  const res = await nextServer.patch<AxiosRes<UserResponse>>(
+    "/users/avatar",
+    formData
+  );
   return res.data.data;
 };
 
