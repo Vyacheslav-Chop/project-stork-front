@@ -1,9 +1,11 @@
 // import { ApiResponse } from "@/types/user";
 import { nextClient, nextServer } from "./api";
 import { Task } from "@/types/tasks";
-import { ApiResponse, UserResponse, NewUser } from "../../types/user";
+import { ApiResponse, UserResponse, NewUser, UserPayload } from "../../types/user";
 import { ApiWeekResponse, BabyWeekData, WeekTip, WeekTipResponse } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
+import { BabyState } from "@/types/babyState";
+import { MomState } from "@/types/momState";
 
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
@@ -79,10 +81,10 @@ export const getUser = async (): Promise<ApiResponse> => {
   return res.data;
 };
 
-export const updateUser = async (payload) => {
-  const res = await nextServer.patch("/users", payload);
+export const updateUser = async (payload: UserPayload): Promise<UserResponse> => {
+  const res = await nextServer.patch<UserResponse>("/users", payload);
 
-  return res.data.data;
+  return res.data;
 };
 
 export const updateUserAvatar = async (file) => {
@@ -97,10 +99,10 @@ export const updateUserAvatar = async (file) => {
   return res.data.data;
 };
 
-export const getWeekStatic = async () => {
+export const getWeekStatic = async (): Promise<BabyWeekData> => {
   const res = await nextServer.get("/weeks/public");
 
-  return res.data.data;
+  return res.data.data.weekData;
 };
 
 export const getWeekDynamic = async () => {
@@ -109,14 +111,14 @@ export const getWeekDynamic = async () => {
   return res.data.data;
 };
 
-export const getMomState = async (week) => {
-  const res = await nextServer.get(`/weeks/mom-state/${week}`);
+export const getMomState = async (week: number): Promise<MomState> => {
+  const res = await nextServer.get<MomState>(`/weeks/mom-state/${week}`);
 
-  return res.data.data;
+  return res.data;
 };
 
-export const getBabyState = async (week: number): Promise<BabyWeekData> => {
-  const res = await nextServer.get(`/weeks/baby-state/${week}`);
+export const getBabyState = async (week: number): Promise<BabyState> => {
+  const res = await nextServer.get<BabyState>(`/weeks/baby-state/${week}`);
 
   return res.data;
 };

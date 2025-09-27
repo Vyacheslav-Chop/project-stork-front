@@ -13,9 +13,9 @@ const DIARY_ALIASES = ["diary"];
 const LABELS: Record<string, string> = {
   "": "Лелека",
   "my-day": "Мій день",
-  "diary": "Щоденник",
-  "journey": "Подорож",
-  "profile": "Профіль",
+  diary: "Щоденник",
+  journey: "Подорож",
+  profile: "Профіль",
 };
 
 function toFirstName(raw?: unknown): string | null {
@@ -23,7 +23,10 @@ function toFirstName(raw?: unknown): string | null {
   let s = String(raw).trim();
   if (!s) return null;
   if (s.includes(",")) {
-    const parts = s.split(",").map(p => p.trim()).filter(Boolean);
+    const parts = s
+      .split(",")
+      .map((p) => p.trim())
+      .filter(Boolean);
     s = parts.length > 1 ? parts[1] : parts[0];
   }
   if (s.includes("@")) s = s.split("@")[0];
@@ -36,7 +39,7 @@ export default function Breadcrumbs({ lastLabel }: Props) {
   const pathname = usePathname();
   const [userName, setUserName] = useState<string | null>(null);
 
-  const isHidden = HIDE_ON.some(rx => rx.test(pathname));
+  const isHidden = HIDE_ON.some((rx) => rx.test(pathname));
 
   const segs = pathname
     .split("/")
@@ -83,23 +86,25 @@ export default function Breadcrumbs({ lastLabel }: Props) {
             const isLast = i === crumbs.length - 1;
             return (
               <li key={c.href} className={styles.item}>
-                {i > 0 && <span className={styles.sep} aria-hidden>›</span>}
+                {i > 0 && (
+                  <span className={styles.sep} aria-hidden>
+                    ›
+                  </span>
+                )}
                 {isLast ? (
-                  <span className={styles.current} aria-current="page">{c.label}</span>
+                  <span className={styles.current} aria-current="page">
+                    {c.label}
+                  </span>
                 ) : (
-                  <Link className={styles.link} href={c.href}>{c.label}</Link>
+                  <Link className={styles.link} href={c.href}>
+                    {c.label}
+                  </Link>
                 )}
               </li>
             );
           })}
         </ol>
       </nav>
-
-      {!isDiaryDetail && !isProfilePage && (
-        <div className={styles.greeting} suppressHydrationWarning>
-          {userName ? `Доброго ранку, ${userName}!` : "Доброго ранку!"}
-        </div>
-      )}
     </div>
   );
 }

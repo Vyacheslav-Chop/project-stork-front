@@ -2,10 +2,6 @@
   display: none;
 }
 
-.wrap {
-  padding-top: 16px;
-}
-
 .avatarWrapper {
   display: flex;
   align-items: center;
@@ -15,14 +11,6 @@
 
 .avatar {
   border-radius: 100%;
-}
-
-.profileInfo {
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  text-align: center;
 }
 
 .textName {
@@ -55,4 +43,67 @@
   padding: 8px 20px;
   background-color: rgba(0, 0, 0, 0.05);
   width: 100%;
+  transition: border-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+.uploadBtn:hover,
+.uploadBtn:focus {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff4f6;
+}
+
+.uploadBtn:active {
+  background-color: #b2b2b2;
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  .wrap {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .avatarWrapper {
+    margin-bottom: 0;
+  }
+
+  .textName {
+    text-align: left;
+  }
+
+  .textEmail {
+    text-align: left;
+  }
+
+  .uploadBtn {
+    min-width: 218px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .wrap {
+    width: 644px;
+  }
+
+  .avatarWrapper {
+    margin-bottom: 0;
+  }
+
+  .textName {
+    font-size: 24px;
+  }
+
+  .textEmail {
+    text-align: left;
+  }
+
+  .textEmail {
+    font-size: 16px;
+  }
+
+  .uploadBtn {
+    font-size: 14px;
+  }
 }

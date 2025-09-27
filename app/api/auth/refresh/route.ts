@@ -1,37 +1,44 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { parse } from 'cookie';
-import { api } from '../../api';
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { parse } from "cookie";
+import { api } from "../../api";
 
-export async function GET(request: NextRequest) {
+export async function POST() {
   const cookieStore = await cookies();
-  const refreshToken = cookieStore.get('refreshToken')?.value;
-  const next = request.nextUrl.searchParams.get('next') || '/';
+  const accessToken = cookieStore.get("accessToken")?.value;
+  const refreshToken = cookieStore.get("refreshToken")?.value;
+
+  if (accessToken) return { success: true };
 
   if (refreshToken) {
-    const apiRes = await api.get('auth/refresh', {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-    const setCookie = apiRes.headers['set-cookie'];
+    const apiRes = await api.post(
+      "auth/refresh",
+      {},
+      {
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      }
+    );
+
+    const setCookie = apiRes.headers["set-cookie"];
     if (setCookie) {
       const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
-      let refreshToken = '';
-
       for (const cookieStr of cookieArray) {
         const parsed = parse(cookieStr);
-        if (parsed.refreshToken) refreshToken = parsed.refreshToken;
+        const options = {
+          expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+          path: parsed.Path,
+          maxAge: Number(parsed["Max-Age"]),
+        };
+        if (parsed.accessToken)
+          cookieStore.set("accessToken", parsed.accessToken, options);
+        if (parsed.refreshToken)
+          cookieStore.set("refreshToken", parsed.refreshToken, options);
       }
-
-      if (refreshToken) cookieStore.set('refreshToken', refreshToken);
-
-      return NextResponse.redirect(new URL(next, request.url), {
-        headers: {
-          'set-cookie': cookieStore.toString(),
-        },
-      });
+      return NextResponse.json({ success: true });
     }
   }
-  return NextResponse.redirect(new URL('/sign-in', request.url));
+
+  return NextResponse.json({ success: false });
 }
