@@ -6,14 +6,17 @@ import { cookies } from 'next/headers';
 
 export async function GET() {
   const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
   try {
     const { data } = await api.get('/users', {
       headers: {
-        Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     if (data) return NextResponse.json(data);
-  } catch {
+  } catch (err) {
+    console.log("Error GET USER>>", err);
+    
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 }
@@ -21,11 +24,13 @@ export async function GET() {
 export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
+      const accessToken = cookieStore.get("accessToken")?.value;
+
     const body = await request.json();
 
-    const { data } = await api.patch('/users', body, {
+    const { data } = await api.patch("/users", body, {
       headers: {
-        Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${accessToken}`,
       },
     });
 

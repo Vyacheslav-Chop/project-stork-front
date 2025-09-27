@@ -1,6 +1,6 @@
 "use client";
 
-import { getUser } from "@/lib/api/apiClient";
+import { getUser, refresh } from "@/lib/api/apiClient";
 import { useAuth } from "@/lib/store/authStore";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
@@ -14,22 +14,17 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
   const clearIsAuthenticated = useAuth((state) => state.clearIsAuthenticated);
 
   useEffect(() => {
-    const fetchSession = async () => {
-      try {
-        const response = await getUser();
-
-        if (!response.data) {
-          clearIsAuthenticated();
-          return;
-        }
-
-        setUser(response.data);
-      } catch {
+    const fetchUser = async () => {
+      const isAuthenticated = await refresh();
+      if (isAuthenticated) {
+        const res = await getUser();
+        if (res) setUser(res.data);
+      } else {
         clearIsAuthenticated();
-        toast.error("Please login or sign up to continue.");
+        toast.error('Будь ласка зареєструйтесь!');
       }
     };
-    fetchSession();
+    fetchUser();
   }, [setUser, clearIsAuthenticated]);
 
   return children;

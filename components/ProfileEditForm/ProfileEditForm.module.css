@@ -71,6 +71,11 @@
   color: #000000;
 }
 
+.formSelect.open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .selectIcon {
   position: absolute;
   right: 12px;
@@ -78,6 +83,35 @@
   transform: translateY(-50%);
   pointer-events: none;
   fill: rgba(0, 0, 0, 0.6);
+}
+
+.dropdown {
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 10;
+}
+
+.disabled {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: default;
+  pointer-events: none;
+}
+
+.option {
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+.option:hover {
+  background: #eee;
 }
 
 .dateWrap {
