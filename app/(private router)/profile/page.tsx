@@ -2,6 +2,7 @@ import css from "./page.module.css";
 import { Metadata } from "next";
 import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
 import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
+import { getUserServer } from "@/lib/api/apiServer";
 
 export const metadata: Metadata = {
   title: "Ваш профіль — Лелека",
@@ -30,10 +31,15 @@ export const metadata: Metadata = {
 };
 
 const Profile = async () => {
+  const res = await getUserServer();
+  const user = res?.data ?? null;
+
+  if (!user) return;
+
   return (
     <div className={css.profileCard}>
-      <ProfileAvatar />
-      <ProfileEditForm />
+      <ProfileAvatar user={user} />
+      <ProfileEditForm user={user} />
     </div>
   );
 };

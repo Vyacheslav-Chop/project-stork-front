@@ -34,8 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   modal,
-}:
-Readonly<{
+}: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
 }>) {
@@ -44,10 +43,13 @@ Readonly<{
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-          <HeaderWrapper />
-          <Breadcrumbs />
-          <main>{children}</main>
-          {modal}
+            <HeaderWrapper />
+
+            <main>
+              <Breadcrumbs />
+              <div>{children}</div>
+            </main>
+            {modal}
           </AuthProvider>
           <Toaster position="top-center" reverseOrder={false} />
         </TanStackProvider>

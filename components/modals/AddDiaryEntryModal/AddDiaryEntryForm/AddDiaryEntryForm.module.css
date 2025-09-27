@@ -1,21 +1,50 @@
-.error {
-  color: #e53935;
-  font-size: 12px;
-  margin-top: 2px;
-  font-family: var(--font-lato);
-}
-
 .form {
   display: flex;
   flex-direction: column;
   gap: 20px;
   background: #fff;
   border-radius: 24px;
-  padding: 24px;
+  padding: 20px;
   width: 100%;
-  max-width: 375px;
+  min-width: 294px;
+
   margin: 0 auto;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  padding-bottom: 48px;
+  padding-top: 48px;
+  position: relative;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.closeBtn svg {
+  width: 32px;
+  height: 32px;
+  transition: stroke 0.2s ease;
+}
+
+.closeBtn:hover svg path {
+  stroke: #e53935;
+}
+.error {
+  font-size: 12px;
+  color: #e53935;
+  margin-top: 4px;
+  font-weight: 500;
+  font-family: var(--font-lato);
 }
 
 .title {
@@ -26,6 +55,7 @@
   text-align: center;
   margin-bottom: 12px;
   color: #000;
+  margin: 0;
 }
 
 .label {
@@ -47,20 +77,24 @@
   border-radius: 12px;
   font-size: 14px;
   font-family: "Lato", sans-serif;
-  background: #fff;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0);
+}
+.multiSelectWrapper {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .input:focus,
 .textarea:focus,
 .select:focus {
-  border-color: #ffb6c1; /* рожевий акцент */
+  border-color: #ffb6c1;
   box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.2);
 }
 
 .textarea {
-  min-height: 100px;
+  height: 250px;
   resize: vertical;
 }
 
@@ -70,17 +104,16 @@
 }
 
 .submitBtn {
-  margin-top: 12px;
-  padding: 14px;
-  background: #ffb6c1; /* рожевий акцент */
+  background: #ffdae0;
   border: none;
-  border-radius: 24px;
-  font-size: 16px;
-  font-weight: 600;
-  font-family: "Lato", sans-serif;
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.2s;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 160%;
+
+  border-bottom: 4px solid var(--color-scheme-accent);
+  border-radius: 100px;
+  width: 254px;
+  height: 42px;
 }
 
 .submitBtn:hover:not(:disabled) {
@@ -90,4 +123,142 @@
 .submitBtn:disabled {
   background: #e0e0e0;
   cursor: not-allowed;
+}
+
+.multiSelectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.multiSelectTrigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: transparent;
+  border-radius: 12px;
+
+  cursor: pointer;
+}
+
+.placeholder {
+  color: #aaa;
+}
+
+.arrow {
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 4px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  padding: 8px;
+}
+
+.item {
+  padding: 6px;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 12px;
+}
+.multiSelectTrigger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: "Lato", sans-serif;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.05);
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.arrow {
+  margin-left: auto;
+  font-size: 14px;
+  color: #333;
+}
+
+@media (min-width: 768px) {
+  .submitBtn {
+    background: #ffdae0;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+
+    border-bottom: 4px solid var(--color-scheme-accent);
+    border-radius: 100px;
+    width: 268px;
+    height: 42px;
+    margin: auto;
+  }
+  .closeBtn {
+    top: 32px;
+    right: 32px;
+  }
+  .closeBtn svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .form {
+    width: 664px;
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1440px) {
+  .form {
+    border-radius: 40px;
+    padding: 64px;
+    width: 768px;
+    height: 786px;
+    max-width: 768px;
+    margin: auto;
+  }
+
+  .closeBtn {
+    top: 35px;
+    right: 36px;
+  }
+  .closeBtn svg {
+    width: 28px;
+    height: 28px;
+  }
 }
