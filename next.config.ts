@@ -1,12 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
-    domains: ["ftp.goit.study"],
-  },
+    domains: ["ftp.goit.study", "res.cloudinary.com"],
 
-  //TODO додав конфіг щоб можна було обробляти фото через <Image>
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

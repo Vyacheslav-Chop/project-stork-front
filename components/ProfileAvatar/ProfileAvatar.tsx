@@ -7,8 +7,8 @@ import { updateUserAvatar } from "@/lib/api/apiClient";
 import Loader from "../Loader/Loader";
 import { useAuth } from "@/lib/store/authStore";
 import ErrorText from "../ErrorText/ErrorText";
-// import { profile } from "console";
 import { UserResponse } from "@/types/user";
+import { useRouter } from "next/navigation";
 
 type ProfileProps = {
   user: UserResponse
@@ -20,6 +20,7 @@ const ProfileAvatar = ({user}: ProfileProps) => {
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleClickBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     fileInputRef.current?.click();
@@ -40,7 +41,6 @@ const ProfileAvatar = ({user}: ProfileProps) => {
         return;
       }
 
-      // для локального прев’ю — як і було
       const reader = new FileReader();
       reader.onloadend = async () => {
         const localPreview = reader.result as string;
@@ -48,10 +48,9 @@ const ProfileAvatar = ({user}: ProfileProps) => {
 
         setIsLoading(true);
         try {
-          // ✅ тепер на сервер шлемо сам file
           const updatedUser = await updateUserAvatar(file);
           setUser(updatedUser);
-          setAvatar(updatedUser.avatar ?? localPreview);
+          router.refresh();
         } catch {
           setErr("Не вдалось завантаження фото!");
         } finally {
