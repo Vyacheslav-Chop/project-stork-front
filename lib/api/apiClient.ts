@@ -4,6 +4,8 @@ import { Task } from "@/types/tasks";
 import { ApiResponse, UserResponse, NewUser, UserPayload } from "../../types/user";
 import { BabyWeekData } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
+import { BabyState } from "@/types/babyState";
+import { MomState } from "@/types/momState";
 
 
 export async function register(newUser: NewUser): Promise<UserResponse> {

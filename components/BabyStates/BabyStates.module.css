@@ -92,6 +92,28 @@
   color: #000000;
 }
 
+@media (max-width: 375px) {
+  .baby-state-container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 300px;
+    margin: 0 auto;
+  }
+
+  .img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .development-card,
+  .fact-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+
 
 @media (min-width: 768px) {
   .baby-state-container {
