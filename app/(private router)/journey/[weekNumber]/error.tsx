@@ -1,6 +1,8 @@
 "use client";
 
-import css from "@/components/Error/ErrorText.module.css";
+import ErrorText from "@/components/ErrorText/ErrorText";
+
+// import css from "@/components/Error/ErrorText.module.css";
 
 type ErrorProps = {
   error: Error;
@@ -8,6 +10,6 @@ type ErrorProps = {
 
 export default function Error({ error }: ErrorProps) {
   return (
-    <p className={css.text}>Could not fetch journey details. {error.message}</p>
+    <ErrorText message={error.message} />
   );
 }
