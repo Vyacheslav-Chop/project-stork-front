@@ -1,0 +1,171 @@
+.mom-state-container {
+  display: grid;
+  gap: 24px;
+}
+
+.left-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Cards */
+.feelings-card,
+.tips-card {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 12px;
+  width: 100%;
+  max-width: 704px; /* stretches nicely on tablet; narrowed on mobile by container */
+  border: 0 solid rgba(0, 0, 0, 0.15);
+  border-radius: 32px;
+  background: #fff;
+}
+
+/* Titles & text */
+.title {
+  font-family: 'Comfortaa';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
+  color: #000;
+}
+
+.sensations {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #000;
+}
+
+/* Feelings list as pills */
+.feelings-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feelings-item {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 100px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 160%;
+  color: #000;
+}
+
+/* Tips list (dl rows) */
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  margin: 0;
+}
+
+.tip-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 8px;
+}
+
+.category {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 160%;
+  color: #000;
+}
+
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  -webkit-mask: no-repeat center / contain;
+  mask: no-repeat center / contain;
+}
+
+.category[data-cat="nutrition"] .icon {
+  -webkit-mask-image: url("/icons/nutrition.svg");
+  mask-image: url("/icons/nutrition.svg");
+}
+.category[data-cat="activity"] .icon {
+  -webkit-mask-image: url("/icons/activity.svg");
+  mask-image: url("/icons/activity.svg");
+}
+.category[data-cat="rest"] .icon {
+  -webkit-mask-image: url("/icons/rest.svg");
+  mask-image: url("/icons/rest.svg");
+}
+
+.tip {
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #000;
+}
+
+/* Tablet width adjustments */
+@media (min-width: 768px) {
+  .feelings-card,
+  .tips-card {
+    width: 704px;
+    max-width: none;
+  }
+}
+
+/* ========== Desktop (fixed heights + scroll) ========== */
+@media (min-width: 1440px) {
+  :root {
+    /* Tune these to match the Figma fixed heights */
+    --feelings-h: 260px;
+    --tips-h: 360px;
+  }
+
+  .mom-state-container {
+    grid-template-columns: 1fr auto; /* left stack + right column */
+    align-items: start;
+  }
+
+  .left-column {
+    align-items: stretch;
+    /* keeps both cards the same fixed widths below */
+  }
+
+  .feelings-card,
+  .tips-card {
+    width: 650px;
+    max-width: none;
+    /* Fixed heights per design */
+    overflow: hidden; /* keep rounded corners clean */
+    /* The inner scroll effect: let content scroll vertically inside padding box */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .feelings-card { height: var(--feelings-h); }
+  .tips-card { height: var(--tips-h); }
+}
