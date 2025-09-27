@@ -9,12 +9,12 @@ import {
   WeekTipResponse,
 } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
-import { BabyState } from "@/types/babyState";
+import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
-  const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
+  const res = await nextServer.post<AxiosRes<UserResponse>>("/auth/register", newUser);
   return res.data.data;
 }
 
@@ -117,10 +117,10 @@ export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
   return res.data.data;
 };
 
-export const getWeekStatic = async (): Promise<BabyWeekData> => {
-  const res = await nextServer.get("/weeks/public");
+export const getWeekStatic = async (): Promise<WeekRes> => {
+  const res = await nextServer.get<AxiosRes<WeekRes>>("/weeks/public");
 
-  return res.data.data.weekData;
+  return res.data.data;
 };
 
 export const getWeekDynamic = async () => {
