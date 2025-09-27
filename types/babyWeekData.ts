@@ -10,3 +10,18 @@ export interface BabyWeekData {
   interestingFact: string;
   momDailyTips: string[];
 }
+
+export type WeekTip = string[];
+
+export interface ApiWeekResponse<T> {
+  status: number;
+  message: string;
+  data: T;
+}
+
+export interface WeekTipResponse {
+  weekData: {
+    momDailyTips: string[];
+    weekNumber: number
+  }
+};

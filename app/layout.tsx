@@ -6,7 +6,10 @@ import type { Metadata } from "next";
 import Header from "@/components/Header/Header";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import HeaderWrapper from "./HeaderWrapper";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -34,11 +37,9 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   modal,
-  sidebar,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
-  sidebar: React.ReactNode;
 }>) {
   return (
     <html lang="uk">
@@ -50,6 +51,13 @@ export default function RootLayout({
             <aside>{sidebar}</aside>
 
             <main>{children}</main>
+            {modal}
+            <HeaderWrapper />
+
+            <main>
+              <Breadcrumbs />
+              <div>{children}</div>
+            </main>
             {modal}
           </AuthProvider>
           <Toaster position="top-center" reverseOrder={false} />

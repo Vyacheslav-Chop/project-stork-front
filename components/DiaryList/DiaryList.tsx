@@ -21,7 +21,7 @@ export default function DiaryList({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1200);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -31,10 +31,17 @@ export default function DiaryList({
     <section className={styles.wrapper}>
       <div className={styles.header}>
         <h2 className={styles.title}>Ваші записи</h2>
-        <p>Новий запис</p>
-        <button className={styles.addBtn} onClick={() => setIsModalOpen(true)}>
-          +
-        </button>
+        <div className={styles.desc_btn}>
+          <p className={styles.description}>Новий запис</p>
+          <button
+            className={styles.addBtn}
+            onClick={() => setIsModalOpen(true)}
+          >
+            <svg width={24} height={24}>
+              <use href="/icons/icon_add_task.svg"></use>
+            </svg>
+          </button>
+        </div>
       </div>
 
       {(!diaries || diaries.length === 0) && (

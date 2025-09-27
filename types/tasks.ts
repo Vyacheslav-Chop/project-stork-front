@@ -4,3 +4,13 @@ export interface Task {
   date: string;
   isDone: boolean;
 }
+
+export interface CreateTaskProps {
+  name: string;
+  date: string;
+}
+
+export interface UpdateTaskProps {
+  name?: string;
+  date?: string;
+}

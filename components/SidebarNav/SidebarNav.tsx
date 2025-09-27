@@ -26,7 +26,8 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           </Link>
         </li>
         <li>
-          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+          {/* поки підключив в любому випадку щоб відкривало даірі при натискані на щоденик, як запрацює логін треба підключити "/diary" : "/auth/login" */}
+          <Link href={isAuth ? "/diary" : "/diary"} className={css.navItem}>
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-book"></use>
             </svg>

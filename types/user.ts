@@ -9,11 +9,6 @@ export interface UserResponse {
   updatedAt: string;
 }
 
-export interface ApiResponse {
-  status: number;
-  message: string;
-  data: UserResponse;
-}
 export interface NewUser {
   name: string;
   email: string;
