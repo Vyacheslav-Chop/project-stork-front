@@ -1,8 +1,8 @@
 // import { ApiResponse } from "@/types/user";
-import { nextServer } from "./api";
+import { nextClient, nextServer } from "./api";
 import { Task } from "@/types/tasks";
 import { ApiResponse, UserResponse, NewUser } from "../../types/user";
-import { BabyWeekData } from "@/types/babyWeekData";
+import { ApiWeekResponse, BabyWeekData, WeekTip, WeekTipResponse } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
 
 
@@ -126,3 +126,15 @@ export const getEmotions = async (): Promise<Emotion[]> => {
 
   return res.data.data;
 };
+
+export const getPublicMomTips = async (): Promise<WeekTip> => {
+  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>('/weeks/public');
+
+  return res.data.data.weekData.momDailyTips;
+}
+
+export const getPrivateMomTips = async (): Promise<WeekTip> => {
+  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>('/weeks/private');
+
+  return res.data.data.weekData.momDailyTips;
+}
