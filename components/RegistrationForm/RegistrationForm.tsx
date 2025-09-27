@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import css from './RegistrationForm.module.css';
@@ -9,7 +7,7 @@ import { useAuth } from '@/lib/store/authStore';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
 
@@ -25,11 +23,15 @@ const SignupSchema = Yup.object().shape({
     .min(8, 'Мінімум 8 символів')
     .required('Пароль є обов’язковим'),
 });
-
 type ValuesProps = {
   name: string;
   email: string;
   password: string
+}
+const initialValues: ValuesProps = {
+  name: "",
+  email: "",
+  password: ""
 }
 const RegistrationForm = () => {
   const router = useRouter();
@@ -56,35 +58,90 @@ const RegistrationForm = () => {
       <div className={css.wrapper}>
         <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
-        initialValues={{ name: '', email: '', password: '' }}
+        initialValues={initialValues}
+        validateOnChange={false}
+        validateOnBlur={true}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
               
         <Form className={css.form}>
-          <div className={css.formGroup}>
-            <label htmlFor="name">Імʼя</label>
-            <Field id="name" name="name" type="text" className={css.input} />
-            <ErrorMessage name="name" component="div" className={css.error} />
-          </div>
+          
+         <Field name="name">
+  {({ field, meta }: FieldProps<string>) => (
+    <div className={css.formGroup}>
+      <label
+        htmlFor="name"
+        className={`${css.formLabel} ${meta.touched && meta.error ? css.labelError : ''}`}
+      >
+        Імʼя*
+      </label>
+      <input
+        {...field}
+        id="name"
+        type="text"
+        placeholder="Your Name"
+        className={`${css.input} ${meta.touched && meta.error ? css.inputError : ''}`}
+      />
+      {meta.touched && meta.error && (
+        <div className={css.errorText}>{meta.error}</div>
+      )}
+    </div>
+  )}
+</Field>
 
-          <div className={css.formGroup}>
-            <label htmlFor="email">Пошта</label>
-            <Field id="email" name="email" type="email" className={css.input} />
-            <ErrorMessage name="email" component="div" className={css.error} />
-          </div>
+        <Field name="email">
+  {({ field, meta }: FieldProps<string>) => (
+    <div className={css.formGroup}>
+      <label
+        htmlFor="email"
+        className={`${css.formLabel} ${meta.touched && meta.error ? css.labelError : ''}`}
+      >
+        Пошта*
+      </label>
+      <input
+        {...field}
+        id="email"
+        type="text"
+        placeholder="you@example.com"
+        className={`${css.input} ${meta.touched && meta.error ? css.inputError : ''}`}
+      />
+      {meta.touched && meta.error && (
+        <div className={css.errorText}>{meta.error}</div>
+      )}
+    </div>
+  )}
+</Field>
+            
 
-          <div className={css.formGroup}>
-            <label htmlFor="password">Пароль</label>
-            <Field id="password" name="password" type="password" className={css.input} />
-            <ErrorMessage name="password" component="div" className={css.error} />
-          </div>
-
-          <button type="submit" className={css.submitButton}>
+     <Field name="password">
+  {({ field, meta }: FieldProps<string>) => (
+    <div className={css.formGroup}>
+      <label
+        htmlFor="password"
+        className={`${css.formLabel} ${meta.touched && meta.error ? css.labelError : ''}`}
+      >
+        Пароль*
+      </label>
+      <input
+        {...field}
+        id="password"
+        type="text"
+        placeholder="********"
+        className={`${css.input} ${meta.touched && meta.error ? css.inputError : ''}`}
+      />
+      {meta.touched && meta.error && (
+        <div className={css.errorText}>{meta.error}</div>
+      )}
+    </div>
+  )}
+</Field>
+  
+   <button type="submit" className={css.submitButton}>
             Зареєструватись
-          </button>
+          </button>       
 
-          {errorMessage && <p className={css.error}>{errorMessage}</p>}
+     {errorMessage && <p className={css.error}>{errorMessage}</p>}
         </Form>
       </Formik>
       <div className={css.content}>
@@ -107,6 +164,6 @@ const RegistrationForm = () => {
       
     </main>
   );
-};
+};     
 
 export default RegistrationForm;
