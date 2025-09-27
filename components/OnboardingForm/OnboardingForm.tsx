@@ -9,7 +9,7 @@ import { format, isValid, parse } from 'date-fns';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
 
-import css from './ProfileEditForm.module.css';
+import css from './OnboardingForm.module.css';
 import CustomSelect from '../ProfileEditForm/CustomSelectProfileEditForm';
 
 

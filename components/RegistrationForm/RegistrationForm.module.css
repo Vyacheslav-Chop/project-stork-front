@@ -153,7 +153,11 @@ input:-webkit-autofill {
   display: none;
 }
 
-
+.errorMessage{
+  color: #dc3545;
+  font-size: 15px;
+  text-align: center;
+}
 @media only screen and (max-width: 768px) {
 .input {
   height: 37px;
