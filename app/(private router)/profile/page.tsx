@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import ProfileAvatar from "@/components/ProfileAvatar/ProfileAvatar";
 import ProfileEditForm from "@/components/ProfileEditForm/ProfileEditForm";
 import { getUserServer } from "@/lib/api/apiServer";
-import toast from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Ваш профіль — Лелека",
@@ -40,7 +39,7 @@ const Profile = async () => {
   return (
     <div className={css.profileCard}>
       <ProfileAvatar user={user} />
-      <ProfileEditForm />
+      <ProfileEditForm user={user} />
     </div>
   );
 };
