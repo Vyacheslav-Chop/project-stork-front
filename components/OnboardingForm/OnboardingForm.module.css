@@ -1,0 +1,131 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.selectWrap {
+  position: relative;
+  width: 100%;
+}
+
+.formLabel {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  fill: rgba(0, 0, 0, 0.6);
+}
+
+.dropdown {
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #f7f7f7;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  z-index: 10;
+}
+
+.disabled {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: default;
+  pointer-events: none;
+}
+
+.dateWrap {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.dateWrap svg {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  fill: rgba(0, 0, 0, 0.6);
+}
+
+.dateWrapper {
+  width: 100%;
+}
+
+.dateInput {
+  display: block;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
+  padding-right: 32px;
+  width: 100%;
+  transition: boder 0.3s ease, outline 0.3s ease color 0.3s ease;
+}
+
+.dateInput:focus {
+  border: 2px solid #ffcbd3;
+  outline: none;
+  color: #000000;
+}
+
+.submitBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid #ffcbd3;
+  border-radius: 100px;
+  padding: 8px 20px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: #ffdae0;
+  width: 100%;
+  transition: border-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+.submitBtn:hover,
+.submitBtn:focus {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+}
+
+.submitBtn:active {
+  background-color: #ffcbd3;
+  border: none;
+}
+
+.error {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #c60000;
+}
+
+.inputError {
+  border: 1px solid #c60000;
+  color: #c60000;
+}
