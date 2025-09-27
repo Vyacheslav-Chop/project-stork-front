@@ -25,11 +25,8 @@ export const login = async (payload) => {
 };
 
 export const refresh = async () => {
-  console.log("Refresh client start>>>>>>>>");
 
   const res = await nextServer.post("/auth/refresh");
-
-  console.log("Refresh client after>>>>>>>>");
 
   return res.data;
 };
