@@ -10,12 +10,13 @@ import { updateUser } from "@/lib/api/apiClient";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 import css from "./ProfileEditForm.module.css";
-import { Gender, UserPayload } from "@/types/user";
+import { Gender, UserPayload, UserResponse } from "@/types/user";
 import CustomSelect from "./CustomSelectProfileEditForm";
+import { useRouter } from "next/navigation";
 
 const ProfileSchema = Yup.object().shape({
   username: Yup.string()
-    .min(3, "Мінімум символів 3")
+    .min(1, "Мінімум символів 1")
     .max(32, "максимально символів 32"),
   email: Yup.string().email("Невірна пошта"),
   gender: Yup.string().oneOf(
@@ -25,6 +26,10 @@ const ProfileSchema = Yup.object().shape({
   dueDate: Yup.date().min(new Date(), "Оберіть правильну дату!"),
 });
 
+interface EditFormProps {
+  user: UserResponse;
+}
+
 type InitialValues = {
   username: string;
   email: string;
@@ -32,10 +37,11 @@ type InitialValues = {
   dueDate: string;
 };
 
-const ProfileEditForm = () => {
+const ProfileEditForm = ({ user }: EditFormProps) => {
   const fieldId = useId();
-  const { user } = useAuth();
   const setUser = useAuth((state) => state.setUser);
+
+  const router = useRouter();
 
   const formValues: InitialValues = {
     username: user?.name ?? "",
@@ -81,6 +87,7 @@ const ProfileEditForm = () => {
       if (res) {
         toast.success("Дані оновлено успішно!");
         setUser(res);
+        router.refresh();
       }
     } catch {
       toast.error("Не вдалося оновити дані. Спробуйте пізніше!");
@@ -150,26 +157,7 @@ const ProfileEditForm = () => {
               Стать дитини
             </label>
             <div className={css.selectWrap}>
-              {/* <Field
-                className={css.formSelect}
-                as="select"
-                name="babyGender"
-                id={`${fieldId}-babyGender`}
-              >
-                {" "}
-                <option className={css.option} value="" disabled>
-                  Оберіть стать дитини
-                </option>
-                <option value="Хлопчик">Хлопчик</option>
-                <option value="Дівчинка">Дівчинка</option>
-                <option value="Ще не знаю">Ще не знаю</option>
-              </Field> */}
-
               <Field name="babyGender" component={CustomSelect} />
-
-              <svg width={24} height={24} className={css.selectIcon}>
-                <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
-              </svg>
             </div>
             <ErrorMessage
               component="div"
