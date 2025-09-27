@@ -134,11 +134,11 @@ export const getWeekDynamic = async () => {
 };
 
 export const getMomState = async (week: number): Promise<MomState> => {
-  const res = await nextServer.get<AxiosRes<MomState>>(
+  const res = await nextServer.get<MomState>(
     `/weeks/mom-state/${week}`
   );
 
-  return res.data.data;
+  return res.data;
 };
 
 export const getBabyState = async (week: number): Promise<BabyState> => {
