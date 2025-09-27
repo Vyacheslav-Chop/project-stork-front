@@ -14,6 +14,7 @@ export interface ApiResponse {
   message: string;
   data: UserResponse;
 }
+
 export interface NewUser {
   name: string;
   email: string;

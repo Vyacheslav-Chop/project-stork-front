@@ -1,0 +1,46 @@
+.card {
+  border-radius: 32px;
+  width: 335px;
+  min-height: 146px;
+  background-color: #fff4f6;
+  margin: auto;
+  padding: 24px;
+}
+
+.title {
+  font-family: var(--font-comfortaa);
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: #000000;
+  padding-bottom: 4px;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #000000;
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    width: 704px;
+    min-height: 124px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .card {
+    width: 642px;
+    min-height: 138px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}

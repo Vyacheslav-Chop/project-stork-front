@@ -10,4 +10,4 @@ export interface MomState {
     category: string;
     tip: string;
   }>;
-};
+}
