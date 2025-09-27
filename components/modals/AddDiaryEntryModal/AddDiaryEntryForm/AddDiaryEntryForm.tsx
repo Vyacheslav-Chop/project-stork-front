@@ -15,6 +15,7 @@ interface Props {
 
 export default function AddDiaryEntryForm({ onClose, onSuccess }: Props) {
   const [emotions, setEmotions] = useState<Emotion[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,124 +30,140 @@ export default function AddDiaryEntryForm({ onClose, onSuccess }: Props) {
   }, []);
 
   return (
-    <Formik
-      initialValues={{
-        title: "",
-        categories: [] as string[],
-        description: "",
-        emotions: [] as string[],
-      }}
-      validationSchema={validationDiarySchema}
-      onSubmit={async (values, { setSubmitting, resetForm }) => {
-        try {
-          await createDiary({
-            title: values.title,
-            description: values.description,
-            category: values.categories,
-            emotions: values.emotions,
-          });
+    <div className={styles.overlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <Formik
+          initialValues={{
+            title: "",
+            emotions: [] as string[],
+            description: "",
+          }}
+          validationSchema={validationDiarySchema}
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            try {
+              await createDiary({
+                title: values.title,
+                description: values.description,
+                emotions: values.emotions,
+              });
 
-          toast.success("✅ Новий запис створено!");
-          resetForm();
-          onSuccess();
-          onClose();
-        } catch (err) {
-          console.error(err);
-          toast.error("❌ Помилка при створенні запису");
-        } finally {
-          setSubmitting(false);
-        }
-      }}
-    >
-      {({ isSubmitting, values, setFieldValue }) => (
-        <Form className={styles.form}>
-          <h2 className={styles.title}>Новий запис</h2>
+              toast.success("✅ Новий запис створено!");
+              resetForm();
+              onSuccess();
+              onClose();
+            } catch (err) {
+              console.error(err);
+              toast.error("❌ Помилка при створенні запису");
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting, values, setFieldValue }) => (
+            <Form className={styles.form}>
+              <h2 className={styles.title}>Новий запис</h2>
 
-          <label className={styles.label}>
-            Заголовок
-            <Field type="text" name="title" className={styles.input} />
-            <ErrorMessage
-              name="title"
-              component="div"
-              className={styles.error}
-            />
-          </label>
+              <label className={styles.label}>
+                Заголовок
+                <Field
+                  type="text"
+                  name="title"
+                  className={styles.input}
+                  placeholder="Введіть заголовок запису"
+                />
+                <ErrorMessage
+                  name="title"
+                  component="div"
+                  className={styles.error}
+                />
+              </label>
 
-          <label className={styles.label}>
-            Категорії
-            <select
-              multiple
-              className={styles.select}
-              value={values.categories}
-              onChange={(e) =>
-                setFieldValue(
-                  "categories",
-                  Array.from(e.target.selectedOptions, (opt) => opt.value)
-                )
-              }
-            >
-              <option value="Натхнення">Натхнення</option>
-              <option value="Вдячність">Вдячність</option>
-              <option value="Тривога">Тривога</option>
-              <option value="Дивні бажання">Дивні бажання</option>
-              <option value="Нудота">Нудота</option>
-            </select>
-            <ErrorMessage
-              name="categories"
-              component="div"
-              className={styles.error}
-            />
-          </label>
+              <label className={styles.label}>
+                Категорії
+                <div className={styles.multiSelectWrapper}>
+                  <div
+                    className={styles.multiSelectTrigger}
+                    onClick={() => setIsOpen((prev) => !prev)}
+                  >
+                    {values.emotions.length > 0 ? (
+                      <div className={styles.tags}>
+                        {values.emotions.map((id) => {
+                          const emo = emotions.find((e) => e._id === id);
+                          return (
+                            <span key={id} className={styles.tag}>
+                              {emo?.title}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <span className={styles.placeholder}>
+                        Обрати категорію
+                      </span>
+                    )}
+                    <span className={styles.arrow}>{isOpen ? "▲" : "▼"}</span>
+                  </div>
 
-          <label className={styles.label}>
-            Емоції
-            <select
-              multiple
-              className={styles.select}
-              value={values.emotions}
-              onChange={(e) =>
-                setFieldValue(
-                  "emotions",
-                  Array.from(e.target.selectedOptions, (opt) => opt.value)
-                )
-              }
-            >
-              {emotions.map((emo) => (
-                <option key={emo._id} value={emo._id}>
-                  {emo.title}
-                </option>
-              ))}
-            </select>
-            <ErrorMessage
-              name="emotions"
-              component="div"
-              className={styles.error}
-            />
-          </label>
+                  {isOpen && (
+                    <ul className={styles.dropdown}>
+                      {emotions.map((emo) => (
+                        <li key={emo._id} className={styles.item}>
+                          <label className={styles.checkboxLabel}>
+                            <input
+                              type="checkbox"
+                              checked={values.emotions.includes(emo._id)}
+                              onChange={() => {
+                                const updated = new Set(values.emotions);
+                                updated.has(emo._id)
+                                  ? updated.delete(emo._id)
+                                  : updated.add(emo._id);
+                                setFieldValue("emotions", Array.from(updated));
+                              }}
+                            />
+                            {emo.title}
+                          </label>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+                <ErrorMessage
+                  name="emotions"
+                  component="div"
+                  className={styles.error}
+                />
+              </label>
 
-          <label className={styles.label}>
-            Запис
-            <Field
-              as="textarea"
-              name="description"
-              className={styles.textarea}
-            />
-            <ErrorMessage
-              name="description"
-              component="div"
-              className={styles.error}
-            />
-          </label>
-
-          <button
-            type="submit"
-            className={styles.submitBtn}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Збереження..." : "Зберегти"}
-          </button>
-        </Form>
-      )}
-    </Formik>
+              <label className={styles.label}>
+                Запис
+                <Field
+                  as="textarea"
+                  name="description"
+                  className={styles.textarea}
+                  placeholder="Запишіть, як ви себе відчуваєте"
+                />
+                <ErrorMessage
+                  name="description"
+                  component="div"
+                  className={styles.error}
+                />
+              </label>
+              <button className={styles.closeBtn} onClick={onClose}>
+                <svg width={24} height={24}>
+                  <use href="/icons/iconsSideBar.svg#icon-close"></use>
+                </svg>
+              </button>
+              <button
+                type="submit"
+                className={styles.submitBtn}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Збереження..." : "Зберегти"}
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
   );
 }
