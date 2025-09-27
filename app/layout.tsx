@@ -4,8 +4,8 @@ import { Lato, Comfortaa } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import Header from "@/components/Header/Header";
-import Breadcrumbs from '@/components/Breadcrumbs/Breadcrumbs';
-import AuthProvider from '@/components/AuthProvider/AuthProvider';
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 const lato = Lato({
@@ -45,12 +45,12 @@ export default function RootLayout({
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-          <Header />
-          <Breadcrumbs />
-          <aside>{sidebar}</aside>
+            <Header />
+            <Breadcrumbs />
+            <aside>{sidebar}</aside>
 
-          <main>{children}</main>
-          {modal}
+            <main>{children}</main>
+            {modal}
           </AuthProvider>
           <Toaster position="top-center" reverseOrder={false} />
         </TanStackProvider>
