@@ -1,0 +1,13 @@
+.logoBlock {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 4px;
+  width: 95px;
+  height: 29px;
+  /* padding-bottom: 14px;
+  padding-top: 14px; */
+
+}

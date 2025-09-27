@@ -1,12 +1,7 @@
 // import { ApiResponse } from "@/types/user";
 import { nextClient, nextServer } from "./api";
 import { CreateTaskProps, Task, UpdateTaskProps } from "@/types/tasks";
-import {
-  ApiResponse,
-  UserResponse,
-  NewUser,
-  UserPayload,
-} from "../../types/user";
+import { UserResponse, NewUser, UserPayload } from "../../types/user";
 import {
   ApiWeekResponse,
   BabyWeekData,
@@ -14,12 +9,12 @@ import {
   WeekTipResponse,
 } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
-import { BabyState } from "@/types/babyState";
+import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
-  const res = await nextServer.post<ApiResponse>("/auth/register", newUser);
+  const res = await nextServer.post<AxiosRes<UserResponse>>("/auth/register", newUser);
   return res.data.data;
 }
 
@@ -30,11 +25,8 @@ export const login = async (payload) => {
 };
 
 export const refresh = async () => {
-  console.log("Refresh client start>>>>>>>>");
 
   const res = await nextServer.post("/auth/refresh");
-
-  console.log("Refresh client after>>>>>>>>");
 
   return res.data;
 };
@@ -95,36 +87,39 @@ export const updateTaskStatusById = async (
   return res.data.data;
 };
 
-export const getUser = async (): Promise<ApiResponse> => {
-  const res = await nextServer.get<ApiResponse>("/users");
+export const getUser = async (): Promise<UserResponse> => {
+  const res = await nextServer.get<AxiosRes<UserResponse>>("/users");
 
-  return res.data;
+  return res.data.data;
 };
 
 export const updateUser = async (
   payload: UserPayload
 ): Promise<UserResponse> => {
-  const res = await nextServer.patch<UserResponse>("/users", payload);
+  const res = await nextServer.patch<AxiosRes<UserResponse>>(
+    "/users",
+    payload
+  );
 
-  return res.data;
-};
-
-export const updateUserAvatar = async (file) => {
-  const formData = new FormData();
-  console.log(file instanceof File);
-
-  formData.append("avatar", file);
-
-  console.log(file.name, file.type, file.size);
-
-  const res = await nextServer.patch("/users/avatar", formData);
   return res.data.data;
 };
 
-export const getWeekStatic = async (): Promise<BabyWeekData> => {
-  const res = await nextServer.get("/weeks/public");
+export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
+  const formData = new FormData();
 
-  return res.data.data.weekData;
+  formData.append("avatar", file, file.name);
+
+  const res = await nextServer.patch<AxiosRes<UserResponse>>(
+    "/users/avatar",
+    formData
+  );
+  return res.data.data;
+};
+
+export const getWeekStatic = async (): Promise<WeekRes> => {
+  const res = await nextServer.get<AxiosRes<WeekRes>>("/weeks/public");
+
+  return res.data.data;
 };
 
 export const getWeekDynamic = async () => {
