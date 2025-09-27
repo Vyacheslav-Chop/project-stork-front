@@ -76,7 +76,6 @@ const ProfileEditForm = () => {
             : undefined,
         dueDate: values.dueDate || undefined,
       };
-      console.log(payload);
 
       const res = await updateUser(payload);
       if (res) {

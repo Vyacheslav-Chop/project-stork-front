@@ -10,10 +10,10 @@ export async function middleware(request: NextRequest) {
   const refreshToken = cookieStore.get("refreshToken")?.value;
   const { pathname } = request.nextUrl;
 
-  console.log("COOKIESTORE >>", cookieStore);
+  // console.log("COOKIESTORE >>", cookieStore);
   
-  console.log("ACCESSTOKEN >>", accessToken);
-  console.log('REFRESHTOKEN >>', refreshToken);
+  // console.log("ACCESSTOKEN >>", accessToken);
+  // console.log('REFRESHTOKEN >>', refreshToken);
   
   
 
@@ -36,7 +36,7 @@ export async function middleware(request: NextRequest) {
 
       try {
         const refreshUrl = new URL("/auth/refresh", request.url);
-        console.log("refreshUrl >>", refreshUrl);
+        // console.log("refreshUrl >>", refreshUrl);
         
         const apiRes = await fetch(refreshUrl.toString(), {
           headers: { Cookie: cookieStore.toString() },

@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
 
     const formData = await request.formData();
     const file = formData.get("avatar");
@@ -21,7 +22,7 @@ export async function PATCH(request: Request) {
 
     const { data } = await api.patch("/users/avatar", uploadData, {
       headers: {
-        Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${accessToken}`,
         "Content-Type": "multipart/form-data",
       },
     });
@@ -34,8 +35,7 @@ export async function PATCH(request: Request) {
       { error: "Не вдалося оновити аватар користувача" },
       { status: 500 }
     );
-  } catch (error) {
-    console.log(error);
+  } catch {
     return NextResponse.json(
       { error: "Не вдалося оновити аватар користувача" },
       { status: 500 }
