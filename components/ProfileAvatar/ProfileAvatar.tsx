@@ -7,9 +7,14 @@ import { updateUserAvatar } from "@/lib/api/apiClient";
 import Loader from "../Loader/Loader";
 import { useAuth } from "@/lib/store/authStore";
 import ErrorText from "../ErrorText/ErrorText";
+// import { profile } from "console";
+import { UserResponse } from "@/types/user";
 
-const ProfileAvatar = () => {
-  const { user } = useAuth();
+type ProfileProps = {
+  user: UserResponse
+}
+
+const ProfileAvatar = ({user}: ProfileProps) => {
   const setUser = useAuth((state) => state.setUser);
   const [avatar, setAvatar] = useState<string | null>(user?.avatar ?? null);
   const [err, setErr] = useState("");
@@ -65,8 +70,8 @@ const ProfileAvatar = () => {
         />
       </div>
       <div className={css.profileInfo}>
-        <p className={css.textName}>Ганна{user?.name}</p>
-        <p className={css.textEmail}>test.rest1@gmail.com{user?.email}</p>
+        <p className={css.textName}>{user?.name}</p>
+        <p className={css.textEmail}>{user?.email}</p>
         <button
           className={css.uploadBtn}
           onClick={(e) => handleClickBtn(e)}

@@ -15,7 +15,7 @@ const CAT_KEY: Record<string, string> = {
   "Відпочинок": "rest"
 };
 
-export default function MomStates({data, week}: MomStateProps) {
+export default function MomStates({data, week}: MomStateProps) {    
     return (
         <div className={css["mom-state-container"]}>
             <div className={css["left-column"]}>

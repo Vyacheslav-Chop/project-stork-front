@@ -25,6 +25,8 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       }
     };
     fetchUser();
+    console.log('Auth provider>>>>>>');
+    
   }, [setUser, clearIsAuthenticated]);
 
   return children;

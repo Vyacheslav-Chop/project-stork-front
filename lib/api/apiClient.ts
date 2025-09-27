@@ -5,7 +5,7 @@ import { ApiResponse, UserResponse, NewUser, UserPayload } from "../../types/use
 import { ApiWeekResponse, BabyWeekData, WeekTip, WeekTipResponse } from "@/types/babyWeekData";
 import { Emotion } from "@/types/emotions";
 import { BabyState } from "@/types/babyState";
-import { MomState } from "@/types/momState";
+import { AxiosRes, MomState } from "@/types/momState";
 
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
@@ -20,7 +20,13 @@ export const login = async (payload) => {
 };
 
 export const refresh = async () => {
+console.log("Refresh client start>>>>>>>>");
+
+
   const res = await nextServer.post("/auth/refresh");
+
+  console.log("Refresh client after>>>>>>>>");
+
 
   return res.data;
 };
@@ -112,9 +118,9 @@ export const getWeekDynamic = async () => {
 };
 
 export const getMomState = async (week: number): Promise<MomState> => {
-  const res = await nextServer.get<MomState>(`/weeks/mom-state/${week}`);
+  const res = await nextServer.get<AxiosRes<MomState>>(`/weeks/mom-state/${week}`);
 
-  return res.data;
+  return res.data.data;
 };
 
 export const getBabyState = async (week: number): Promise<BabyState> => {

@@ -8,9 +8,10 @@ export async function POST() {
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
 
-  if (accessToken) return { success: true };
+  if (accessToken) return NextResponse.json({ success: true });
 
   if (refreshToken) {
+
     const apiRes = await api.post(
       "auth/refresh",
       {},
@@ -20,7 +21,6 @@ export async function POST() {
         },
       }
     );
-
     const setCookie = apiRes.headers["set-cookie"];
     if (setCookie) {
       const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
