@@ -4,15 +4,16 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./TasksReminderCard.module.css";
-import { getTasks } from "@/lib/api/apiClient";
+import { getTasks, updateTaskStatusById } from "@/lib/api/apiClient";
 import { useAuth } from "@/lib/store/authStore";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Loader from "../Loader/Loader";
 import ErrorText from "../ErrorText/ErrorText";
 
 export default function TasksReminderCard() {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
+  const queryClient = useQueryClient();
 
   const {
     data: tasks = [],
@@ -22,6 +23,13 @@ export default function TasksReminderCard() {
     queryKey: ["tasks"],
     queryFn: () => getTasks(),
     enabled: isAuthenticated,
+  });
+
+  const statusMutation = useMutation({
+    mutationFn: (taskId) => updateTaskStatusById(taskId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["tasks"]);
+    },
   });
 
   const handleAdd = () => {
@@ -40,9 +48,16 @@ export default function TasksReminderCard() {
     );
   }
 
-  const sorted = [...tasks].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const sorted = [...tasks].sort((a, b) => {
+    if (a.isDone !== b.isDone) {
+      return a.isDone ? 1 : -1;
+    }
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
+  const handleToggle = (taskId) => {
+    statusMutation.mutate(taskId);
+  };
 
   return (
     <div className={styles.card}>
@@ -79,10 +94,14 @@ export default function TasksReminderCard() {
                 <input
                   type="checkbox"
                   checked={t.isDone}
-                  readOnly
+                  onChange={() => handleToggle(t._id)}
                   className={styles.taskCheckbox}
                 />
-                <span className={t.isDone ? styles.doneText : ""}>
+                <span
+                  className={`${styles.taskText} ${
+                    t.isDone ? styles.doneText : ""
+                  }`}
+                >
                   {t.name}
                 </span>
               </label>

@@ -80,7 +80,7 @@ export const updateTaskStatusById = async (
   payload: UpdateTaskProps
 ): Promise<Task> => {
   const res = await nextServer.patch<AxiosRes<Task>>(
-    `/tasks/${taskId}`,
+    `/tasks/${taskId}/status`,
     payload
   );
 
@@ -106,9 +106,8 @@ export const updateUser = async (
 
 export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
   const formData = new FormData();
-  formData.append("avatar", file, file.name);
 
-  console.log(file.name, file.type, file.size);
+  formData.append("avatar", file, file.name);
 
   const res = await nextServer.patch<AxiosRes<UserResponse>>(
     "/users/avatar",
