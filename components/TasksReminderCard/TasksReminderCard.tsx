@@ -75,17 +75,23 @@ export default function TasksReminderCard() {
                   month: "2-digit",
                 })}
               </span>
-              <label className={styles.taskLabel}>
-                <input
-                  type="checkbox"
-                  checked={t.isDone}
-                  readOnly
-                  className={styles.taskCheckbox}
-                />
-                <span className={t.isDone ? styles.doneText : ""}>
-                  {t.name}
-                </span>
-              </label>
+              <div className={styles.taskContent}>
+                <label className={styles.taskLabel}>
+                  <input
+                    type="checkbox"
+                    checked={t.isDone}
+                    readOnly
+                    className={styles.taskCheckbox}
+                  />
+                  <span
+                    className={`${styles.taskText} ${
+                      t.isDone ? styles.doneText : ""
+                    }`}
+                  >
+                    {t.name}
+                  </span>
+                </label>
+              </div>
             </div>
           ))
         )}
