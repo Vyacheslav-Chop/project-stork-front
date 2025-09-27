@@ -128,7 +128,7 @@ const RegistrationForm = () => {
       <input
         {...field}
         id="password"
-        type="text"
+        type="password"
         placeholder="********"
         className={`${css.input} ${meta.touched && meta.error ? css.inputError : ''}`}
       />
@@ -143,7 +143,7 @@ const RegistrationForm = () => {
             Зареєструватись
           </button>       
 
-     {errorMessage && <p className={css.error}>{errorMessage}</p>}
+     {errorMessage && <p className={css.errorMessage}>{errorMessage}</p>}
         </Form>
         </Formik>
         

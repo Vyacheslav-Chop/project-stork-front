@@ -1,6 +1,6 @@
 "use client";
 
-import css from "./ProfileAvatar.module.css";
+import css from "./OnboardingAvatar.module.css";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import Loader from "../Loader/Loader";

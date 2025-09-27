@@ -1,0 +1,87 @@
+.input {
+  display: none;
+}
+
+.avatarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  border-radius: 100%;
+}
+
+
+.uploadBtn {
+  font-weight: 500;
+  border: none;
+  font-size: 14px;
+  line-height: 1.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  border-radius: 100px;
+  padding: 8px 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 100%;
+  transition: border-bottom 0.3s ease, background-color 0.3s ease;
+}
+
+.uploadBtn:hover,
+.uploadBtn:focus {
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff4f6;
+}
+
+.uploadBtn:active {
+  background-color: #b2b2b2;
+  border: none;
+}
+
+@media screen and (min-width: 768px) {
+  
+  .avatarWrapper {
+    margin-bottom: 0;
+  }
+
+  .textName {
+    text-align: left;
+  }
+
+  .textEmail {
+    text-align: left;
+  }
+
+  .uploadBtn {
+    min-width: 218px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .wrap {
+    width: 644px;
+  }
+
+  .avatarWrapper {
+    margin-bottom: 0;
+  }
+
+  .textName {
+    font-size: 24px;
+  }
+
+  .textEmail {
+    text-align: left;
+  }
+
+  .textEmail {
+    font-size: 16px;
+  }
+
+  .uploadBtn {
+    font-size: 14px;
+  }
+}
