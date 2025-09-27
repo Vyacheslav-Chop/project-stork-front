@@ -7,13 +7,14 @@ import { useAuth } from '@/lib/store/authStore';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 import Link from 'next/link';
-import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
-
+import NavBarLogo from '../NavBarLogo/NavBarLogo'
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
+    .min(1, 'Мінімум 1 символ')
     .required('Ім’я є обов’язковим')
     .matches(/^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9\s'-]+$/, 'Ім’я може містити лише літери та цифри'),
   email: Yup.string()
@@ -54,8 +55,9 @@ const RegistrationForm = () => {
   return (
     
     <main className={css.mainContent}>
-      
+     
       <div className={css.wrapper}>
+        <div className={css.logo}><NavBarLogo/></div> 
         <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
         initialValues={initialValues}
@@ -143,7 +145,8 @@ const RegistrationForm = () => {
 
      {errorMessage && <p className={css.error}>{errorMessage}</p>}
         </Form>
-      </Formik>
+        </Formik>
+        
       <div className={css.content}>
         <p className={css.contenText}>Вже маєте аккаунт?</p>
         <Link href="/auth/login" className={css.link}>
@@ -151,6 +154,7 @@ const RegistrationForm = () => {
         </Link>
         </div>
       </div>
+
    <div className={css.imageWrapper}>
   <Image
     src="/image/registration/stork.jpg"
