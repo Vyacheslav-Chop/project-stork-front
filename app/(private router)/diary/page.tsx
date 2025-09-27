@@ -56,9 +56,7 @@ export default function DiaryPage() {
             {selectedDiary ? (
               <DiaryEntryDetails diary={selectedDiary} />
             ) : (
-              <div className={styles.placeholder}>
-                Оберіть запис, щоб переглянути деталі
-              </div>
+              <div className={styles.placeholder}></div>
             )}
           </div>
         </div>
