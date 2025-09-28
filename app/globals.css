@@ -65,8 +65,9 @@ main {
 
   body {
     display: flex;
-    justify-content: center;
-    max-width: 1440px;
+    /* justify-content: center; */
+    width: 1440px;
+    margin: 0 auto;
   }
 
   .sidebar {

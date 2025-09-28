@@ -53,7 +53,7 @@
 }
 
 .uploadBtn:active {
-  background-color: #b2b2b2;
+  background-color: #ffcbd3;
   border: none;
 }
 
@@ -84,7 +84,7 @@
 
 @media screen and (min-width: 1440px) {
   .wrap {
-    width: 644px;
+    width: 100%;
   }
 
   .avatarWrapper {
