@@ -64,11 +64,17 @@
   font-size: 14px;
   color: #000;
   border: none;
-  transition: background-color 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid #cca2a8;
+  background-color: #ffcbd3;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .submitButton:hover:not(:disabled) {
-  background: #ffc5cc;
+  background: #ffffff;
 }
 
 .submitButton:disabled {
