@@ -3,7 +3,7 @@
 import { useRouter, useParams } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
-import css from './WeekSeletor.module.css';
+import css from './WeekSelector.module.css';
 import { fetchCurrentWeek } from '../../lib/api/apiClient'
  
 const TOTAL_WEEKS = 42;

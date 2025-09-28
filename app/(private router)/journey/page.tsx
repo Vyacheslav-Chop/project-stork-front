@@ -1,6 +1,6 @@
 "use client";
 
-import WeekSelector from "./[weekNumber]/WeekSelector.client";
+import WeekSelector from "../../../components/WeekSelector/WeekSelector";
 import JourneyDetails from "./[weekNumber]/JourneyDetails.client";
 import { useState } from "react";
 
