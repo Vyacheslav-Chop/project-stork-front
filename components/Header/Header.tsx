@@ -30,11 +30,10 @@ const Header = () => {
           </svg>
         </button>
       </div>
-      {/* {isOpen && ( */}
-        <HeaderModal isOpen={isOpen}>
-          <Sidebar onClose={close}/>
-        </HeaderModal>
-      {/* )} */}
+
+      <HeaderModal onClose={close} isOpen={isOpen}>
+        <Sidebar onClose={close} />
+      </HeaderModal>
     </header>
   );
 };
