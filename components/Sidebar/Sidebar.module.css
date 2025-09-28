@@ -73,3 +73,13 @@
 .closeBtn {
   background-color: transparent;
 }
+
+.logoutBtn {
+  background-color: transparent;
+}
+
+@media screen and (min-width: 1440px) {
+  .sidebar {
+  display: flex;
+}
+}

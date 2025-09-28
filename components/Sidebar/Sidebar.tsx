@@ -9,11 +9,11 @@ import { useAuth } from "@/lib/store/authStore";
 import Image from "next/image";
 
 type Props = {
-  onClose?: ()=> void
-}
+  onClose?: () => void;
+};
 
-const Sidebar = ({onClose}: Props) => {
-  const {user, isAuthenticated} = useAuth();
+const Sidebar = ({ onClose }: Props) => {
+  const { user, isAuthenticated } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
