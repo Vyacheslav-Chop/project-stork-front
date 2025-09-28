@@ -125,8 +125,8 @@ export const getWeekStatic = async (): Promise<WeekRes> => {
   return res.data.data;
 };
 
-export const getWeekDynamic = async () => {
-  const res = await nextServer.get("/weeks/private");
+export const getWeekDynamic = async (): Promise<WeekRes> => {
+  const res = await nextServer.get<AxiosRes<WeekRes>>("/weeks/private");
 
   return res.data.data;
 };
