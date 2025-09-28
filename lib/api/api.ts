@@ -5,8 +5,3 @@ export const nextServer = axios.create({
   baseURL,
   withCredentials: true,
 });
-
-export const nextClient = axios.create({
-  baseURL: '/api',
-  withCredentials: true,
-});
