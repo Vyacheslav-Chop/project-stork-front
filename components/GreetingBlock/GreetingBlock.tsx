@@ -35,7 +35,7 @@ const GreetingBlock: React.FC = () => {
     <div className={styles.greetingBlock}>
       <h2 className={styles.greeting}>
         {greeting}
-        {user ? `, ${user.name}` : ""}
+        {user ? `, ${user.name}!` : ""}
       </h2>
     </div>
   );
