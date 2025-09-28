@@ -136,13 +136,13 @@ export const getEmotions = async (): Promise<Emotion[]> => {
 };
 
 export const getPublicMomTips = async (): Promise<WeekTip> => {
-  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>('/weeks/public');
+  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>('/weeks/public');
 
   return res.data.data.weekData.momDailyTips;
 }
 
 export const getPrivateMomTips = async (): Promise<WeekTip> => {
-  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>('/weeks/private');
+  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>('/weeks/private');
 
   return res.data.data.weekData.momDailyTips;
 }

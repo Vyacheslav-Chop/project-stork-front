@@ -6,10 +6,12 @@ import { cookies } from 'next/headers';
 
 export async function GET() {
   const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
   try {
     const { data } = await api.get('/weeks/public', {
       headers: {
-        Cookie: cookieStore.toString(),
+        Authorization: `Bearer ${accessToken}`,
       },
     });
     if (data) return NextResponse.json(data);
