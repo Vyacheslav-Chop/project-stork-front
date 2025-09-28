@@ -1,26 +1,79 @@
 .backdrop {
   position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.25);
-  padding: 0 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 16px;
+  box-sizing: border-box;
   z-index: 1000;
 }
 
 .modalWrap {
-  border-radius: 40px;
-  padding: 64px 20px;
-  position: relative;
   background: #ffffff;
+  border-radius: 40px;
+  width: 100%;
+  max-width: 704px;
+  padding: 32px 24px;
+  box-sizing: border-box;
+  position: relative;
 }
 
-.iconWrap {
+.iconClose {
   position: absolute;
   top: 24px;
   right: 24px;
+}
+
+/*tablets 768*/
+@media (min-width: 768px) {
+  .container {
+    max-width: 600px;
+    padding: 32px;
+  }
+  .modalWrap {
+    max-width: 704px;
+    padding: 48px 32px;
+  }
+  .title {
+    font-size: 36px;
+    margin-bottom: 32px;
+  }
+  .form {
+    gap: 24px;
+  }
+  .fieldGroup {
+    gap: 8px;
+  }
+  .iconClose {
+    top: 22px;
+    right: 32px;
+  }
+}
+
+/*pc 1440*/
+@media (min-width: 1440px) {
+  .container {
+    max-width: 768px;
+    padding: 64px 64px;
+  }
+  .modalWrap {
+    max-width: 768px;
+    padding: 64px 64px;
+  }
+  .title {
+    font-size: 48px;
+    margin-bottom: 40px;
+  }
+  .form {
+    gap: 32px;
+  }
+  .fieldGroup {
+    gap: 12px;
+  }
+  .iconClose {
+    top: 29px;
+    right: 36px;
+  }
 }
