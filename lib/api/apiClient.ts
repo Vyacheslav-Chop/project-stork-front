@@ -1,10 +1,8 @@
-// import { ApiResponse } from "@/types/user";
-import { nextClient, nextServer } from "./api";
+import { nextServer } from "./api";
 import { CreateTaskProps, Task, UpdateTaskProps } from "@/types/tasks";
 import { UserResponse, NewUser, UserPayload } from "../../types/user";
 import {
   ApiWeekResponse,
-  BabyWeekData,
   WeekTip,
   WeekTipResponse,
 } from "@/types/babyWeekData";
