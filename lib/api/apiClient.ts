@@ -140,9 +140,9 @@ export const getMomState = async (week: number): Promise<MomState> => {
 };
 
 export const getBabyState = async (week: number): Promise<BabyState> => {
-  const res = await nextServer.get<BabyState>(`/weeks/baby-state/${week}`);
+  const res = await nextServer.get<AxiosRes<BabyState>>(`/weeks/baby-state/${week}`);
 
-  return res.data;
+  return res.data.data;
 };
 
 export const getEmotions = async (): Promise<Emotion[]> => {
