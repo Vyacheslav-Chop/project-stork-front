@@ -1,11 +1,14 @@
-import { Emotion } from "./emotions";
-
 export interface DiaryData {
   _id: string;
   title: string;
-  category: string[];
-  emotions: Emotion[];
+  category: { _id: string; title: string }[];
   description: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface DiaryCreateData {
+  title: string;
+  description: string;
+  category: string[];
 }
