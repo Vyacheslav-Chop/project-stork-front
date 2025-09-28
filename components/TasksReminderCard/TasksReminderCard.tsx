@@ -13,11 +13,7 @@ import AddTaskModal from "../modals/AddTaskModal/AddTaskModal";
 import AddTaskForm from "../modals/AddTaskModal/AddTaskForm/AddTaskForm";
 import { Task } from "@/types/tasks";
 
-type EditingTask = {
-  id: string;
-  name: string;
-  date: string;
-} | null;
+type EditingTask = { id: string; name: string; date: string } | null;
 
 export default function TasksReminderCard() {
   const router = useRouter();
@@ -26,11 +22,14 @@ export default function TasksReminderCard() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<EditingTask>(null);
 
+  const [strikingIds, setStrikingIds] = useState<Set<string>>(new Set());
+  const [hiddenIds, setHiddenIds] = useState<Set<string>>(new Set());
+
   const {
     data: tasks = [],
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<Task[]>({
     queryKey: ["tasks"],
     queryFn: () => getTasks(),
     enabled: isAuthenticated,
@@ -53,14 +52,13 @@ export default function TasksReminderCard() {
   };
 
   const handleEdit = (task: Task) => {
-    const formatDateToDot = (isoDate: string) => {
-      const d = new Date(isoDate);
-      const yyyy = d.getUTCFullYear();
-      const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
-      const dd = String(d.getUTCDate()).padStart(2, "0");
-      return `${yyyy}.${mm}.${dd}`;
+    const formatDateToDot = (iso: string) => {
+      const d = new Date(iso);
+      return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(
+        2,
+        "0"
+      )}.${String(d.getUTCDate()).padStart(2, "0")}`;
     };
-
     setEditingTask({
       id: task._id,
       name: task.name,
@@ -79,26 +77,42 @@ export default function TasksReminderCard() {
     taskId: string
   ) => {
     e.stopPropagation();
-    statusMutation.mutate(taskId);
+    setStrikingIds((prev) => new Set(prev).add(taskId));
+    setTimeout(() => {
+      statusMutation.mutate(taskId);
+      setHiddenIds((prev) => new Set(prev).add(taskId));
+      setStrikingIds((prev) => {
+        const nxt = new Set(prev);
+        nxt.delete(taskId);
+        return nxt;
+      });
+    }, 2000);
   };
 
-  if (isError) {
-    return <ErrorText message="Помилка завантаження завдань" />;
-  }
-
-  if (isLoading) {
+  if (isError) return <ErrorText message="Помилка завантаження завдань" />;
+  if (isLoading)
     return (
       <div className={styles.card}>
         <Loader />
       </div>
     );
-  }
 
-  const sorted = [...tasks].sort((a, b) => {
-    if (a.isDone !== b.isDone) {
-      return a.isDone ? 1 : -1;
-    }
-    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const weekLimit = new Date(today);
+  weekLimit.setDate(weekLimit.getDate() + 7);
+
+  const visible = tasks.filter((t) => !t.isDone && !hiddenIds.has(t._id));
+
+  const todayTasks = visible.filter((t) => {
+    const d = new Date(t.date);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime() === today.getTime();
+  });
+  const weekTasks = visible.filter((t) => {
+    const d = new Date(t.date);
+    d.setHours(0, 0, 0, 0);
+    return d.getTime() > today.getTime() && d.getTime() <= weekLimit.getTime();
   });
 
   return (
@@ -115,56 +129,97 @@ export default function TasksReminderCard() {
               src="/icons/icon_add_task.svg"
               width={22}
               height={22}
-              alt=""
+              alt="+"
             />
           </button>
         </div>
-
         <div className={styles.content}>
-          {sorted.length === 0 ? (
+          {todayTasks.length === 0 && weekTasks.length === 0 ? (
             <>
               <h3 className={styles.subtitle}>Наразі немає жодних завдань</h3>
               <p className={styles.description}>
-                Створіть перший нове завдання!
+                Створіть перше нове завдання!
               </p>
               <button className={styles.createButton} onClick={handleAdd}>
                 Створити завдання
               </button>
             </>
           ) : (
-            sorted.map((t) => (
-              <div key={t._id} className={styles.taskRow}>
-                <span className={styles.taskDate}>
-                  {new Date(t.date).toLocaleDateString("uk-UA", {
-                    day: "2-digit",
-                    month: "2-digit",
-                  })}
-                </span>
-                <div
-                  className={styles.taskContent}
-                  onClick={() => handleEdit(t)}
-                >
-                  <input
-                    type="checkbox"
-                    checked={t.isDone}
-                    onChange={(e) => handleCheckboxChange(e, t._id)}
-                    className={styles.taskCheckbox}
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                  <span
-                    className={`${styles.taskText} ${
-                      t.isDone ? styles.doneText : ""
-                    }`}
-                  >
-                    {t.name}
-                  </span>
-                </div>
-              </div>
-            ))
+            <>
+              {todayTasks.length > 0 && (
+                <>
+                  <h3 className={styles.sectionTitle}>Сьогодні:</h3>
+                  {todayTasks.map((t) => (
+                    <div key={t._id} className={styles.taskRow}>
+                      <span className={styles.taskDate}>
+                        {new Date(t.date).toLocaleDateString("uk-UA", {
+                          day: "2-digit",
+                          month: "2-digit",
+                        })}
+                      </span>
+                      <div
+                        className={styles.taskContent}
+                        onClick={() => handleEdit(t)}
+                      >
+                        <input
+                          type="checkbox"
+                          className={styles.taskCheckbox}
+                          onChange={(e) => handleCheckboxChange(e, t._id)}
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <span
+                          className={
+                            strikingIds.has(t._id)
+                              ? styles.doneText
+                              : styles.taskText
+                          }
+                        >
+                          {t.name}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+              {weekTasks.length > 0 && (
+                <>
+                  <h3 className={styles.sectionTitle}>Найближчий тиждень:</h3>
+                  {weekTasks.map((t) => (
+                    <div key={t._id} className={styles.taskRow}>
+                      <span className={styles.taskDate}>
+                        {new Date(t.date).toLocaleDateString("uk-UA", {
+                          day: "2-digit",
+                          month: "2-digit",
+                        })}
+                      </span>
+                      <div
+                        className={styles.taskContent}
+                        onClick={() => handleEdit(t)}
+                      >
+                        <input
+                          type="checkbox"
+                          className={styles.taskCheckbox}
+                          onChange={(e) => handleCheckboxChange(e, t._id)}
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <span
+                          className={
+                            strikingIds.has(t._id)
+                              ? styles.doneText
+                              : styles.taskText
+                          }
+                        >
+                          {t.name}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              )}
+            </>
           )}
         </div>
       </div>
-
       {isModalOpen && (
         <AddTaskModal onClose={handleCloseModal}>
           <AddTaskForm onClose={handleCloseModal} editingTask={editingTask} />

@@ -33,12 +33,18 @@
   justify-content: center;
   border-radius: 50%;
 }
+.sectionTitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 12px;
   flex: 1;
+  overflow: visible;
 }
 
 .taskRow {
@@ -58,9 +64,14 @@
 
 .taskContent {
   display: flex;
-  flex-direction: column;
   gap: 4px;
   flex: 1;
+}
+.taskContent input:checked + .taskText,
+.taskContent input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+  transition: opacity 2s ease;
 }
 
 .taskLabel {
@@ -147,6 +158,23 @@
   .createButton {
     padding: 14px 28px;
     font-size: 15px;
+  }
+  .content {
+    height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  .content::-webkit-scrollbar-thumb {
+    background: #ffcbd3;
+    border-radius: 4px;
   }
 }
 
