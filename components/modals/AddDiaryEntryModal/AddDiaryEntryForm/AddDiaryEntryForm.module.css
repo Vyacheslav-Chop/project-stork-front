@@ -2,17 +2,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: #fff;
   border-radius: 24px;
   padding: 20px;
   width: 100%;
   min-width: 294px;
 
   margin: 0 auto;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
   padding-bottom: 48px;
   padding-top: 48px;
   position: relative;
+  z-index: auto;
 }
 
 .closeBtn {
@@ -50,7 +49,7 @@
 .title {
   font-family: var(--font-comfortaa);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 36px;
   line-height: 140%;
   text-align: center;
   margin-bottom: 12px;
@@ -112,7 +111,6 @@
 
   border-bottom: 4px solid var(--color-scheme-accent);
   border-radius: 100px;
-  width: 254px;
   height: 42px;
 }
 
@@ -237,18 +235,18 @@
   }
 
   .form {
-    width: 664px;
     padding-top: 64px;
     padding-bottom: 64px;
   }
+  .title {
+    font-size: 36px;
+  }
 }
 
-@media (min-width: 1200px) and (max-width: 1440px) {
+@media (min-width: 1440px) {
   .form {
     border-radius: 40px;
     padding: 64px;
-    width: 768px;
-    height: 786px;
     max-width: 768px;
     margin: auto;
   }
@@ -260,5 +258,28 @@
   .closeBtn svg {
     width: 28px;
     height: 28px;
+  }
+  .title {
+    font-size: 48px;
+  }
+  .label {
+    font-size: 16px;
+  }
+  .input {
+    font-size: 16px;
+  }
+  .textarea {
+    font-size: 16px;
+  }
+  .multiSelectTrigger {
+    font-size: 16px;
+  }
+  .error {
+    font-size: 14px;
+  }
+  .submitBtn {
+    font-size: 16px;
+    width: 268px;
+    height: 46px;
   }
 }
