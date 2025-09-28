@@ -1,4 +1,4 @@
-/* *, *::before, *::after { box-sizing: border-box; } */
+
 
 .container{
   width: 100%;
@@ -14,9 +14,10 @@
   width: 100%;
   max-width: 375px;         
   margin: 0 auto;          
-  min-height: 50px;         
+  height: 42px;         
   background: #FFF4F6;
   border-radius: 100px;
+  margin-bottom: 16px;
 }
 
 .btn-active,
@@ -24,7 +25,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1 1 0;            
+  flex: 1 1 0;     
+  height: 42px;       
   min-width: 0;            
   padding: clamp(8px, 2.5vw, 10px) clamp(16px, 5vw, 24px);
   /* gap: clamp(4px, 2vw, 8px); */
@@ -36,6 +38,7 @@
   color: #000000;
   border: 1px solid transparent; 
   background: transparent;
+  white-space: nowrap;
 }
 
 .btn-active{

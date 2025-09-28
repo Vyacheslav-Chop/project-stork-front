@@ -1,12 +1,12 @@
 import "modern-normalize";
 import "./globals.css";
-import { Lato, Comfortaa} from "next/font/google";
+import { Lato, Comfortaa } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
-import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import HeaderWrapper from "./HeaderWrapper";
+import BreadcrumbsWrapper from "./BreadcrumbsWrapper";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -52,7 +52,7 @@ export default function RootLayout({
               <aside className="sidebar">{sidebar}</aside>
 
               <main className="content">
-                <Breadcrumbs />
+                <BreadcrumbsWrapper />
                 <div className="page-content">{children}</div>
               </main>
             </div>
