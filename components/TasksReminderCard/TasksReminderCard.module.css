@@ -33,12 +33,18 @@
   justify-content: center;
   border-radius: 50%;
 }
+.sectionTitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
 .content {
   display: flex;
   flex-direction: column;
   gap: 12px;
   flex: 1;
+  overflow: visible;
 }
 
 .taskRow {
@@ -58,9 +64,14 @@
 
 .taskContent {
   display: flex;
-  flex-direction: column;
   gap: 4px;
   flex: 1;
+}
+.taskContent input:checked + .taskText,
+.taskContent input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+  transition: opacity 2s ease;
 }
 
 .taskLabel {
@@ -113,10 +124,18 @@
   font-size: 14px;
   cursor: pointer;
   align-self: flex-start;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid #cca2a8;
+  background-color: #ffcbd3;
+  color: #191919;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .createButton:hover {
-  background: #ffb3c1;
+  background: #ffffff;
 }
 
 /* Hover / Focus */
@@ -147,6 +166,23 @@
   .createButton {
     padding: 14px 28px;
     font-size: 15px;
+  }
+  .content {
+    height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  .content::-webkit-scrollbar-thumb {
+    background: #ffcbd3;
+    border-radius: 4px;
   }
 }
 

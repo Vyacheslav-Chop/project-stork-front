@@ -19,3 +19,4 @@ export async function GET() {
     return NextResponse.json({ error: err.messsage }, { status: err.status });
   }
 }
+

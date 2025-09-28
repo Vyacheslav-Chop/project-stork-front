@@ -1,10 +1,8 @@
-// import { ApiResponse } from "@/types/user";
-import { nextClient, nextServer } from "./api";
+import { nextServer } from "./api";
 import { CreateTaskProps, Task, UpdateTaskProps } from "@/types/tasks";
 import { UserResponse, NewUser, UserPayload } from "../../types/user";
 import {
   ApiWeekResponse,
-  BabyWeekData,
   WeekTip,
   WeekTipResponse,
 } from "@/types/babyWeekData";
@@ -12,6 +10,7 @@ import { Emotion } from "@/types/emotions";
 import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
+import { DiaryCreateData, DiaryData } from "@/types/diaries";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<AxiosRes<UserResponse>>(
@@ -37,16 +36,14 @@ export async function logout(): Promise<void> {
   await nextServer.post("/auth/logout");
 }
 
-export const getDiaries = async () => {
-  const res = await nextServer.get("/diaries");
-
-  return res.data.data;
+export const getDiaries = async (): Promise<DiaryData[]> => {
+  const res = await nextServer.get<DiaryData[]>("/diaries");
+  return res.data;
 };
 
-export const createDiary = async (payload) => {
+export const createDiary = async (payload: DiaryCreateData) => {
   const res = await nextServer.post("/diaries", payload);
-
-  return res.data.data;
+  return res.data;
 };
 
 export const updateDiary = async (diaryId, payload) => {
@@ -59,9 +56,8 @@ export const deleteDiary = async (diaryId) => {
   await nextServer.delete(`/diaries/${diaryId}`);
 };
 
-export const getDiaryById = async (diaryId) => {
-  const res = await nextServer.get(`/diaries/${diaryId}`);
-
+export const getDiaryById = async (diaryId: string): Promise<DiaryData> => {
+  const res = await nextServer.get<AxiosRes<DiaryData>>(`/diaries/${diaryId}`);
   return res.data.data;
 };
 
@@ -112,6 +108,7 @@ export const updateUser = async (
 
 export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
   const formData = new FormData();
+  console.log(file instanceof File);
 
   formData.append("avatar", file, file.name);
 
@@ -150,12 +147,11 @@ export const getBabyState = async (week: number): Promise<BabyState> => {
 
 export const getEmotions = async (): Promise<Emotion[]> => {
   const res = await nextServer.get("/emotions");
-
   return res.data.data;
 };
 
 export const getPublicMomTips = async (): Promise<WeekTip> => {
-  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>(
+  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>(
     "/weeks/public"
   );
 
@@ -163,7 +159,7 @@ export const getPublicMomTips = async (): Promise<WeekTip> => {
 };
 
 export const getPrivateMomTips = async (): Promise<WeekTip> => {
-  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>(
+  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>(
     "/weeks/private"
   );
 

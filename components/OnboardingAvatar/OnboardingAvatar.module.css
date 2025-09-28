@@ -6,13 +6,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .avatar {
   border-radius: 100%;
 }
-
 
 .uploadBtn {
   font-weight: 500;
@@ -44,44 +43,17 @@
 @media screen and (min-width: 768px) {
   
   .avatarWrapper {
-    margin-bottom: 0;
-  }
-
-  .textName {
-    text-align: left;
-  }
-
-  .textEmail {
-    text-align: left;
+    margin-bottom: 24px;
   }
 
   .uploadBtn {
-    min-width: 218px;
+    min-width: 162px;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .wrap {
-    width: 644px;
-  }
-
-  .avatarWrapper {
-    margin-bottom: 0;
-  }
-
-  .textName {
-    font-size: 24px;
-  }
-
-  .textEmail {
-    text-align: left;
-  }
-
-  .textEmail {
-    font-size: 16px;
-  }
 
   .uploadBtn {
-    font-size: 14px;
+    font-size: 16px;
   }
 }

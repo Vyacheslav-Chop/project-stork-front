@@ -1,5 +1,7 @@
 .header {
-  width: 100%;
+  min-width: 320px;
+  max-width: 375px;
+  margin: 0 auto;
   height: 68px;
   padding: 0;
   background: #fff;
@@ -22,7 +24,7 @@
   align-items: center;
   text-decoration: none;
   justify-content: center;
-  gap: 4.69px;
+  gap: 5px;
   width: 105px;
   height: 45px;
 }
@@ -37,9 +39,15 @@
   fill: #000;
 }
 
+@media screen and (min-width: 768px) {
+  .header {
+    max-width: 768px;
+    padding: 16px 32px;
+  }
+}
 
 @media screen and (min-width: 1440px) {
   .header {
-  display: none;
+    display: none;
   }
 }
