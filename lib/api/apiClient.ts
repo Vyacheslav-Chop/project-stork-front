@@ -12,15 +12,15 @@ import { Emotion } from "@/types/emotions";
 import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
+import type { LoginResponse, LoginPayload } from "@/types/auth";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<AxiosRes<UserResponse>>("/auth/register", newUser);
   return res.data.data;
 }
 
-export const login = async (payload) => {
-  const res = await nextServer.post("/auth/login", payload);
-
+export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
+  const res: AxiosRes<LoginResponse> = await nextServer.post("/auth/login", payload);
   return res.data;
 };
 
