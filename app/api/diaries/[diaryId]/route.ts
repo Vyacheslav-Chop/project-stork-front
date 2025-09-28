@@ -4,8 +4,10 @@ import { api } from "../../api";
 
 export async function GET(
   req: Request,
-  { params }: { params: { diaryId: string } }
+  { params }: { params: Promise<{ diaryId: string }> }
 ) {
+  const { diaryId } = await params;
+
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
@@ -14,10 +16,9 @@ export async function GET(
   }
 
   try {
-    const { data } = await api.get(`/diaries/${params.diaryId}`, {
+    const { data } = await api.get(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-
     return NextResponse.json(data.data);
   } catch (err: any) {
     return NextResponse.json(

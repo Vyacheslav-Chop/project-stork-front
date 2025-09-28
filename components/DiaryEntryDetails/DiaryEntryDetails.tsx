@@ -17,13 +17,12 @@ export default function DiaryEntryDetails({ diary }: Props) {
       </header>
 
       <p className={styles.date}>
-        {new Date(diary.createdAt).toLocaleDateString("uk-UA", {
+        {new Date(diary.updatedAt).toLocaleDateString("uk-UA", {
           day: "numeric",
           month: "long",
           year: "numeric",
         })}
       </p>
-
       <p className={styles.description}>{diary.description}</p>
 
       <div className={styles.tags}>

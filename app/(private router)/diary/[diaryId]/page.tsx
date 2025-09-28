@@ -1,12 +1,27 @@
-import { getDiaryById } from "@/lib/api/apiClient";
-import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { getDiaryByIdServer } from "@/lib/api/apiServer";
+import Diary from "./Diary.client";
 
 interface Props {
-  params: { diaryId: string };
+  params: Promise<{ diaryId: string }>;
 }
 
 export default async function DiaryDetailsPage({ params }: Props) {
-  const diary = await getDiaryById(params.diaryId);
+  const { diaryId } = await params;
 
-  return <DiaryEntryDetails diary={diary} />;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["diary", diaryId],
+    queryFn: () => getDiaryByIdServer(diaryId),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Diary />
+    </HydrationBoundary>
+  );
 }

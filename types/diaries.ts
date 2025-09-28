@@ -1,14 +1,14 @@
 export interface DiaryData {
   _id: string;
   title: string;
-  category: { _id: string; title: string }[];
+  category: Category[];
   description: string;
+  owner: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface DiaryCreateData {
+interface Category {
+  _id: string;
   title: string;
-  description: string;
-  category: string[];
 }
