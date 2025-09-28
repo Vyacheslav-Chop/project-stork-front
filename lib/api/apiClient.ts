@@ -14,7 +14,10 @@ import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
-  const res = await nextServer.post<AxiosRes<UserResponse>>("/auth/register", newUser);
+  const res = await nextServer.post<AxiosRes<UserResponse>>(
+    "/auth/register",
+    newUser
+  );
   return res.data.data;
 }
 
@@ -25,7 +28,6 @@ export const login = async (payload) => {
 };
 
 export const refresh = async () => {
-
   const res = await nextServer.post("/auth/refresh");
 
   return res.data;
@@ -75,15 +77,22 @@ export const createTask = async (payload: CreateTaskProps): Promise<Task> => {
   return res.data.data;
 };
 
-export const updateTaskStatusById = async (
+export const updateTaskStatusById = async (taskId: string): Promise<Task> => {
+  const res = await nextServer.patch<AxiosRes<Task>>(
+    `/tasks/${taskId}/status`,
+    undefined
+  );
+  return res.data.data;
+};
+
+export const updateTaskById = async (
   taskId: string,
   payload: UpdateTaskProps
 ): Promise<Task> => {
   const res = await nextServer.patch<AxiosRes<Task>>(
-    `/tasks/${taskId}/status`,
+    `/tasks/${taskId}`,
     payload
   );
-
   return res.data.data;
 };
 
@@ -96,10 +105,7 @@ export const getUser = async (): Promise<UserResponse> => {
 export const updateUser = async (
   payload: UserPayload
 ): Promise<UserResponse> => {
-  const res = await nextServer.patch<AxiosRes<UserResponse>>(
-    "/users",
-    payload
-  );
+  const res = await nextServer.patch<AxiosRes<UserResponse>>("/users", payload);
 
   return res.data.data;
 };
