@@ -36,3 +36,10 @@
   align-items: center;
   fill: #000;
 }
+
+
+@media screen and (min-width: 1440px) {
+  .header {
+  display: none;
+  }
+}
