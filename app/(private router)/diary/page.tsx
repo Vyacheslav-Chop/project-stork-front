@@ -60,7 +60,7 @@ export default function DiaryPage() {
       ) : (
         <div className={styles.mobileLayout}>
           <GreetingBlock />
-          {/* 👉 На мобиле список ведет на /diary/[id] */}
+
           <DiaryList diaries={diaries} />
         </div>
       )}

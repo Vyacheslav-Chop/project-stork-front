@@ -1,10 +1,5 @@
-import SideBar from "@/components/Sidebar/Sidebar";
-import css from './Sidebar.module.css'
+import SideBarWrapper from "../SideBarWrapper";
 
 export default function SidebarPage() {
-  return (
-    <div className={css.sidebar}>
-      <SideBar />
-    </div>
-  );
+  return <SideBarWrapper />;
 }
