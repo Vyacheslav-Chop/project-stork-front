@@ -3,8 +3,6 @@
 import ErrorText from "@/components/ErrorText/ErrorText";
 
 
-
-
 type ErrorProps = {
   error: Error;
 };
