@@ -11,6 +11,7 @@ import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 import { DiaryCreateData, DiaryData } from "@/types/diaries";
+import axios from 'axios';
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<AxiosRes<UserResponse>>(
@@ -160,4 +161,14 @@ export const getPrivateMomTips = async (): Promise<WeekTip> => {
   const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>('/weeks/private');
 
   return res.data.data.weekData.momDailyTips;
+};
+
+
+export const fetchCurrentWeek = async (): Promise<number> => {
+  try {
+    const response = await axios.get('/api/weeks/private');
+    return response.data.currentWeek;
+  } catch (error) {
+    throw new Error('Не вдалося отримати поточний тиждень');
+  }
 };

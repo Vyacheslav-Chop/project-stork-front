@@ -3,7 +3,6 @@ import { nextServer } from "./api";
 import { WeekData } from "@/types/week";
 import { ApiResponse } from "@/types/user";
 import { AxiosRes, MomState } from "@/types/momState";
-
 // export async function fetchPrivateWeekDataServer(): Promise<WeekData> {
 //   const cookieStore = cookies();
 //   const res = await nextServer.get<WeekData>("/weeks/private", {
@@ -46,3 +45,4 @@ export const getUserServer = async (): Promise<ApiResponse | null> => {
 
   return res.data;
 };
+

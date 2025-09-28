@@ -8,9 +8,9 @@ import Image from 'next/image';
 const OnboardingPage = () => {
   return (   
     <div className={css.mainContent}>
-     <div className={css.logo}><NavBarLogo/></div> 
+     
      <div className={css.wrapper}>
-       
+      <div className={css.logo}><NavBarLogo/></div> 
       <h1 className={css.title}>Давайте познайoмимось ближче</h1>
       <OnboardingFormAvatar />
       <OnboardingForm />
