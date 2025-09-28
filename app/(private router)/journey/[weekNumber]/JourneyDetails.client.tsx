@@ -16,24 +16,17 @@ export default function JourneyDetails() {
   const { weekNumber } = useParams<{ weekNumber: string }>();
   const weekNum = Number(weekNumber);
 
-  const [activeTab, setActiveTab] = useState<"baby" | "mom">("mom");
+  const [activeTab, setActiveTab] = useState<"baby" | "mom">("baby");
 
   const {
     data: babyData,
     isLoading: isBabyLoading,
     isError: isBabyError,
     error: babyError
-  } = useQuery<BabyState | null>({
+  } = useQuery<BabyState>({
     queryKey: ["journeyDetails", weekNum, "baby"],
-    queryFn: async () => {
-      try {
-        const res = await getBabyState(weekNum);
-        return res ?? null;
-      } catch (e) {
-        return null;
-      }
-    },
-    enabled: activeTab === "baby" && Number.isFinite(weekNum),
+    queryFn: () => getBabyState(weekNum),
+    enabled: activeTab === "baby",
     placeholderData: keepPreviousData,
   });
 
@@ -42,17 +35,10 @@ export default function JourneyDetails() {
     isLoading: isMomLoading,
     isError: isMomError,
     error: momError
-  } = useQuery<MomState | null>({
+  } = useQuery<MomState>({
     queryKey: ["journeyDetails", weekNum, "mom"],
-    queryFn: async () => {
-      try {
-        const res = await getMomState(weekNum);
-        return res ?? null;
-      } catch (e) {
-        return null;
-      }
-    },
-    enabled: activeTab === "mom" && Number.isFinite(weekNum),
+    queryFn: () => getMomState(weekNum),
+    enabled: activeTab === "mom",
     placeholderData: keepPreviousData,
   });
 
