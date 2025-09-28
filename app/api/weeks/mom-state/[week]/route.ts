@@ -6,7 +6,7 @@ export async function GET(req: NextRequest, {params}) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  const weekNumber = params.week;
+  const weekNumber = await params.week;
 
   try {
     const { data } = await api.get(`/weeks/mom-state/${weekNumber}`, {
