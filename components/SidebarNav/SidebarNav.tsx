@@ -18,7 +18,10 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           </Link>
         </li>
         <li>
-          <Link href={isAuth ? "/" : "/auth/register"} className={css.navItem}>
+          <Link
+            href={isAuth ? "/journey" : "/auth/register"}
+            className={css.navItem}
+          >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-travel"></use>
             </svg>
@@ -37,7 +40,10 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           </Link>
         </li>
         <li>
-          <Link href={isAuth ? "/" : "/auth/register"} className={css.navItem}>
+          <Link
+            href={isAuth ? "/profile" : "/auth/register"}
+            className={css.navItem}
+          >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-account"></use>
             </svg>
