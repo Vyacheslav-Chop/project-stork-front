@@ -21,7 +21,7 @@ export default function DiaryList({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1200);
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1440);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
