@@ -33,6 +33,11 @@
   justify-content: center;
   border-radius: 50%;
 }
+.sectionTitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+}
 
 .content {
   display: flex;
@@ -59,9 +64,14 @@
 
 .taskContent {
   display: flex;
-  flex-direction: column;
   gap: 4px;
   flex: 1;
+}
+.taskContent input:checked + .taskText,
+.taskContent input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+  transition: opacity 2s ease;
 }
 
 .taskLabel {
