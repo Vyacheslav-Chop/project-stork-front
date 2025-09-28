@@ -1,1 +1,33 @@
-
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.innerWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.firstWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.lastWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+@media screen and (min-width: 768px) {
+  .innerWrapper {
+    gap: 32px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .innerWrapper {
+    flex-direction: row;
+  }
+  .firstWrapper {
+    gap: 32px;
+  }
+}

@@ -124,10 +124,18 @@
   font-size: 14px;
   cursor: pointer;
   align-self: flex-start;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 4px solid #cca2a8;
+  background-color: #ffcbd3;
+  color: #191919;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
 }
 
 .createButton:hover {
-  background: #ffb3c1;
+  background: #ffffff;
 }
 
 /* Hover / Focus */

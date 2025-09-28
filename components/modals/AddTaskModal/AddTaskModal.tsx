@@ -1,5 +1,6 @@
 "use client";
 
+import { createPortal } from "react-dom";
 import css from "./AddTaskModal.module.css";
 
 type Props = {
@@ -14,7 +15,7 @@ export const AddTaskModal = ({ children, onClose }: Props) => {
     }
   };
 
-  return (
+  return createPortal(
     <div className={css.backdrop} onClick={handleBackdropClick}>
       <div className={css.modalWrap}>
         <button className={css.iconWrap} onClick={onClose}>
@@ -24,7 +25,8 @@ export const AddTaskModal = ({ children, onClose }: Props) => {
         </button>
         {children}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

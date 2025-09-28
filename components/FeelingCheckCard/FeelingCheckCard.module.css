@@ -65,7 +65,7 @@
 }
 
 .button:hover {
-  background-color: #ffdae0;
+  background-color: #ffffff;
   border-bottom: 4px solid #ffcbd3;
 }
 
@@ -77,16 +77,15 @@
 /* Mobile (320px) */
 @media (max-width: 767px) {
   .card {
-    width: 335px;
-    height: 193px;
+    width: 100%;
+    max-width: 335px;
   }
 }
 
 /* Tablet (768px) */
 @media (min-width: 768px) {
   .card {
-    width: 704px;
-    height: 193px;
+    max-width: 704px;
   }
 }
 
