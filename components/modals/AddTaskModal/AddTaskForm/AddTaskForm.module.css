@@ -28,11 +28,10 @@
 }
 
 .label {
-  font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  color: #000;
+  color: #000000;
 }
 
 .input {
@@ -48,7 +47,7 @@
 .input:focus {
   outline: none;
   border-color: rgba(0, 0, 0, 0.1);
-  background: #fff;
+  background: #ffffff;
 }
 
 .error {
@@ -61,13 +60,11 @@
   padding: 14px 0;
   background: #ffdae0;
   border-radius: 100px;
-  font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #000;
   border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .submitButton:hover:not(:disabled) {
@@ -75,6 +72,6 @@
 }
 
 .submitButton:disabled {
-  background: #ccc;
+  background: #cccccc;
   cursor: not-allowed;
 }
