@@ -5,6 +5,13 @@
   margin-top: 32px;
 }
 
+
+.logo {
+  padding-bottom: 14px;
+  padding-top: 14px;
+}
+
+
 .title {
   font-family: var(--font-comfortaa);
   font-weight: 700;
@@ -12,8 +19,9 @@
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
+  margin-bottom: 32px;
+  margin-top: 220px;
 }
-
 
 .control {
   display: flex;
@@ -34,11 +42,14 @@
   line-height: 1.5;
   transition: border-color 0.2s ease, background-color 0.2s ease;
   outline: none; 
+  width: 100%;
+  height: 37px;
 }
 
 .input:focus {
   border-color: #ffcbd3;
 }
+
 
 input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px #f2f2f2 inset !important;
@@ -46,7 +57,6 @@ input:-webkit-autofill {
   -webkit-text-fill-color: #000 !important; 
   transition: background-color 5000s ease-in-out 0s; 
 }
-
 
 .submitButton {
   align-items: center;
@@ -60,6 +70,8 @@ input:-webkit-autofill {
   border-bottom: 4px solid #FFCBD3;
   border-radius: 100px;
   transition: background-color 0.2s ease;
+  width: 100%;
+  height: 41px;
 }
 
 .submitButton:hover,
@@ -120,3 +132,73 @@ input:-webkit-autofill {
   border: 1px solid #c60000;
   background: rgba(0, 0, 0, 0.05);
 }
+
+.imageWrapper {
+  display: none;
+}
+
+
+@media only screen and (min-width: 768px) {
+.form {
+  align-items: center;
+}
+
+.title {
+  margin-top: 280px;
+}
+
+.input {
+  width: 480px;
+}
+
+.submitButton {
+  width: 480px;
+}
+
+.imageWrapper {
+  display: none;
+}
+}
+
+@media only screen and (min-width: 1440px){
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 64px;
+  padding: 0;
+}
+
+.title {
+  margin-top: 266px;
+}
+
+ .logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 0;
+}
+
+.input {
+  height: 40px;
+}
+
+.submitButton {
+  height: 44px;
+}
+
+.imageWrapper {
+  display: block;
+}
+
+
+
+
+
+
+}
+
+
+
+
