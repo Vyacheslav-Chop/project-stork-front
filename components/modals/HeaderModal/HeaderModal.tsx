@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import css from "./HeaderModal.module.css";
 
@@ -7,6 +10,14 @@ type HeaderModalProps = {
 };
 
 const HeaderModal = ({ children, isOpen }: HeaderModalProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return createPortal(
     <div className={`${css.backdrop} ${isOpen ? css.open : ""}`}>
       <div className={css.modalWrap}>{children}</div>
