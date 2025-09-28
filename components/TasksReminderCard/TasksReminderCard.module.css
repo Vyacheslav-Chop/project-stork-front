@@ -39,6 +39,7 @@
   flex-direction: column;
   gap: 12px;
   flex: 1;
+  overflow: visible;
 }
 
 .taskRow {
@@ -147,6 +148,23 @@
   .createButton {
     padding: 14px 28px;
     font-size: 15px;
+  }
+  .content {
+    height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  .content::-webkit-scrollbar-thumb {
+    background: #ffcbd3;
+    border-radius: 4px;
   }
 }
 
