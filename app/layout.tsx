@@ -33,7 +33,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
   sidebar,
 }: Readonly<{
   children: React.ReactNode;
@@ -49,7 +48,6 @@ export default function RootLayout({
               <HeaderWrapper />
             </div>
             <div className="app-layout">
-              
               <aside className="sidebar">{sidebar}</aside>
 
               <main className="content">

@@ -1,9 +1,10 @@
 import SideBar from "@/components/Sidebar/Sidebar";
+import css from './Sidebar.module.css'
 
-interface SidebarProps {
-  onClose: () => void;
-}
-
-export default function SidebarPage({ onClose }: SidebarProps) {
-  return <SideBar onClose={onClose} />;
+export default function SidebarPage() {
+  return (
+    <div className={css.sidebar}>
+      <SideBar />
+    </div>
+  );
 }
