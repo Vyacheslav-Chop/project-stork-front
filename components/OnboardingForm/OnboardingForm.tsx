@@ -12,8 +12,8 @@ import css from "./OnboardingForm.module.css";
 import CustomSelect from "../ProfileEditForm/CustomSelectProfileEditForm";
 
 const OnboardingSchema = Yup.object().shape({
-  dueDate: Yup.date().required("Оберіть дату пологів"),
-  babyGender: Yup.string().required("Оберіть стать дитини"),
+  dueDate: Yup.date(),
+  babyGender: Yup.string(),
 });
 
 type InitialValuesProps = {
@@ -60,8 +60,9 @@ export default function OnboardingPageForm() {
 
       console.log("Submitting payload:", payload);
 
-      toast.success("Дані успішно збережено");
-      router.push("/");
+      toast.success('Дані успішно збережено');
+      router.push('/');
+
     } catch {
       toast.error("Помилка при збереженні даних");
     }
@@ -72,8 +73,11 @@ export default function OnboardingPageForm() {
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={OnboardingSchema}
+      validateOnChange={true}
+      validateOnBlur={true}
+      
     >
-      {({ values, setFieldValue, isSubmitting }) => (
+      {({ values, setFieldValue, dirty, isValid, isSubmitting }) => (
         <Form className={css.form}>
           <div className={css.formGroup}>
             <label
@@ -130,13 +134,25 @@ export default function OnboardingPageForm() {
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className={css.submitBtn}
-          >
-            Зберегти
+          <div className={css.btnContainer}>
+             <button
+              type="submit"
+              disabled={!dirty || !isValid || isSubmitting}
+              className={css.submitButton}
+            >
+              Зберегти
           </button>
+          
+             <button
+              type="submit"
+              disabled={isSubmitting}
+              className={css.submitButton}
+            >
+              Пропустити
+            </button> 
+</div>
+          
+
         </Form>
       )}
     </Formik>

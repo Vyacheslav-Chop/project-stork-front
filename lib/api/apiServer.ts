@@ -47,6 +47,7 @@ export const getUserServer = async (): Promise<ApiResponse | null> => {
   return res.data;
 };
 
+
 export const getDiaryByIdServer = async (
   diaryId: string
 ): Promise<DiaryData | null> => {
@@ -64,3 +65,4 @@ export const getDiaryByIdServer = async (
 
   return res.data;
 };
+
