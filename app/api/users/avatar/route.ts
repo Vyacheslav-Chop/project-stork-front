@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { api } from "../../api";
 import { cookies } from "next/headers";
+import FormData from "form-data";
 
 export async function PATCH(request: Request) {
   try {
@@ -12,18 +13,20 @@ export async function PATCH(request: Request) {
 
     if (!file || !(file instanceof File)) {
       return NextResponse.json(
-        { error: "Файл аватара обов'язковий" },
+        { error: "Фото повино бути у вигляді файлу!" },
         { status: 400 }
       );
     }
 
+    const buffer = Buffer.from(await file.arrayBuffer());
+
     const uploadData = new FormData();
-    uploadData.append("avatar", file);
+    uploadData.append("avatar", buffer, { filename: file.name, contentType: file.type });
 
     const { data } = await api.patch("/users/avatar", uploadData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
+        ...uploadData.getHeaders(),
       },
     });
 
@@ -35,7 +38,8 @@ export async function PATCH(request: Request) {
       { error: "Не вдалося оновити аватар користувача" },
       { status: 500 }
     );
-  } catch {
+  } catch (err) {
+    console.error(err);
     return NextResponse.json(
       { error: "Не вдалося оновити аватар користувача" },
       { status: 500 }

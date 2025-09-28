@@ -184,7 +184,12 @@
 }
 
 .submitBtn:active {
-  background-color: #ffcbd3;
+  background-color: #b2b2b2;
+  border: none;
+}
+
+.submitBtn:disabled {
+  background-color: #ffdae0;
   border: none;
 }
 
@@ -210,7 +215,12 @@
 }
 
 .cancelBtn:active {
-  background-color: #b2b2b2;
+  background-color: #ffcbd3;
+  border: none;
+}
+
+.cancelBtn:disabled {
+  background-color: rgba(0, 0, 0, 0.05);
   border: none;
 }
 

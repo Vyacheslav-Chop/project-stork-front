@@ -1,31 +1,24 @@
 "use client";
 
-import css from "./ProfileAvatar.module.css";
+import css from "./OnboardingAvatar.module.css";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { updateUserAvatar } from "@/lib/api/apiClient";
 import Loader from "../Loader/Loader";
-import { useAuth } from "@/lib/store/authStore";
 import ErrorText from "../ErrorText/ErrorText";
-import { UserResponse } from "@/types/user";
-import { useRouter } from "next/navigation";
 
-type ProfileProps = {
-  user: UserResponse
-}
-
-const ProfileAvatar = ({user}: ProfileProps) => {
-  const setUser = useAuth((state) => state.setUser);
-  const [avatar, setAvatar] = useState<string | null>(user?.avatar ?? null);
+const OnboardingFormAvatar = () => {
+ 
+  const [avatar, setAvatar] = useState<string | null>( null);
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
+    
 
   const handleClickBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     fileInputRef.current?.click();
     e.currentTarget.blur();
-  };
+    };
+    
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     setErr("");
@@ -40,17 +33,13 @@ const ProfileAvatar = ({user}: ProfileProps) => {
         setErr("Файл занадто великий. Максимум 5 МБ.");
         return;
       }
-
       const reader = new FileReader();
       reader.onloadend = async () => {
         const localPreview = reader.result as string;
         setAvatar(localPreview);
-
         setIsLoading(true);
         try {
-          const updatedUser = await updateUserAvatar(file);
-          setUser(updatedUser);
-          router.refresh();
+          setAvatar(localPreview);
         } catch {
           setErr("Не вдалось завантаження фото!");
         } finally {
@@ -72,15 +61,12 @@ const ProfileAvatar = ({user}: ProfileProps) => {
           className={css.avatar}
         />
       </div>
-      <div className={css.profileInfo}>
-        <p className={css.textName}>{user?.name}</p>
-        <p className={css.textEmail}>{user?.email}</p>
         <button
           className={css.uploadBtn}
           onClick={(e) => handleClickBtn(e)}
           disabled={isLoading}
         >
-          Завантажити нове фото
+          Завантажити фото
         </button>
         <input
           type="file"
@@ -89,8 +75,10 @@ const ProfileAvatar = ({user}: ProfileProps) => {
           onChange={handleFileChange}
           className={css.input}
         />
-        {err && <ErrorText message="Не вдалось оновити фото!" />}
-      </div>
+          {err && <ErrorText message="Не вдалось завантажити фото!"
+          />}
+       
+      
       {isLoading && (
         <Loader
           size={60}
@@ -108,4 +96,4 @@ const ProfileAvatar = ({user}: ProfileProps) => {
   );
 };
 
-export default ProfileAvatar;
+export default OnboardingFormAvatar;

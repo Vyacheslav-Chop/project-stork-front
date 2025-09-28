@@ -1,20 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import Link from "next/link";
-import { useMediaQuery } from "react-responsive";
 import styles from "./Header.module.css";
-import SideBar from "@/components/Sidebar/Sidebar";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isDesktop = useMediaQuery({ minWidth: 1440 });
 
-  useEffect(() => {
-    if (isDesktop) setIsOpen(false);
-  }, [isDesktop]);
 
-  if (isDesktop) return <SideBar isOpen={true} onClose={() => {}} />;
 
   return (
     <header className={styles.header}>
@@ -38,7 +31,7 @@ const Header: React.FC = () => {
         </button>
       </div>
 
-      <SideBar isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      {/* <SideBar onClose={() => setIsOpen(false)} /> */}
     </header>
   );
 };

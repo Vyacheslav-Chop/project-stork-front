@@ -33,23 +33,28 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
+  sidebar,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
+  sidebar: React.ReactNode;
 }>) {
   return (
     <html lang="uk">
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <HeaderWrapper />
+            <div className="header-wrapper">
+              <HeaderWrapper />
+            </div>
+            <div className="app-layout">
+              <aside className="sidebar">{sidebar}</aside>
 
-            <main>
-              <Breadcrumbs />
-              <div>{children}</div>
-            </main>
-            {modal}
+              <main className="content">
+                <Breadcrumbs />
+                <div className="page-content">{children}</div>
+              </main>
+            </div>
           </AuthProvider>
           <Toaster position="top-center" reverseOrder={false} />
         </TanStackProvider>

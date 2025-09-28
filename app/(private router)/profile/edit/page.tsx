@@ -1,6 +1,13 @@
+import OnboardingFormAvatar from '../../../../components/OnboardingAvatar/OnboardingAvatar'
+import OnboardingForm from '../../../../components/OnboardingForm/OnboardingForm'
+
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <OnboardingFormAvatar />
+      <OnboardingForm />
+      {/* <Image></Image> */}
+    </div>
   )
 }
 

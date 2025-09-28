@@ -22,7 +22,7 @@
   align-items: center;
   text-decoration: none;
   justify-content: center;
-  gap: 4.69px;
+  gap: 5px;
   width: 105px;
   height: 45px;
 }
@@ -35,4 +35,11 @@
   display: flex;
   align-items: center;
   fill: #000;
+}
+
+
+@media screen and (min-width: 1440px) {
+  .header {
+  display: none;
+  }
 }

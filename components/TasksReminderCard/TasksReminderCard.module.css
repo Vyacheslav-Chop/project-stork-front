@@ -33,6 +33,102 @@
   justify-content: center;
   border-radius: 50%;
 }
+.sectionTitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow: visible;
+}
+
+.taskRow {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.taskDate {
+  font-weight: 400;
+  font-size: 10px;
+  min-width: 40px;
+  flex-shrink: 0;
+  line-height: 1.6;
+  margin-left: 24px;
+}
+
+.taskContent {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+.taskContent input:checked + .taskText,
+.taskContent input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+  transition: opacity 2s ease;
+}
+
+.taskLabel {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.taskCheckbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-top: 2px;
+  accent-color: #000000;
+  flex-shrink: 0;
+}
+
+.taskText {
+  flex: 1;
+}
+
+.doneText {
+  text-decoration: line-through;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.createButton {
+  background: #ffcbd3;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 24px;
+  line-height: 1.6;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.createButton:hover {
+  background: #ffb3c1;
+}
 
 /* Hover / Focus */
 .createButton:hover,
@@ -57,44 +153,28 @@
   opacity: 0.6;
 }
 
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  flex: 1;
-}
-
-.subtitle {
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.4;
-  margin: 0;
-}
-
-.description {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.createButton {
-  background: #ffcbd3;
-  border-radius: 24px;
-  padding: 12px 24px;
-  line-height: 1.6;
-  font-weight: 500;
-  font-size: 14px;
-}
-
-.createButton:hover {
-  background: #ffb3c1;
-}
-
 /* Tablet */
 @media (min-width: 768px) {
   .createButton {
     padding: 14px 28px;
     font-size: 15px;
+  }
+  .content {
+    height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .content::-webkit-scrollbar {
+    width: 6px;
+  }
+  .content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+  }
+  .content::-webkit-scrollbar-thumb {
+    background: #ffcbd3;
+    border-radius: 4px;
   }
 }
 
@@ -104,19 +184,24 @@
     width: 390px;
     height: 499px;
   }
+
   .title {
     font-size: 24px;
   }
+
   .subtitle {
     font-size: 16px;
   }
+
   .description {
     font-size: 16px;
   }
+
   .createButton {
     padding: 16px 32px;
     font-size: 16px;
   }
+
   .addButton {
     font-size: 16px;
   }
