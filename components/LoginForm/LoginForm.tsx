@@ -29,7 +29,7 @@ const initialValues: LoginFormValues = {
 
 const validationSchema = Yup.object({
   email: Yup.string()
-    .email("Введіть коректний email")
+    .email('Введіть коректний email')
     .required("Пошта є обов’язковою"),
   password: Yup.string()
     .min(8, "Мінімум 8 символів")
@@ -90,6 +90,7 @@ export default function LoginForm() {
       router.replace("/");
     } catch (err) {
       const error = err as AxiosError<{ message?: string }>;
+
       let userMsg = "Сталася помилка. Спробуйте пізніше.";
 
       switch (error?.response?.status) {

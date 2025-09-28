@@ -10,7 +10,7 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
     <nav>
       <ul className={css.navList}>
         <li>
-          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+          <Link href={isAuth ? "/" : "/auth/register"} className={css.navItem}>
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-myDay"></use>
             </svg>
@@ -18,7 +18,10 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           </Link>
         </li>
         <li>
-          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+          <Link
+            href={isAuth ? "/journey" : "/auth/register"}
+            className={css.navItem}
+          >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-travel"></use>
             </svg>
@@ -26,8 +29,10 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           </Link>
         </li>
         <li>
-          {/* поки підключив в любому випадку щоб відкривало даірі при натискані на щоденик, як запрацює логін треба підключити "/diary" : "/auth/login" */}
-          <Link href={isAuth ? "/diary" : "/diary"} className={css.navItem}>
+          <Link
+            href={isAuth ? "/diary" : "/auth/register"}
+            className={css.navItem}
+          >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-book"></use>
             </svg>
@@ -35,7 +40,10 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           </Link>
         </li>
         <li>
-          <Link href={isAuth ? "/" : "/sign-up"} className={css.navItem}>
+          <Link
+            href={isAuth ? "/profile" : "/auth/register"}
+            className={css.navItem}
+          >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-account"></use>
             </svg>

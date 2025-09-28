@@ -18,7 +18,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
       const isAuthenticated = await refresh();
       if (isAuthenticated) {
         const res = await getUser();
-        if (res) setUser(res.data);
+        if (res) setUser(res);
       } else {
         clearIsAuthenticated();
         toast.error('Будь ласка зареєструйтесь!');

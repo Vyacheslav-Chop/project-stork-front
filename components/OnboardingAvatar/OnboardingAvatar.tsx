@@ -41,7 +41,7 @@ const OnboardingFormAvatar = () => {
         try {
           setAvatar(localPreview);
         } catch {
-          setErr("Не вдалось завантаження фото!");
+          setErr("Не вдалось завантажити фото");
         } finally {
           setIsLoading(false);
         }
@@ -56,8 +56,8 @@ const OnboardingFormAvatar = () => {
         <Image
           src={avatar ?? "/image/profile/default_avatar.webp"}
           alt="User Avatar"
-          width={132}
-          height={132}
+          width={164}
+          height={164}
           className={css.avatar}
         />
       </div>
