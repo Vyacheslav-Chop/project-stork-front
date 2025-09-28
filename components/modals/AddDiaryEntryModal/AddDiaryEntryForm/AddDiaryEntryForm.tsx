@@ -44,7 +44,7 @@ export default function AddDiaryEntryForm({ onClose, onSuccess }: Props) {
               await createDiary({
                 title: values.title,
                 description: values.description,
-                emotions: values.emotions,
+                category: values.emotions,
               });
 
               toast.success("✅ Новий запис створено!");

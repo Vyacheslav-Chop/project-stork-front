@@ -15,10 +15,7 @@ export default function DiaryPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -63,6 +60,7 @@ export default function DiaryPage() {
       ) : (
         <div className={styles.mobileLayout}>
           <GreetingBlock />
+          {/* 👉 На мобиле список ведет на /diary/[id] */}
           <DiaryList diaries={diaries} />
         </div>
       )}
