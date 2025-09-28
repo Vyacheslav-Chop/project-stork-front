@@ -8,13 +8,13 @@ import SideBar from "@/components/Sidebar/Sidebar";
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isDesktop = useMediaQuery({ minWidth: 1440 });
+  // const isDesktop = useMediaQuery({ minWidth: 1440 });
 
-  useEffect(() => {
-    if (isDesktop) setIsOpen(false);
-  }, [isDesktop]);
+  // useEffect(() => {
+  //   if (isDesktop) setIsOpen(false);
+  // }, [isDesktop]);
 
-  if (isDesktop) return <SideBar isOpen={true} onClose={() => {}} />;
+  // if (isDesktop) return <SideBar isOpen={true} onClose={() => {}} />;
 
   return (
     <header className={styles.header}>

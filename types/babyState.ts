@@ -9,4 +9,11 @@ export interface BabyState {
   babyDevelopment: string;
   interestingFact: string;
   momDailyTips: string[];
-};
+}
+
+export interface WeekRes {
+  weekData: BabyState;
+  currentWeek: number;
+  daysToBirth: number;
+  isPersonalized: boolean;
+}
