@@ -1,6 +1,6 @@
 import "modern-normalize";
 import "./globals.css";
-import { Lato, Comfortaa } from "next/font/google";
+import { Lato, Comfortaa} from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   sidebar,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
@@ -55,6 +56,7 @@ export default function RootLayout({
                 <div className="page-content">{children}</div>
               </main>
             </div>
+            {modal}
           </AuthProvider>
           <Toaster position="top-center" reverseOrder={false} />
         </TanStackProvider>
