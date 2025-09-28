@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { format, isValid, parse } from 'date-fns';
 import toast from 'react-hot-toast';
 import * as Yup from 'yup';
-
 import css from './OnboardingForm.module.css';
 import CustomSelect from '../ProfileEditForm/CustomSelectProfileEditForm';
 
@@ -62,7 +61,7 @@ const getSelectedDate = (dueDate?: string) => {
 
       console.log('Submitting payload:', payload);
 
-      toast.success('Дані успішно збережено!');
+      toast.success('Дані успішно збережено');
       router.push('/my-day');
     } catch {
       toast.error('Помилка при збереженні даних');

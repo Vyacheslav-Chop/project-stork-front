@@ -83,6 +83,7 @@
   color: rgba(0, 0, 0, 0.6);
   padding-right: 32px;
   width: 100%;
+  cursor: pointer;
   transition: boder 0.3s ease, outline 0.3s ease color 0.3s ease;
 }
 
@@ -125,7 +126,16 @@
   color: #c60000;
 }
 
-.inputError {
-  border: 1px solid #c60000;
-  color: #c60000;
+
+@media only screen and (min-width: 768px) {
+.input {
+  height: 37px;
+}
+}
+
+@media only screen and (min-width: 1440px) {
+  .form{
+  width: 480px;
+}
+
 }
