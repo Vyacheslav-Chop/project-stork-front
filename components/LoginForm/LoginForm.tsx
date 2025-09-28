@@ -15,6 +15,7 @@ import css from '@/components/LoginForm/LoginForm.module.css'
 
 const AFTER_LOGIN_ROUTE = '/';
 
+
 type LoginFormValues = {
   email: string;
   password: string;
@@ -28,7 +29,7 @@ const initialValues: LoginFormValues = {
 const validationSchema = Yup.object({
   email: Yup.string()
     .email('Введіть коректний email')
-    .required("Email є обов’язковим"),
+    .required("Пошта є обов’язковою"),
   password: Yup.string()
     .min(6, 'Мінімум 6 символів')
     .required("Пароль є обов’язковим"),
@@ -61,12 +62,17 @@ export default function LoginForm() {
       router.replace(AFTER_LOGIN_ROUTE);
     } catch (err) {
       const error = err as AxiosError<{ message?: string }>;
-      const msg =
-        error?.response?.data?.message ||
-        error?.message ||
-        'Помилка входу. Спробуйте ще раз.';
-      setServerError(msg);
-      toast.error(msg);
+      let userMsg = 'Сталася помилка. Спробуйте пізніше.';
+
+      switch (error?.response?.status) {
+        case 400:
+          userMsg = 'Невірні дані. Перевірте і спробуйте ще раз.';
+          break;
+        case 401:
+          userMsg = 'Невірний email або пароль.';
+          break;
+      }
+      toast.error(userMsg);
     } finally {
       setSubmitting(false);
     }
@@ -82,34 +88,34 @@ export default function LoginForm() {
         validateOnBlur
         onSubmit={handleSubmit}
       >
-        {({ isSubmitting, isValid, dirty }) => (
+        {({ isSubmitting, isValid, dirty, errors, touched }) => (
           <Form className={css.form}>
             <div className={css.formGroup}>
-              <label htmlFor="email">
-                Пошта
-              </label>
-              <Field
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="you@example.com"
-                className={css.input} />
-              <ErrorMessage name="email" />
+              <div className={css.control}>
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="Пошта"
+                  className={`${css.input} ${errors.email && touched.email ? css.inputError : ''}`}
+                />
+              </div>
+              <ErrorMessage name="email" component="p" className={css.errorText} />
             </div>
 
             <div className={css.formGroup}>
-              <label htmlFor="password" >
-                Пароль
-              </label>
-              <Field
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                className={css.input}
-                placeholder="********" />
-              <ErrorMessage name="password" />
+              <div className={css.control}>
+                <Field
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  placeholder="Пароль"
+                  className={`${css.input} ${errors.email && touched.email ? css.inputError : ''}`}
+                />
+              </div>
+              <ErrorMessage name="password" component="p" className={css.errorText} />
             </div>
 
 
