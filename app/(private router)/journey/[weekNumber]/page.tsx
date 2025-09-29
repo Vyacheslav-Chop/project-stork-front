@@ -4,10 +4,9 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { Metadata } from "next";
-import JourneyContainer from "../JourneyContainer";
 import { fetchPrivateWeekDataServer } from "@/lib/api/apiServer";
 import { WeekData } from "@/types/week";
-
+import JourneyContainer from "../page";
 
 type JourneyPageProps = {
   params: { weekNumber: string };
@@ -47,8 +46,7 @@ type JourneyPageProps = {
 export default async function JourneyPage({ params }: JourneyPageProps) {
   const weekNumber = Number(params.weekNumber);
 
-console.log(weekNumber);
-
+  console.log(weekNumber);
 
   const queryClient = new QueryClient();
 
@@ -63,6 +61,3 @@ console.log(weekNumber);
     </HydrationBoundary>
   );
 }
-
-
-

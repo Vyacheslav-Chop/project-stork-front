@@ -61,12 +61,12 @@ const RegistrationForm = () => {
         <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
         initialValues={initialValues}
-        validateOnChange={false}
+        validateOnChange={true}
         validateOnBlur={true}
         validationSchema={SignupSchema}
         onSubmit={handleSubmit}
       >
-              
+       {({ dirty, isValid, isSubmitting }) => (      
         <Form className={css.form}>
           
          <Field name="name">
@@ -138,15 +138,18 @@ const RegistrationForm = () => {
     </div>
   )}
 </Field>
-  
-   <button type="submit" className={css.submitButton}>
-            Зареєструватись
-          </button>       
+          <button
+              type="submit"
+              disabled={!dirty || !isValid || isSubmitting}
+              className={css.submitButton}>
+              Зареєструватись
+            </button>     
 
      {errorMessage && <p className={css.errorMessage}>{errorMessage}</p>}
-        </Form>
+            </Form>
+      )}      
         </Formik>
-        
+
       <div className={css.content}>
         <p className={css.contenText}>Вже маєте аккаунт?</p>
         <Link href="/auth/login" className={css.link}>

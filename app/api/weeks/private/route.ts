@@ -1,8 +1,8 @@
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-import { NextResponse } from 'next/server';
-import { api } from '../../api';
-import { cookies } from 'next/headers';
+import { NextResponse } from "next/server";
+import { api } from "../../api";
+import { cookies } from "next/headers";
 
 export async function GET() {
   const cookieStore = await cookies();
@@ -15,8 +15,9 @@ export async function GET() {
       },
     });
     if (data) return NextResponse.json(data);
-  } catch (err){
-    return NextResponse.json({ error: err.messsage }, { status: err.status });
+  } catch (err) {
+    console.log("Error", err);
   }
-}
 
+  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+}

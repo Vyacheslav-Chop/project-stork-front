@@ -1,0 +1,78 @@
+
+.list {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  overflow-x: auto;
+  margin-top: 24px;
+  margin-bottom: 32px;
+  gap: 16px;
+  /* scroll-snap-type: x mandatory; */
+  -webkit-overflow-scrolling: touch;
+  list-style: none;
+  width: 100%;
+}
+.list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.listItem {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+.button {
+  border-radius: 32px;
+  padding: 16px;
+  width: 97px;
+  height: 87px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0px;
+  border: 0px solid rgba(0, 0, 0, 0.15);
+  background-color: #fff4f6;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+
+.button:active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+.btnText {
+  gap: 8px;
+}
+.buttonText {
+  margin: 0;
+  font-size: 12px;
+  user-select: none;
+}
+.buttonNumber {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+  user-select: none;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #fff4f6;
+}
+
+.current {
+  background-color: #ffcbd3;
+  border: 4px solid rgba(0, 0, 0, 0.15);
+}
+
+.disabled {
+  background-color: rgba(0, 0, 0, 0.05);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 1440px) {
+}

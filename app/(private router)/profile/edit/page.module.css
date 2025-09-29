@@ -26,14 +26,12 @@
 
 @media screen and (min-width: 768px){
 .title {
-  width: 480px;
   margin-top: 110px;
 } 
 }
  @media screen and (min-width: 1440px){
 .mainContent {
   display: flex;
-  align-items: center;
   flex-direction: row;
   gap: 64px;
   }
@@ -41,15 +39,7 @@
   font-size: 48px;
   margin-top: 57px;
   }
-.input{
-  width: 480px;
-}
-.logo {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  padding: 0;
- }
+
 .imageWrapper {
   display: block;
 }

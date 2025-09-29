@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./DiaryList.module.css";
 import { DiaryData } from "@/types/diaries";
+import AddDiaryModal from "../modals/AddDiaryEntryModal/AddDiaryEntryModal";
 import AddDiaryEntryForm from "../modals/AddDiaryEntryModal/AddDiaryEntryForm/AddDiaryEntryForm";
 
 interface DiaryListProps {
@@ -67,7 +68,6 @@ export default function DiaryList({
                     })}
                   </p>
                 </div>
-
                 <div className={styles.tags}>
                   {diary.category.map((tag) => (
                     <span key={tag._id} className={styles.tag}>
@@ -93,17 +93,15 @@ export default function DiaryList({
       </ul>
 
       {isModalOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <AddDiaryEntryForm
-              onClose={() => setIsModalOpen(false)}
-              onSuccess={() => {
-                onRefresh?.();
-                setIsModalOpen(false);
-              }}
-            />
-          </div>
-        </div>
+        <AddDiaryModal onClose={() => setIsModalOpen(false)}>
+          <AddDiaryEntryForm
+            onClose={() => setIsModalOpen(false)}
+            onSuccess={() => {
+              onRefresh?.();
+              setIsModalOpen(false);
+            }}
+          />
+        </AddDiaryModal>
       )}
     </section>
   );
