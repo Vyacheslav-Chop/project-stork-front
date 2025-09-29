@@ -89,7 +89,6 @@ export default function TasksReminderCard() {
     }, 2000);
   };
 
-  if (isError) return <ErrorText message="Помилка завантаження завдань" />;
   if (isLoading)
     return (
       <div className={styles.card}>
