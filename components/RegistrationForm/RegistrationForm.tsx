@@ -55,9 +55,10 @@ const RegistrationForm = () => {
   return (
     
     <main className={css.mainContent}>
-     
+
       <div className={css.wrapper}>
-        <div className={css.logo}><NavBarLogo/></div> 
+<div className={css.logo}><NavBarLogo/></div> 
+      
         <h1 className={css.formTitle}>Реєстрація</h1>
       <Formik
         initialValues={initialValues}
