@@ -1,21 +1,19 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useId } from 'react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { format, isValid, parse } from 'date-fns';
-import toast from 'react-hot-toast';
-import * as Yup from 'yup';
-
-import css from './OnboardingForm.module.css';
-import CustomSelect from '../ProfileEditForm/CustomSelectProfileEditForm';
-
+import { useRouter } from "next/navigation";
+import { useId } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { format, isValid, parse } from "date-fns";
+import toast from "react-hot-toast";
+import * as Yup from "yup";
+import css from "./OnboardingForm.module.css";
+import CustomSelect from "../ProfileEditForm/CustomSelectProfileEditForm";
 
 const OnboardingSchema = Yup.object().shape({
-  dueDate: Yup.date().required('Оберіть дату пологів'),
-  babyGender: Yup.string().required('Оберіть стать дитини'),
+  dueDate: Yup.date(),
+  babyGender: Yup.string(),
 });
 
 type InitialValuesProps = {
@@ -28,15 +26,15 @@ export default function OnboardingPageForm() {
   const fieldId = useId();
 
   const initialValues: InitialValuesProps = {
-    babyGender: '',
-    dueDate: '',
+    babyGender: "",
+    dueDate: "",
   };
 
-const getSelectedDate = (dueDate?: string) => {
-  if (!dueDate) return null;
-  const parsedDate = parse(dueDate, 'yyyy.MM.dd', new Date());
-  return isValid(parsedDate) ? parsedDate : null;
-};
+  const getSelectedDate = (dueDate?: string) => {
+    if (!dueDate) return null;
+    const parsedDate = parse(dueDate, "yyyy.MM.dd", new Date());
+    return isValid(parsedDate) ? parsedDate : null;
+  };
 
   const changeDueDate = (
     date: Date | null,
@@ -47,35 +45,39 @@ const getSelectedDate = (dueDate?: string) => {
     ) => void
   ) => {
     if (date) {
-      setFieldValue('dueDate', format(date, 'yyyy.MM.dd'));
+      setFieldValue("dueDate", format(date, "yyyy.MM.dd"));
     } else {
-    setFieldValue('dueDate', '');
-  }
+      setFieldValue("dueDate", "");
+    }
   };
 
-  const handleSubmit = async (values: InitialValuesProps ) => {
+  const handleSubmit = async (values: InitialValuesProps) => {
     try {
       const payload = {
         babyGender: values.babyGender,
         dueDate: values.dueDate,
       };
 
-      console.log('Submitting payload:', payload);
+      console.log("Submitting payload:", payload);
 
-      toast.success('Дані успішно збережено!');
-      router.push('/my-day');
+      toast.success('Дані успішно збережено');
+      router.push('/');
+
     } catch {
-      toast.error('Помилка при збереженні даних');
+      toast.error("Помилка при збереженні даних");
     }
   };
-  
+
   return (
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={OnboardingSchema}
+      validateOnChange={true}
+      validateOnBlur={true}
+      
     >
-      {({ values, setFieldValue, isSubmitting }) => (
+      {({ values, setFieldValue, dirty, isValid, isSubmitting }) => (
         <Form className={css.form}>
           <div className={css.formGroup}>
             <label
@@ -118,7 +120,6 @@ const getSelectedDate = (dueDate?: string) => {
                 wrapperClassName={css.dateWrapper}
                 placeholderText="Оберіть дату"
                 onChangeRaw={(e) => e?.preventDefault()}
-                  
               />
 
               <svg width={24} height={24} className={css.dateIcon}>
@@ -133,13 +134,25 @@ const getSelectedDate = (dueDate?: string) => {
             />
           </div>
 
-            <button
+          <div className={css.btnContainer}>
+             <button
               type="submit"
-              disabled={isSubmitting}
-              className={css.submitBtn}
+              disabled={!dirty || !isValid || isSubmitting}
+              className={css.submitButton}
             >
               Зберегти
-            </button>
+          </button>
+          
+             <button
+              type="submit"
+              disabled={isSubmitting}
+              className={css.submitButton}
+            >
+              Пропустити
+            </button> 
+</div>
+          
+
         </Form>
       )}
     </Formik>

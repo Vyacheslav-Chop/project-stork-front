@@ -1,20 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { useMediaQuery } from "react-responsive";
 import styles from "./Header.module.css";
-import SideBar from "@/components/Sidebar/Sidebar";
+import HeaderModal from "../modals/HeaderModal/HeaderModal";
+import Sidebar from "../Sidebar/Sidebar";
 
-const Header: React.FC = () => {
+const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isDesktop = useMediaQuery({ minWidth: 1440 });
 
-  useEffect(() => {
-    if (isDesktop) setIsOpen(false);
-  }, [isDesktop]);
-
-  if (isDesktop) return <SideBar isOpen={true} onClose={() => {}} />;
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
   return (
     <header className={styles.header}>
@@ -28,17 +24,16 @@ const Header: React.FC = () => {
           </svg>
         </Link>
 
-        <button
-          className={styles.burger}
-          onClick={() => setIsOpen((prev) => !prev)}
-        >
+        <button className={styles.burger} onClick={open}>
           <svg width={32} height={32}>
             <use href="/icons/header-icons.svg#icon-burger"></use>
           </svg>
         </button>
       </div>
 
-      <SideBar isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <HeaderModal onClose={close} isOpen={isOpen}>
+        <Sidebar onClose={close} />
+      </HeaderModal>
     </header>
   );
 };

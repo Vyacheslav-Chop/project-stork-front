@@ -2,11 +2,14 @@ import { api } from "@/app/api/api";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, {params}) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: Promise<{ weekNumber: string }> }
+) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  const weekNumber = params.week;
+  const { weekNumber } = await params;
 
   try {
     const { data } = await api.get(`/weeks/mom-state/${weekNumber}`, {
@@ -16,8 +19,8 @@ export async function GET(req: NextRequest, {params}) {
     });
     if (data) return NextResponse.json(data);
   } catch (err) {
-    console.log("Error GET USER>>", err);
-
-    return NextResponse.json({ error: err.message }, { status: err.status });
+    console.log("Error", err);
   }
+
+  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 }

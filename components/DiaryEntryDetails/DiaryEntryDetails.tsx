@@ -9,23 +9,37 @@ export default function DiaryEntryDetails({ diary }: Props) {
   return (
     <article className={styles.card}>
       <header className={styles.header}>
-        <h1 className={styles.title}>{diary.title}</h1>
-      </header>
+        <div className={styles.titleBlock}>
+          <h1 className={styles.title}>{diary.title}</h1>
+          <button className={styles.editBtn}>
+            <svg className={styles.icon} width={24} height={24}>
+              <use href="/icons/icon-update.svg"></use>
+            </svg>
+          </button>
+        </div>
 
-      <p className={styles.date}>
-        {new Date(diary.createdAt).toLocaleDateString("uk-UA", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })}
-      </p>
+        <div className={styles.meta}>
+          <p className={styles.date}>
+            {new Date(diary.updatedAt).toLocaleDateString("uk-UA", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </p>
+          <button className={styles.deleteBtn}>
+            <svg className={styles.icon} width={24} height={24}>
+              <use href="/icons/icon-delete.svg"></use>
+            </svg>
+          </button>
+        </div>
+      </header>
 
       <p className={styles.description}>{diary.description}</p>
 
       <div className={styles.tags}>
-        {diary.category.map((tag: string) => (
-          <span key={tag} className={styles.tag}>
-            {tag}
+        {diary.category.map((tag) => (
+          <span key={tag._id} className={styles.tag}>
+            {tag.title}
           </span>
         ))}
       </div>

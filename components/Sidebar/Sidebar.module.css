@@ -1,61 +1,17 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s;
-  z-index: 100;
-}
-
-.overlay.show {
-  opacity: 1;
-  visibility: visible;
-}
-
-.sidebar.desktop {
-  transform: translateX(0) !important;
-  position: static;
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   height: 100vh;
-  box-shadow: none;
-  border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .header {
+  padding: 16px;
+  flex: 0 0 auto;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
-  padding: 16px 24px;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 300px;
-  max-width: 80%;
-  height: 100vh;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease-in-out;
-}
-
-.closeBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  fill: #000;
-  stroke: #000;
-  width: 32;
-  height: 32;
 }
 
 .logoBlock {
@@ -63,31 +19,67 @@
   align-items: center;
   text-decoration: none;
   justify-content: center;
-  gap: 4.69px;
+  gap: 5px;
   width: 105px;
   height: 45px;
+  padding: 8px 5px;
 }
 
-.sidebar.open {
-  transform: translateX(0);
+.inner {
+  flex: 1 1 auto;
+  overflow-y: auto;
 }
 
 .footer {
-  display: flex;
-  justify-content: center;
-  margin-top: auto;
-  margin-left: 16px;
-  margin-right: 16px;
-  border-top: 1px solid rgba(0, 0, 0, 0.15);
-  text-align: center;
-  font-size: 14px;
-  color: #000;
-  height: 80px;
+  padding: 24px 16px;
+  flex: 0 0 auto;
 }
 
 .authLinks {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 40px;
+}
+
+.infoWrap {
+  display: flex;
+  gap: 12px;
+}
+
+.avatarWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  border-radius: 100%;
+}
+
+.textName {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.textEmail {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.closeBtn {
+  background-color: transparent;
+}
+
+.logoutBtn {
+  background-color: transparent;
+}
+
+@media screen and (min-width: 1440px) {
+  .sidebar {
+  display: flex;
+}
 }
