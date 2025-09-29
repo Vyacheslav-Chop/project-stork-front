@@ -107,11 +107,11 @@ export default function LoginForm() {
   };
 
   return (
-    <main className={css.main}>
+    <main className={css.mainContent}>
+      <div className={css.logo}>
+        <NavBarLogo />
+      </div>
       <div className={css.wrapper}>
-        <div className={css.logo}>
-          <NavBarLogo />
-        </div>
         <h1 className={css.title}>Вхід</h1>
 
         <Formik<LoginFormValues>

@@ -1,3 +1,6 @@
+.wrapper {
+  padding-top: 220px;
+}
 
 .form {
   display: flex;
@@ -18,8 +21,6 @@
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
-  margin-bottom: 32px;
-  margin-top: 220px;
 }
 
 .control {
@@ -75,12 +76,12 @@ input:-webkit-autofill {
 
 .submitButton:hover,
 .submitButton:focus {
-  background-color: #fff4f6;                   
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.15); 
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color:rgba(255, 255, 255, 0.05);            
 }
 
 .submitButton:active {
-  background-color: #ffcbd3;  
+  background-color: #d8d8d8; 
   box-shadow: none;            
   transform: translateY(2px);  
 }
@@ -109,14 +110,27 @@ input:-webkit-autofill {
   line-height: 1.5;
   text-align: center;
 }
+
 .link {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.6;
+  text-align: center;
+  text-decoration: none; 
+}
+
+.link:hover,
+.link:focus{
   text-decoration: underline;
   text-decoration-skip-ink: none;
-  text-align: center;
 }
+
+.link:active {
+ color: #ffcbd3;
+ text-decoration: none;
+ text-decoration: underline;
+}
+
 
 .errorText {
   margin-top: 4px;
@@ -142,8 +156,8 @@ input:-webkit-autofill {
   align-items: center;
 }
 
-.title {
-  margin-top: 280px;
+.wrapper {
+  padding-top: 280px;
 }
 
 .input {
@@ -160,7 +174,7 @@ input:-webkit-autofill {
 }
 
 @media only screen and (min-width: 1440px){
-.main {
+.mainContent {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -168,15 +182,14 @@ input:-webkit-autofill {
   padding: 0;
 }
 
-.title {
-  margin-top: 266px;
+.wrapper {
+  padding-top: 266px;
 }
 
  .logo {
   position: absolute;
   top: 20px;
   left: 20px;
-  padding: 0;
 }
 
 .input {
@@ -190,11 +203,6 @@ input:-webkit-autofill {
 .imageWrapper {
   display: block;
 }
-
-
-
-
-
 
 }
 
