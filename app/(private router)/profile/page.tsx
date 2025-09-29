@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 const Profile = async () => {
   const res = await getUserServer();
-  const user = res?.data ?? null;
+  const user = res ?? null;
 
   if (!user) return;
 

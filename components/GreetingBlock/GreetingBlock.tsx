@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import styles from "./GreetingBlock.module.css";
-import Loader from "../Loader/Loader";
-import type { UserResponse } from "@/types/user";
-import { getUser } from "@/lib/api/apiClient";
+import { useAuth } from "@/lib/store/authStore";
 
 const getGreetingByTime = (): string => {
   const hour = new Date().getHours();
@@ -15,21 +12,14 @@ const getGreetingByTime = (): string => {
   return "Доброї ночі";
 };
 
-const GreetingBlock: React.FC = () => {
+const GreetingBlock = () => {
   const [greeting, setGreeting] = useState<string>("");
-
-  const { data: user, isLoading } = useQuery<UserResponse | null>({
-    queryKey: ["user"],
-    queryFn: getUser,
-  });
+  const { user } = useAuth();
 
   useEffect(() => {
     setGreeting(getGreetingByTime());
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
-  }
 
   return (
     <div className={styles.greetingBlock}>
