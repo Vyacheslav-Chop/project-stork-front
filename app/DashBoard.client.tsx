@@ -49,7 +49,7 @@ const DashBoardClient = () => {
         <div className={css.firstWrapper}>
           {userInfo && <StatusBlock data={userInfo} />}
           <BabyTodayCard />
-          <MomTipCard />
+          {userInfo && <MomTipCard data={userInfo}/>}
         </div>
         <div className={css.lastWrapper}>
           <TasksReminderCard />
