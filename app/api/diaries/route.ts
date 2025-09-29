@@ -12,10 +12,10 @@ export async function GET() {
     });
 
     return NextResponse.json(data.data);
-  } catch (er: any) {
+  } catch (err) {
     return NextResponse.json(
-      { error: er.message },
-      { status: er.response?.status || 500 }
+      { error: err.message },
+      { status: err.response?.status || 500 }
     );
   }
 }
@@ -32,8 +32,8 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(data, { status: 201 });
-  } catch (err: unknown) {
-    const error = err as any;
+  } catch (err) {
+    const error = err;
     return NextResponse.json(
       { error: error.message || "Server error" },
       { status: error.response?.status || 500 }
