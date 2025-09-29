@@ -1,28 +1,22 @@
 "use client";
 
-import { useAuth } from "@/lib/store/authStore";
-import { useQuery } from "@tanstack/react-query";
-import { getWeekStatic, getWeekDynamic } from "@/lib/api/apiClient";
 import styles from "./BabyTodayCard.module.css";
 import Image from "next/image";
-import toast from "react-hot-toast";
 
-const BabyTodayCard = () => {
-  const { isAuthenticated } = useAuth();
+type BabyData = {
+  image: string;
+  weekNumber: number;
+  babySize: number | string;
+  babyWeight: number | string;
+  babyActivity: string;
+  babyDevelopment: string;
+};
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["babyWeekData", isAuthenticated],
-    queryFn: () => (isAuthenticated ? getWeekDynamic() : getWeekStatic()),
-  });
+type Props = {
+  baby: BabyData;
+};
 
-  if (isLoading) return <div className={styles.loader}>Завантаження…</div>;
-  if (isError || !data) {
-    toast.error("Не вдалося завантажити дані про малюка");
-    return null;
-  }
-
-  const baby = data.weekData;
-
+const BabyTodayCard = ({ baby }: Props) => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.container}>
