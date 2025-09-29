@@ -47,6 +47,10 @@
 }
 
 @media (min-width: 1440px) {
+  .wrapper {
+    width: 642px;
+  }
+
   .item {
     width: 305px;
     height: 127px;
