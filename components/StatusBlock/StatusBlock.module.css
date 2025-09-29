@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: stretch;
   gap: 16px;
-  margin: 16px 0;
 }
 
 .item {
@@ -48,6 +47,10 @@
 }
 
 @media (min-width: 1440px) {
+  .wrapper {
+    width: 642px;
+  }
+
   .item {
     width: 305px;
     height: 127px;

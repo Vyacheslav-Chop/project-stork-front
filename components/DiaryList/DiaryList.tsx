@@ -4,24 +4,20 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import styles from "./DiaryList.module.css";
 import { DiaryData } from "@/types/diaries";
+import AddDiaryModal from "../modals/AddDiaryEntryModal/AddDiaryEntryModal";
 import AddDiaryEntryForm from "../modals/AddDiaryEntryModal/AddDiaryEntryForm/AddDiaryEntryForm";
 
 interface DiaryListProps {
   diaries: DiaryData[];
   onSelect?: (diary: DiaryData) => void;
-  onRefresh?: () => void;
 }
 
-export default function DiaryList({
-  diaries,
-  onSelect,
-  onRefresh,
-}: DiaryListProps) {
+export default function DiaryList({ diaries, onSelect }: DiaryListProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1200);
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1440);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -57,18 +53,20 @@ export default function DiaryList({
           >
             {isDesktop ? (
               <div className={styles.link}>
-                <h3 className={styles.entryTitle}>{diary.title}</h3>
-                <p className={styles.date}>
-                  {new Date(diary.createdAt).toLocaleDateString("uk-UA", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
+                <div className={styles.headerRow}>
+                  <h3 className={styles.entryTitle}>{diary.title}</h3>
+                  <p className={styles.date}>
+                    {new Date(diary.createdAt).toLocaleDateString("uk-UA", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
                 <div className={styles.tags}>
                   {diary.category.map((tag) => (
-                    <span key={tag} className={styles.tag}>
-                      {tag}
+                    <span key={tag._id} className={styles.tag}>
+                      {tag.title}
                     </span>
                   ))}
                 </div>
@@ -83,13 +81,6 @@ export default function DiaryList({
                     year: "numeric",
                   })}
                 </p>
-                <div className={styles.tags}>
-                  {diary.category.map((tag) => (
-                    <span key={tag} className={styles.tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </Link>
             )}
           </li>
@@ -97,17 +88,9 @@ export default function DiaryList({
       </ul>
 
       {isModalOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <AddDiaryEntryForm
-              onClose={() => setIsModalOpen(false)}
-              onSuccess={() => {
-                onRefresh?.();
-                setIsModalOpen(false);
-              }}
-            />
-          </div>
-        </div>
+        <AddDiaryModal onClose={() => setIsModalOpen(false)}>
+          <AddDiaryEntryForm onClose={() => setIsModalOpen(false)} />
+        </AddDiaryModal>
       )}
     </section>
   );

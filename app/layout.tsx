@@ -3,10 +3,11 @@ import "./globals.css";
 import { Lato, Comfortaa } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
-import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import HeaderWrapper from "./HeaderWrapper";
+import BreadcrumbsWrapper from "./BreadcrumbsWrapper";
+
 
 const lato = Lato({
   subsets: ["latin"],
@@ -33,22 +34,29 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  sidebar,
   modal,
 }: Readonly<{
   children: React.ReactNode;
   modal: React.ReactNode;
+  sidebar: React.ReactNode;
 }>) {
   return (
     <html lang="uk">
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <HeaderWrapper />
+            <div className="header-wrapper">
+              <HeaderWrapper />
+            </div>
+            <div className="app-layout">
+              <aside className="sidebar">{sidebar}</aside>
 
-            <main>
-              <Breadcrumbs />
-              <div>{children}</div>
-            </main>
+              <main className="content">
+                <BreadcrumbsWrapper />
+                <div className="page-content">{children}</div>
+              </main>
+            </div>
             {modal}
           </AuthProvider>
           <Toaster position="top-center" reverseOrder={false} />

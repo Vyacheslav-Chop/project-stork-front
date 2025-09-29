@@ -1,55 +1,50 @@
-/* *, *::before, *::after { box-sizing: border-box; } */
 
 .container{
   width: 100%;
   padding: 1rem;
 }
 
-.btn-group{
+.btnGroup {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* gap: clamp(4px, 2vw, 8px); */
   padding: 4px;
   width: 100%;
-  max-width: 375px;         
-  margin: 0 auto;          
-  min-height: 50px;         
+  max-width: 100%; 
+  margin: 0 auto 16px;
+  height: 42px;
   background: #FFF4F6;
   border-radius: 100px;
+  gap: 4px;
 }
 
-.btn-active,
-.btn-inactive{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1 1 0;            
-  min-width: 0;            
-  padding: clamp(8px, 2.5vw, 10px) clamp(16px, 5vw, 24px);
-  /* gap: clamp(4px, 2vw, 8px); */
+.btnActive,
+.btnInactive {
+  flex: 1 1 auto; 
+  min-width: 0;
+  height: 42px;
+  padding: 8px 14px;
   border-radius: 100px;
-  font-family: 'Lato', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   font-weight: 500;
-  font-size: clamp(12px, 3.5vw, 14px);
-  line-height: 1.6;
-  color: #000000;
-  border: 1px solid transparent; 
+  font-size: 14px;
+  color: #000;
+  border: 1px solid transparent;
   background: transparent;
+  white-space: nowrap;
 }
 
-.btn-active{
+.btnActive {
   background: #FFDAE0;
   border-color: #FFDAE0;
 }
 
 
 @media (max-width: 320px){
-  .btn-group{ gap: 4px; padding: 3px; }
-  .btn-active, .btn-inactive{ padding: 8px 14px; }
+  .btnGroup{ gap: 4px; padding: 3px; }
+  .btnActive, .btnInactive{ padding: 8px 14px; }
 }
 
-.card-container{
+.cardContainer{
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -57,31 +52,31 @@
 
 
 @media (min-width: 768px){
-  .btn-group{
+  .btnGroup{
     width: 704px;
     max-width: 704px;       
   }
-  .btn-active,
-  .btn-inactive{
+  .btnActive,
+  .btnInactive{
     flex: 0 0 auto;        
   }
-  .btn-active{  
+  .btnActive{  
     width: 348px; 
   }
 
-  .btn-inactive{
+  .btnInactive{
     width: 348px; 
   }
 }
 
 @media (min-width: 1440px){
-  .btn-group{
+  .btnGroup{
     width: 572px;
     max-width: 572px;     
   }
-  .btn-active{  
+  .btnActive{  
     width: 295px; }
-  .btn-inactive{
+  .btnInactive{
     width: 273px; }
 
 }

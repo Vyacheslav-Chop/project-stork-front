@@ -1,0 +1,55 @@
+/* AddDiaryModal.module.css */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  z-index: 1000;
+}
+.modalWrap {
+  position: relative;
+  z-index: 1001;
+  background: #fff;
+  border-radius: 40px;
+  width: 100%;
+  max-width: 704px;
+}
+.iconWrap {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.iconClose {
+  width: 14px;
+  height: 14px;
+  z-index: 1002;
+}
+@media (min-width: 768px) {
+  .modalWrap {
+    max-width: 704px;
+  }
+  .iconWrap {
+    top: 22px;
+    right: 32px;
+  }
+}
+@media (min-width: 1440px) {
+  .modalWrap {
+    max-width: 768px;
+  }
+  .iconWrap {
+    top: 29px;
+    right: 36px;
+  }
+}

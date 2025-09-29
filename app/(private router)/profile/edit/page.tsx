@@ -1,14 +1,33 @@
 import OnboardingFormAvatar from '../../../../components/OnboardingAvatar/OnboardingAvatar'
 import OnboardingForm from '../../../../components/OnboardingForm/OnboardingForm'
+import css from './page.module.css'
+import NavBarLogo from '../../../../components/NavBarLogo/NavBarLogo'
+import Image from 'next/image';
 
-const page = () => {
-  return (
-    <div>
+
+const OnboardingPage = () => {
+  return (   
+    <div className={css.mainContent}>
+     
+     <div className={css.wrapper}>
+      <div className={css.logo}><NavBarLogo/></div> 
+      <h1 className={css.title}>Давайте познайoмимось ближче</h1>
       <OnboardingFormAvatar />
       <OnboardingForm />
-      {/* <Image></Image> */}
+      </div>
+         <div className={css.imageWrapper}>
+          <Image
+           src="/image/on_boarding_form/green_sprout.jpg"
+           alt="Ілюстрація реєстрації"
+           width={720} 
+           height={900}
+           className={css.image}
+          />
+         </div>
+   
     </div>
+ 
   )
 }
 
-export default page
+export default OnboardingPage;

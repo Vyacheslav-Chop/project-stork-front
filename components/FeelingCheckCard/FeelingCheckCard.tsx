@@ -4,20 +4,26 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./FeelingCheckCard.module.css";
 import { useAuth } from "@/lib/store/authStore";
-import AddDiaryEntryModal from "@/components/modals/AddDiaryEntryModal/AddDiaryEntryModal";
+import { AddDiaryModal } from "@/components/modals/AddDiaryEntryModal/AddDiaryEntryModal";
+import AddDiaryEntryForm from "../modals/AddDiaryEntryModal/AddDiaryEntryForm/AddDiaryEntryForm";
 
-const FeelingCheckCard: React.FC = () => {
+const FeelingCheckCard = () => {
   const isLoggedIn = useAuth((state) => state.isAuthenticated);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const open = () => setIsModalOpen(true);
+  const close = () => setIsModalOpen(false);
+
   const handleButtonClick = () => {
     if (isLoggedIn) {
-      setIsModalOpen(true);
+      open();
     } else {
       router.push("/auth/register");
     }
   };
+
+  
 
   return (
     <div className={styles.card}>
@@ -35,10 +41,10 @@ const FeelingCheckCard: React.FC = () => {
       <button onClick={handleButtonClick} className={styles.button}>
         Зробити запис у щоденник
       </button>
-
-      {isLoggedIn && isModalOpen && (
-        // <AddDiaryEntryModal onClose={() => setIsModalOpen(false)} />
-        <AddDiaryEntryModal />
+      {isModalOpen && (
+        <AddDiaryModal onClose={close}>
+          <AddDiaryEntryForm onClose={close}/>
+        </AddDiaryModal>
       )}
     </div>
   );

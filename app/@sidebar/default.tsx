@@ -1,9 +1,5 @@
-import SideBar from "@/components/Sidebar/Sidebar";
+import SideBarWrapper from "../SideBarWrapper";
 
-interface SidebarProps {
-  onClose: () => void;
-}
-
-export default function SidebarPage({ onClose }: SidebarProps) {
-  return <SideBar onClose={onClose} />;
+export default function SidebarPage() {
+  return <SideBarWrapper />;
 }

@@ -1,43 +1,27 @@
-
-import { getDiaryById } from "@/lib/api/apiClient";
-import styles from "./DiaryDetailsPage.module.css";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+import { getDiaryByIdServer } from "@/lib/api/apiServer";
+import Diary from "./Diary.client";
 
 interface Props {
-  params: { diaryId: string };
+  params: Promise<{ diaryId: string }>;
 }
 
 export default async function DiaryDetailsPage({ params }: Props) {
-  const diary = await getDiaryById(params.diaryId);
+  const { diaryId } = await params;
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["diary", diaryId],
+    queryFn: () => getDiaryByIdServer(diaryId),
+  });
 
   return (
-    <article className={styles.card}>
-      <header className={styles.header}>
-        <h1 className={styles.title}>{diary.title}</h1>
-
-        <div className={styles.actions}>
-          <button className={styles.editBtn}>✏️</button>
-          <button className={styles.deleteBtn}>❌</button>
-        </div>
-      </header>
-
-      <p className={styles.date}>
-        {new Date(diary.createdAt).toLocaleDateString("uk-UA", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        })}
-      </p>
-
-      <p className={styles.description}>{diary.description}</p>
-
-      <div className={styles.tags}>
-        {diary.category.map((tag: string) => (
-          <span key={tag} className={styles.tag}>
-            {tag}
-          </span>
-        ))}
-      </div>
-    </article>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <Diary />
+    </HydrationBoundary>
   );
 }
-

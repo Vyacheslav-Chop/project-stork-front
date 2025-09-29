@@ -1,31 +1,28 @@
-// import { ApiResponse } from "@/types/user";
-import { nextClient, nextServer } from "./api";
+import { nextServer } from "./api";
 import { CreateTaskProps, Task, UpdateTaskProps } from "@/types/tasks";
-import { UserResponse, NewUser, UserPayload } from "../../types/user";
-import {
-  ApiWeekResponse,
-  BabyWeekData,
-  WeekTip,
-  WeekTipResponse,
-} from "@/types/babyWeekData";
+import { UserResponse, NewUser, UserPayload, LoginPayload } from "../../types/user";
 import { Emotion } from "@/types/emotions";
 import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
-import type { LoginResponse, LoginPayload } from "@/types/auth";
+// import type { LoginResponse, LoginPayload } from "@/types/auth";
+import { DiaryCreateData, DiaryData } from "@/types/diaries";
+import axios from 'axios';
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
-  const res = await nextServer.post<AxiosRes<UserResponse>>("/auth/register", newUser);
+  const res = await nextServer.post<AxiosRes<UserResponse>>(
+    "/auth/register",
+    newUser
+  );
   return res.data.data;
 }
 
-export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
-  const res: AxiosRes<LoginResponse> = await nextServer.post("/auth/login", payload);
+export const login = async (payload: LoginPayload): Promise<void> => {
+  const res = await nextServer.post("/auth/login", payload);
   return res.data;
 };
 
 export const refresh = async () => {
-
   const res = await nextServer.post("/auth/refresh");
 
   return res.data;
@@ -35,16 +32,14 @@ export async function logout(): Promise<void> {
   await nextServer.post("/auth/logout");
 }
 
-export const getDiaries = async () => {
-  const res = await nextServer.get("/diaries");
-
-  return res.data.data;
+export const getDiaries = async (): Promise<DiaryData[]> => {
+  const res = await nextServer.get<DiaryData[]>("/diaries");
+  return res.data;
 };
 
-export const createDiary = async (payload) => {
+export const createDiary = async (payload: DiaryCreateData) => {
   const res = await nextServer.post("/diaries", payload);
-
-  return res.data.data;
+  return res.data;
 };
 
 export const updateDiary = async (diaryId, payload) => {
@@ -57,9 +52,8 @@ export const deleteDiary = async (diaryId) => {
   await nextServer.delete(`/diaries/${diaryId}`);
 };
 
-export const getDiaryById = async (diaryId) => {
-  const res = await nextServer.get(`/diaries/${diaryId}`);
-
+export const getDiaryById = async (diaryId: string): Promise<DiaryData> => {
+  const res = await nextServer.get<AxiosRes<DiaryData>>(`/diaries/${diaryId}`);
   return res.data.data;
 };
 
@@ -75,15 +69,22 @@ export const createTask = async (payload: CreateTaskProps): Promise<Task> => {
   return res.data.data;
 };
 
-export const updateTaskStatusById = async (
+export const updateTaskStatusById = async (taskId: string): Promise<Task> => {
+  const res = await nextServer.patch<AxiosRes<Task>>(
+    `/tasks/${taskId}/status`,
+    undefined
+  );
+  return res.data.data;
+};
+
+export const updateTaskById = async (
   taskId: string,
   payload: UpdateTaskProps
 ): Promise<Task> => {
   const res = await nextServer.patch<AxiosRes<Task>>(
-    `/tasks/${taskId}/status`,
+    `/tasks/${taskId}`,
     payload
   );
-
   return res.data.data;
 };
 
@@ -96,16 +97,14 @@ export const getUser = async (): Promise<UserResponse> => {
 export const updateUser = async (
   payload: UserPayload
 ): Promise<UserResponse> => {
-  const res = await nextServer.patch<AxiosRes<UserResponse>>(
-    "/users",
-    payload
-  );
+  const res = await nextServer.patch<AxiosRes<UserResponse>>("/users", payload);
 
   return res.data.data;
 };
 
 export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
   const formData = new FormData();
+  console.log(file instanceof File);
 
   formData.append("avatar", file, file.name);
 
@@ -122,8 +121,8 @@ export const getWeekStatic = async (): Promise<WeekRes> => {
   return res.data.data;
 };
 
-export const getWeekDynamic = async () => {
-  const res = await nextServer.get("/weeks/private");
+export const getWeekDynamic = async (): Promise<WeekRes> => {
+  const res = await nextServer.get<AxiosRes<WeekRes>>("/weeks/private");
 
   return res.data.data;
 };
@@ -137,19 +136,18 @@ export const getMomState = async (week: number): Promise<MomState> => {
 };
 
 export const getBabyState = async (week: number): Promise<BabyState> => {
-  const res = await nextServer.get<BabyState>(`/weeks/baby-state/${week}`);
-
-  return res.data;
-};
-
-export const getEmotions = async (): Promise<Emotion[]> => {
-  const res = await nextServer.get("/emotions");
+  const res = await nextServer.get<AxiosRes<BabyState>>(`/weeks/baby-state/${week}`);
 
   return res.data.data;
 };
 
+export const getEmotions = async (): Promise<Emotion[]> => {
+  const res = await nextServer.get("/emotions");
+  return res.data.data;
+};
+
 export const getPublicMomTips = async (): Promise<WeekTip> => {
-  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>(
+  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>(
     "/weeks/public"
   );
 
@@ -157,9 +155,19 @@ export const getPublicMomTips = async (): Promise<WeekTip> => {
 };
 
 export const getPrivateMomTips = async (): Promise<WeekTip> => {
-  const res = await nextClient.get<ApiWeekResponse<WeekTipResponse>>(
+  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>(
     "/weeks/private"
   );
 
   return res.data.data.weekData.momDailyTips;
+};
+
+
+export const fetchCurrentWeek = async (): Promise<number> => {
+  try {
+    const response = await axios.get('/api/weeks/private');
+    return response.data.currentWeek;
+  } catch (error) {
+    throw new Error('Не вдалося отримати поточний тиждень');
+  }
 };
