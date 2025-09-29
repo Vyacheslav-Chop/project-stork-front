@@ -4,7 +4,7 @@ import { DiaryData } from "@/types/diaries";
 import { AxiosRes } from "@/types/generic";
 import { WeekRes } from "@/types/babyState";
 import { UserResponse } from "@/types/user";
-
+import { WeekData } from "@/types/week"
 export const getWeekDynamicServer = async (): Promise<WeekRes | null> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -54,3 +54,19 @@ export const getDiaryByIdServer = async (
 
   return res.data.data;
 };
+
+
+export const fetchPrivateWeekDataServer = async (weekNumber: string): Promise<WeekData | null> => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
+  if (!accessToken) return null;
+
+  const res = await nextServer.get<AxiosRes<WeekData>>(`/journey/${weekNumber}`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Cookie: cookieStore.toString(),
+    },
+  });
+   return res.data.data;
+}

@@ -1,78 +1,62 @@
-'use client';
 
-import { useRouter, useParams } from 'next/navigation';
-import toast, { Toaster } from 'react-hot-toast';
-import { useQuery } from '@tanstack/react-query';
+ 'use client';
+
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+// import {  useQueryClient } from "@tanstack/react-query";
+import { Toaster } from 'react-hot-toast';
 import css from './WeekSelector.module.css';
-import { fetchCurrentWeek } from '../../lib/api/apiClient'
- 
+import { useAuth } from '../../lib/store/authStore';
+
 const TOTAL_WEEKS = 42;
 
 const WeekSelector = () => {
-  const { curre } = useParams<{ weekNumber: string }>();
-  const selectedWeek = Number(weekNumber);
-  const router = useRouter();
+  // const queryClient = useQueryClient();
+  const params = useParams();
+  const selectedWeek = Number(params.weekNumber);
+  const { currentWeek } = useAuth();
 
-  const {
-    data: currentWeek,
-    isLoading,
-    // isError,
-  } = useQuery({
-    queryKey: ['currentWeek'],
-    queryFn: fetchCurrentWeek,
-  });
-
-  const handleWeekClick = (week: number) => {
-    if (!currentWeek) return;
-
-    if (week > currentWeek && week > selectedWeek) {
-      toast.error(`Тиждень ${week} ще недоступний`);
-      return;
-    }
-
-    router.push(`/journey/${week}`);
-  };
-const weeks: number[] = [];
+  
+  const weeks: number[] = [];
   for (let i = 1; i <= TOTAL_WEEKS; i++) {
     weeks.push(i);
   }
   return (
     <>
       <Toaster position="top-right" />
+
       <ul className={css.list}>
         {weeks.map((week) => {
-          const isDisabled = currentWeek !== undefined && week > currentWeek;
+          const isDisabled = currentWeek !== null && week > currentWeek;
+
           const isSelected = week === selectedWeek;
 
           return (
             <li key={week} className={css.listItem}>
-              <button
-                onClick={() => handleWeekClick(week)}
-                disabled={isLoading || isDisabled}
-                aria-disabled={isDisabled}
-                className={`
-                  ${css.button}
-                  ${isSelected ? css.current : ''}
-                  ${isDisabled ? css.disabled : ''}
-                `}
-                data-week={week}
-                data-testid={`week-button-${week}`}
-              >
-                <div className={css.btnText}>
-                  <p className={css.buttonNumber}>{week}</p>
-                <p className={css.buttonText}>тиждень</p>
+              {isDisabled ? (
+                <div
+                  className={`${css.button} ${css.disabled}`}
+                  aria-disabled="true"
+                  data-week={week}
+                >
+                  <span className={css.buttonNumber}>{week}</span>
+                  <p className={css.buttonText}>тиждень</p>
                 </div>
-                
-              </button>
+              ) : (
+                <Link
+                  href={`/journey/${week}`}
+                  className={`${css.button} ${isSelected ? css.current : ''}`}
+                  data-week={week}
+                >
+                  <span className={css.buttonNumber}>{week}</span>
+                  <p className={css.buttonText}>тиждень</p>
+                </Link>
+              )}
             </li>
           );
         })}
       </ul>
     </>
   );
-};
-
+}
 export default WeekSelector;
-
-
- 
