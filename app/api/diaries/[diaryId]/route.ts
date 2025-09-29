@@ -26,3 +26,27 @@ export async function GET(
 
   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 }
+
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ diaryId: string }> }
+) {
+  const { diaryId } = await params;
+
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
+  if (!accessToken) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { data } = await api.delete(`/diaries/${diaryId}`, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return NextResponse.json(data.data);
+  } catch (err) {
+    console.log("Error", err);
+    return NextResponse.json({ error: err }, { status: err.status });
+  }
+}

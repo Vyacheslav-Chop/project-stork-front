@@ -48,7 +48,7 @@ export const updateDiary = async (diaryId, payload) => {
   return res.data.data;
 };
 
-export const deleteDiary = async (diaryId) => {
+export const deleteDiary = async (diaryId: string) => {
   await nextServer.delete(`/diaries/${diaryId}`);
 };
 
