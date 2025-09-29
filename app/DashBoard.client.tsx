@@ -14,8 +14,9 @@ import { useAuth } from "@/lib/store/authStore";
 import { useQuery } from "@tanstack/react-query";
 
 const DashBoardClient = () => {
-  const setInfo = useInfo((set) => set.setInfo);
+  const setInfo = useInfo((st) => st.setInfo);
   const { isAuthenticated } = useAuth();
+  const setCurrentWeek = useAuth((st) => st.setCurrentWeek);
 
   useEffect(() => {
     const publicInfo = async () => {
@@ -28,13 +29,13 @@ const DashBoardClient = () => {
 
   const dayKey = new Date().toISOString().slice(0, 10);
 
-  const {
-    data: privateInfo,
-  } = useQuery({
+  const { data: privateInfo } = useQuery({
     queryKey: ["privateInfo", dayKey],
     queryFn: () => getWeekDynamic(),
     enabled: isAuthenticated,
   });
+
+  setCurrentWeek(privateInfo?.currentWeek ?? 5);
 
   const { publicInfo } = useInfo();
 
@@ -47,7 +48,7 @@ const DashBoardClient = () => {
         <div className={css.firstWrapper}>
           {userInfo && <StatusBlock data={userInfo} />}
           {userInfo && <BabyTodayCard baby={userInfo} />}
-          {userInfo && <MomTipCard data={userInfo}/>}
+          {userInfo && <MomTipCard data={userInfo} />}
         </div>
         <div className={css.lastWrapper}>
           <TasksReminderCard />

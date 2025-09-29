@@ -22,8 +22,8 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
   return res.data.data;
 }
 
-export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
-  const res: AxiosRes<LoginResponse> = await nextServer.post(
+export const login = async (payload: LoginPayload): Promise<void> => {
+  const res = await nextServer.post(
     "/auth/login",
     payload
   );
@@ -129,8 +129,8 @@ export const getWeekStatic = async (): Promise<WeekRes> => {
   return res.data.data;
 };
 
-export const getWeekDynamic = async () => {
-  const res = await nextServer.get("/weeks/private");
+export const getWeekDynamic = async (): Promise<WeekRes> => {
+  const res = await nextServer.get<AxiosRes<WeekRes>>("/weeks/private");
 
   return res.data.data;
 };
@@ -156,27 +156,4 @@ export const getEmotions = async (): Promise<Emotion[]> => {
   return res.data.data;
 };
 
-export const getPublicMomTips = async (): Promise<WeekTip> => {
-  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>(
-    "/weeks/public"
-  );
 
-  return res.data.data.weekData.momDailyTips;
-};
-
-export const getPrivateMomTips = async (): Promise<WeekTip> => {
-  const res = await nextServer.get<ApiWeekResponse<WeekTipResponse>>(
-    "/weeks/private"
-  );
-
-  return res.data.data.weekData.momDailyTips;
-};
-
-export const fetchCurrentWeek = async (): Promise<number> => {
-  try {
-    const response = await axios.get("/api/weeks/private");
-    return response.data.currentWeek;
-  } catch (error) {
-    throw new Error("Не вдалося отримати поточний тиждень");
-  }
-};

@@ -5,6 +5,7 @@ type AuthStore = {
   isAuthenticated: boolean;
   user: UserResponse | null;
   currentWeek: number | null;
+  setCurrentWeek: (week: number) => void;
   setUser: (user: UserResponse) => void;
   clearIsAuthenticated: () => void;
 };
