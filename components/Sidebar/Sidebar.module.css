@@ -35,11 +35,18 @@
   flex: 0 0 auto;
 }
 
+.footerLine {
+  width: 280px;
+  margin: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
 .authLinks {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 40px;
+
 }
 
 .infoWrap {
@@ -81,5 +88,6 @@
 @media screen and (min-width: 1440px) {
   .sidebar {
   display: flex;
+  border-right: 1px solid rgba(0, 0, 0, 0.15);
 }
 }

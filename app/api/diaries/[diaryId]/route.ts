@@ -41,12 +41,11 @@ export async function DELETE(
   }
 
   try {
-    const { data } = await api.delete(`/diaries/${diaryId}`, {
+    await api.delete(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    return NextResponse.json(data.data);
   } catch (err) {
     console.log("Error", err);
-    return NextResponse.json({ error: err }, { status: err.status });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 }

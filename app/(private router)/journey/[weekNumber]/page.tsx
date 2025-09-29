@@ -4,8 +4,8 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { Metadata } from "next";
-import { fetchPrivateWeekDataServer } from "@/lib/api/apiServer";
-import { WeekData } from "@/types/week";
+// import { fetchPrivateWeekDataServer } from "@/lib/api/apiServer";
+// import { WeekData } from "@/types/week";
 import JourneyContainer from "../page";
 
 type JourneyPageProps = {
@@ -50,7 +50,7 @@ export default async function JourneyPage({ params }: JourneyPageProps) {
 
   await queryClient.prefetchQuery({
     queryKey: ["week", weekNumber],
-    queryFn: () => fetchPrivateWeekDataServer(),
+    // queryFn: () => fetchPrivateWeekDataServer(),
   });
 
   return (
