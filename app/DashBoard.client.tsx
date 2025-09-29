@@ -48,8 +48,8 @@ const DashBoardClient = () => {
       <div className={css.innerWrapper}>
         <div className={css.firstWrapper}>
           {userInfo && <StatusBlock data={userInfo} />}
-          {userInfo && <BabyTodayCard baby={userInfo.weekData} />}
-          <MomTipCard />
+          {userInfo && <BabyTodayCard baby={userInfo} />}
+          {userInfo && <MomTipCard data={userInfo}/>}
         </div>
         <div className={css.lastWrapper}>
           <TasksReminderCard />
