@@ -1,29 +1,22 @@
-import { UserResponse } from "@/types/user";
+import { WeekRes } from "@/types/babyState";
 import { create } from "zustand";
 
-type AuthStore = {
-  isAuthenticated: boolean;
-  user: UserResponse | null;
-  currentWeek: number | null;
-  setUser: (user: UserResponse) => void;
-  clearIsAuthenticated: () => void;
+type AuthInfo = {
+  publicInfo: WeekRes | null;
+  setInfo: (publicInfo: WeekRes) => void;
+  clearIsInfo: () => void;
 };
 
-export const useAuth = create<AuthStore>()((set) => {
+export const useInfo = create<AuthInfo>()((set) => {
   return {
-    isAuthenticated: false,
-    user: null,
-    currentWeek: null,
-    setUser: (user: UserResponse) => {
-      return set({ user, isAuthenticated: true });
+    publicInfo: null,
+    setInfo: (publicInfo: WeekRes) => {
+      return set({ publicInfo });
     },
-    setCurrentWeek: (week: number) => {
-      set({ currentWeek: week });
-    },
-    clearIsAuthenticated: () =>
+
+    clearIsInfo: () =>
       set({
-        isAuthenticated: false,
-        user: null,
+        publicInfo: null,
       }),
   };
 });
