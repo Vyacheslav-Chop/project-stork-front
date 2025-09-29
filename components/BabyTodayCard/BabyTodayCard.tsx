@@ -1,12 +1,14 @@
+"use client";
+
+import { WeekRes } from "@/types/babyState";
 import styles from "./BabyTodayCard.module.css";
-import { BabyWeekData } from "../../types/babyWeekData";
 import Image from "next/image";
 
-interface Props {
-  data: BabyWeekData;
-}
+type Props = {
+  baby: WeekRes;
+};
 
-const BabyTodayCard = ({ data }: Props) => {
+const BabyTodayCard = ({ baby }: Props) => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.container}>
@@ -15,25 +17,27 @@ const BabyTodayCard = ({ data }: Props) => {
         <div className={styles.content}>
           <div className={styles.imageBlock}>
             <Image
-              src={data.image}
-              alt={`Тиждень ${data.weekNumber}`}
+              src={baby.weekData.image}
+              alt={`Тиждень ${baby.weekData.weekNumber}`}
               width={287}
               height={216}
             />
           </div>
+
           <div className={styles.infoBlock}>
             <p>
-              <strong>Розмір:</strong> Приблизно {data.babySize} см.
+              <strong>Розмір:</strong> Приблизно {baby.weekData.babySize} см.
             </p>
             <p>
-              <strong>Вага:</strong> Близько {data.babyWeight} грамів.
+              <strong>Вага:</strong> Близько {baby.weekData.babyWeight} грамів.
             </p>
             <p>
-              <strong>Активність:</strong> {data.babyActivity}
+              <strong>Активність:</strong> {baby.weekData.babyActivity}
             </p>
           </div>
         </div>
-        <p className={styles.development}>{data.babyDevelopment}</p>
+
+        <p className={styles.development}>{baby.weekData.babyDevelopment}</p>
       </div>
     </section>
   );

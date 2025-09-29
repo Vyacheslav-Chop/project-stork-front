@@ -5,21 +5,20 @@ import css from './BabyStates.module.css'
 import Image from "next/image"
 
 type BabyStateProps = {
-  data: BabyState,
-  week: number
+  data: BabyState
 }
 
-export default function BabyStates({ data, week }: BabyStateProps) {
+export default function BabyStates({ data }: BabyStateProps) {
   const imgSrc = data.image?.trim() || null
 
   return (
-    <div className={css["baby-state-container"]}>
-      <div className={css["img-container"]}>
+    <div className={css.babyStateContainer}>
+      <div className={css.imgContainer}>
         {imgSrc && (
           <Image
             src={imgSrc}
-            alt={`Week ${week} baby illustration`}
-            width={656}             
+            alt={`Baby illustration`}
+            width={287}             
             height={379}
             className={css.img}
           />
@@ -27,16 +26,16 @@ export default function BabyStates({ data, week }: BabyStateProps) {
         <p className={css.analogy}>{`Ваш малюк зараз розміром з ${data.analogy}`}</p>
       </div>
 
-      <div className={css["info-container"]}>
-        <div className={css["development-card"]}>
+      <div className={css.infoContainer}>
+        <div className={css.developmentCard}>
           <p className={css.development}>{data.babyDevelopment}</p>
         </div>
-        <div className={css["fact-card"]}>
-          <div className={css["fact-title-conainer"]}>
+        <div className={css.factCard}>
+          <div className={css.factTitleContainer}>
             <Image src="/icons/star.svg" alt="" width={24} height={24} aria-hidden />
-            <h4 className={css["fact-title"]}>Цікавий факт тижня</h4>
+            <h4 className={css.factTitle}>Цікавий факт тижня</h4>
           </div>
-          <p className={css["fact-text"]}>{data.interestingFact}</p>
+          <p className={css.factText}>{data.interestingFact}</p>
         </div>
       </div>
     </div>

@@ -1,36 +1,76 @@
-.card {
-  background: #ffe9ed;
-  border-radius: 24px;
-  padding: 24px;
-  margin: 20px auto;
-  max-width: 600px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; /* элементы прижаты влево */
+  align-items: flex-start; /* текст прижат к верхнему краю */
+  flex-direction: column; /* заголовок + дата друг под другом */
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.meta {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
+.titleBlock {
+  display: flex;
   align-items: center;
+  gap: 8px;
 }
 
 .title {
   font-family: var(--font-comfortaa);
-  font-size: 22px;
   font-weight: 700;
+  font-size: 18px;
+  line-height: 140%;
+  letter-spacing: 0.01em;
   color: #000;
 }
 
 .date {
-  font-size: 14px;
-  color: #666;
+  font-size: 12px;
+  color: #000;
   margin: 12px 0;
+  line-height: 160%;
+}
+
+.editBtn,
+.deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.iconClose {
+  width: 24px;
+  height: 24px;
+  background-color: #fff4f6;
+}
+
+.card {
+  background: #fff4f6;
+  border-radius: 32px;
+  padding: 24px;
+  width: 335px;
+  margin-top: 32px;
 }
 
 .description {
-  font-size: 16px;
-  line-height: 1.5;
-  color: #333;
-  margin-bottom: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  height: auto;
+  padding-bottom: 8px;
+  font-family: var(--font-lato);
 }
 
 .tags {
@@ -40,9 +80,82 @@
 }
 
 .tag {
-  background: #fff;
+  background: rgba(0, 0, 0, 0.05);
   border: 1px solid #ddd;
   border-radius: 12px;
   padding: 4px 12px;
   font-size: 13px;
+}
+
+@media (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .meta {
+    justify-content: flex-end;
+    width: auto;
+  }
+
+  .card {
+    width: 704px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .titleBlock {
+    gap: 8mm;
+  }
+
+  .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .date {
+    font-size: 14px;
+    color: #666;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1440px) {
+  .header {
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+
+  .titleBlock {
+    gap: 8mm;
+  }
+
+  .meta {
+    align-items: center;
+    gap: 8px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .date {
+    font-size: 14px;
+    color: #000;
+    margin: 12px 0;
+  }
+
+  .card {
+    border-radius: 24px;
+    width: 683px;
+    margin: auto;
+  }
+
+  .description {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
 }

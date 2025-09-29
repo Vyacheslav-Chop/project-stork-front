@@ -1,35 +1,43 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 import { parse } from 'cookie';
 import { api } from '../../api';
+import type { AxiosError } from "axios";
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const apiRes = await api.post('auth/login', body);
+  try {
+    const body = await req.json();
+    const apiRes = await api.post('auth/login', body);
 
-  const cookieStore = await cookies();
-  const setCookie = apiRes.headers['set-cookie'];
+    const response = NextResponse.json(apiRes.data, { status: apiRes.status });
 
-  if (setCookie) {
-    const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
-    for (const cookieStr of cookieArray) {
-      const parsed = parse(cookieStr);
+    const setCookie = apiRes.headers['set-cookie'];
 
-      const options = {
-        expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
-        path: parsed.Path,
-        maxAge: Number(parsed["Max-Age"]),
-      };
+    if (setCookie) {
+      const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
+      for (const cookieStr of cookieArray) {
+        const parsed = parse(cookieStr);
 
-      if (parsed.accessToken) {
-        cookieStore.set("accessToken", parsed.accessToken, options);
-      }
-      if (parsed.refreshToken) {
-        cookieStore.set("refreshToken", parsed.refreshToken, options);
+        const options = {
+          expires: parsed.Expires ? new Date(parsed.Expires) : undefined,
+          path: parsed.Path,
+          maxAge: parsed['Max-Age'] ? Number(parsed['Max-Age']) : undefined,
+        };
+
+        if (parsed.accessToken) {
+          response.cookies.set('accessToken', parsed.accessToken, options);
+        }
+        if (parsed.refreshToken) {
+          response.cookies.set('refreshToken', parsed.refreshToken, options);
+        }
       }
     }
-    return NextResponse.json(apiRes.data);
-  }
 
-  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return response;
+  } catch (err) {
+    const error = err as AxiosError<{ message?: string }>;
+    const status = error.response?.status || 500;
+    const message = error.response?.data?.message || 'Server error';
+
+    return NextResponse.json({ message }, { status });
+  }
 }

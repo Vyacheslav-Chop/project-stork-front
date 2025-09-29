@@ -1,39 +1,10 @@
 "use client";
 
-import WeekSelector from "./[weekNumber]/WeekSelector.client";
-import JourneyDetails from "./[weekNumber]/JourneyDetails.client";
-import { useState } from "react";
+import { useAuth } from "@/lib/store/authStore";
+import { useRouter } from "next/navigation";
 
-
-interface JourneyContainerProps {
-  initialWeek: number;
+export default function JourneyContainer() {
+  const { currentWeek } = useAuth();
+  const router = useRouter()
+  router.push(`/journey/${currentWeek}`)
 }
-
-
-export default function JourneyContainer({ initialWeek }: JourneyContainerProps) {
-  const [selectedWeek, setSelectedWeek] = useState<number>(initialWeek);
-
-  return (
-    <div>
-      <WeekSelector
-        currentWeek={initialWeek} 
-        selectedWeek={selectedWeek}
-        onSelectWeek={setSelectedWeek}
-      />
-      <JourneyDetails weekNumber={selectedWeek} />
-    </div>
-  );
-}
-
-
-/*
-interface WeekSelectorProps {
-  currentWeek: number;
-  selectedWeek: number;
-  onSelectWeek: (week: number) => void;
-} для WeekSelecotr 
-
-interface JourneyDetailsClientProps {
-  weekNumber: number;
-} дляJourneyDetails
-*/ 
