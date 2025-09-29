@@ -9,7 +9,7 @@ import { fetchCurrentWeek } from '../../lib/api/apiClient'
 const TOTAL_WEEKS = 42;
 
 const WeekSelector = () => {
-  const { weekNumber } = useParams<{ weekNumber: string }>();
+  const { curre } = useParams<{ weekNumber: string }>();
   const selectedWeek = Number(weekNumber);
   const router = useRouter();
 
