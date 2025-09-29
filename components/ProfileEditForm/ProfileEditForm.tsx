@@ -71,6 +71,7 @@ const ProfileEditForm = ({ user }: EditFormProps) => {
 
   const handleSubmit = async (values: InitialValues) => {
     try {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       const payload: UserPayload = {
         name: values.username || undefined,
         email: values.email || undefined,

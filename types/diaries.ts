@@ -1,3 +1,8 @@
+export interface Category {
+  _id: string;
+  title: string;
+}
+
 export interface DiaryData {
   _id: string;
   title: string;
@@ -8,7 +13,8 @@ export interface DiaryData {
   updatedAt: string;
 }
 
-interface Category {
-  _id: string;
-  title: string;
+export interface CreateDiary {
+  title?: string;
+  category?: string[];
+  description?: string;
 }

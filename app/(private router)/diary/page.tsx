@@ -7,57 +7,50 @@ import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails"
 import { DiaryData } from "@/types/diaries";
 import { getDiaries } from "@/lib/api/apiClient";
 import styles from "./page.module.css";
-import { useMediaQuery } from "react-responsive";
+import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export default function DiaryPage() {
   const [selectedDiary, setSelectedDiary] = useState<DiaryData | null>(null);
-  const [diaries, setDiaries] = useState<DiaryData[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  const isDesktop = useMediaQuery({ query: "(min-width: 1440px)" });
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const loadDiaries = async () => {
-      try {
-        const data = await getDiaries();
-        setDiaries(data);
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-        if (isDesktop && data.length > 0) {
-          setSelectedDiary(data[0]);
-        }
-      } catch (err) {
-        console.error("Помилка при завантаженні щоденника", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadDiaries();
-  }, [isDesktop]);
+  const {
+    data: diaries,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["diaries"],
+    queryFn: () => getDiaries(),
+  });
 
-  if (loading) {
+  if (isLoading) {
     return <div className={styles.wrapper}>Завантаження...</div>;
+  }
+
+  if (isError) {
+    return toast.error("Не вдалось завантажити дані.");
   }
 
   return (
     <div className={styles.wrapper}>
-      <GreetingBlock />
-
       {isDesktop ? (
-        <div className={styles.mainContent}>
+        <div className={styles.desktopLayout}>
+          <div className={styles.greetingBlock}>
+            <GreetingBlock />
+          </div>
           <div className={styles.listBlock}>
-            <DiaryList diaries={diaries} onSelect={setSelectedDiary} />
+            <DiaryList diaries={diaries ?? []} onSelect={setSelectedDiary} />
           </div>
           <div className={styles.detailsBlock}>
             {selectedDiary ? (
-              <DiaryEntryDetails
-                diary={selectedDiary}
-                onDeleted={() => {
-                  setDiaries((prev) =>
-                    prev.filter((d) => d._id !== selectedDiary._id)
-                  );
-                  setSelectedDiary(null);
-                }}
-              />
+              <DiaryEntryDetails diary={selectedDiary} />
             ) : (
               <div className={styles.placeholder}></div>
             )}
@@ -65,13 +58,9 @@ export default function DiaryPage() {
         </div>
       ) : (
         <div className={styles.mobileLayout}>
-          <DiaryList
-            diaries={diaries}
-            onRefresh={async () => {
-              const updated = await getDiaries();
-              setDiaries(updated);
-            }}
-          />
+          <GreetingBlock />
+
+          <DiaryList diaries={diaries ?? []} />
         </div>
       )}
     </div>
