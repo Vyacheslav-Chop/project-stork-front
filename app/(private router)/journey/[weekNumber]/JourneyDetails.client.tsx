@@ -46,33 +46,32 @@ export default function JourneyDetails() {
   const isError = activeTab === "baby" ? isBabyError : isMomError;
   const error = activeTab === "baby" ? babyError : momError;
 
-
   return (
     <div className={css.container}>
-      <div className={css["btn-group"]}>
+      <div className={css.btnGroup}>
         <button
-          className={activeTab === "baby" ? css["btn-active"] : css["btn-inactive"]}
+          className={activeTab === "baby" ? css.btnActive : css.btnInactive}
           onClick={() => setActiveTab("baby")}
         >
           Розвиток малюка
         </button>
         <button
-          className={activeTab === "mom" ? css["btn-active"] : css["btn-inactive"]}
+          className={activeTab === "mom" ? css.btnActive : css.btnInactive}
           onClick={() => setActiveTab("mom")}
         >
           Тіло мами
         </button>
       </div>
 
-      <div className={css["card-container"]}>
+      <div className={css.cardContainer}>
         {isLoading && <Loader />}
         {isError && error && <Error error={error as Error} />}
 
         {activeTab === "baby" && babyData && (
-          <BabyStates week={weekNum} data={babyData} />
+          <BabyStates data={babyData} />
         )}
         {activeTab === "mom" && momData && (
-          <MomStates week={weekNum} data={momData} />
+          <MomStates data={momData} />
         )}
       </div>
     </div>

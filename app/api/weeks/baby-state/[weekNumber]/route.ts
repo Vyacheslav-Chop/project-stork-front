@@ -11,7 +11,6 @@ export async function GET(
 
   const { weekNumber } = await params;
 
-
   try {
     const { data } = await api.get(`/weeks/baby-state/${weekNumber}`, {
       headers: {
