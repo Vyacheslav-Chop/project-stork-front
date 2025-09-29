@@ -73,10 +73,15 @@
   transition: background-color 0.3s ease, border-bottom 0.3s ease;
 }
 
-.submitButton:hover:not(:disabled) {
+.submitButton:hover:not(:disabled),
+.submitButton:focus:not(:disabled) {
   background: #ffffff;
+  border-bottom: 4px solid #b2b2b2;
+  outline: none;
 }
-
+.submitButton:active:not(:disabled) {
+  background: #b2b2b2;
+}
 .submitButton:disabled {
   background: #cccccc;
   cursor: not-allowed;

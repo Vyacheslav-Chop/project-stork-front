@@ -14,9 +14,13 @@
 }
 
 .title {
-  font-weight: 700;
+  font-family: var(--font-comfortaa);
+  letter-spacing: 0.01em;
+  color: #000000;
+  padding-bottom: 4px;
   font-size: 20px;
-  line-height: 1.6;
+  font-weight: 700;
+  line-height: 1.4;
 }
 
 .icon {
@@ -34,15 +38,17 @@
   border-radius: 50%;
 }
 .sectionTitle {
-  font-weight: 700;
+  color: #191919;
   font-size: 14px;
-  line-height: 1.6;
+  font-weight: 600;
+  line-height: 160%;
+  display: block;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+
   flex: 1;
   overflow: visible;
 }
@@ -94,6 +100,10 @@
 
 .taskText {
   flex: 1;
+  color: #191919;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
 }
 
 .doneText {
@@ -102,20 +112,23 @@
 }
 
 .subtitle {
-  font-weight: 700;
+  font: 1em sans-serif;
+  color: #191919;
   font-size: 14px;
-  line-height: 1.4;
-  margin: 0;
+  font-weight: 600;
+  line-height: 160%;
+  display: block;
 }
 
 .description {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.4;
+  margin-bottom: 24px;
 }
 
 .createButton {
-  background: #ffcbd3;
+  background: #ffdae0;
   border: none;
   border-radius: 24px;
   padding: 12px 24px;
@@ -124,6 +137,8 @@
   font-size: 14px;
   cursor: pointer;
   align-self: flex-start;
+  width: 100%;
+  height: 42px;
 
   display: flex;
   align-items: center;
@@ -141,24 +156,22 @@
 /* Hover / Focus */
 .createButton:hover,
 .createButton:focus {
-  background: #ffe4e8;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 4px solid #b2b2b2;
   outline: none;
 }
 
 /* Active */
 .createButton:active {
-  background: #ffb3c1;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15);
+  background: #b2b2b2;
 }
 
 /* Disabled */
 .createButton:disabled {
-  background: #ffe4e8;
+  background: #ffdae0;
+  opacity: 0.3;
   color: #aaa;
   cursor: not-allowed;
   box-shadow: none;
-  opacity: 0.6;
 }
 
 /* Tablet */
@@ -184,8 +197,10 @@
     background: #ffcbd3;
     border-radius: 4px;
   }
+  .description {
+    margin-bottom: 16px;
+  }
 }
-
 /* Desktop */
 @media (min-width: 1440px) {
   .card {
