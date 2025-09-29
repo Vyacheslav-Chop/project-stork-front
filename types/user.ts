@@ -23,3 +23,9 @@ export interface UserPayload {
 }
 
 export type Gender = "Дівчинка" | "Хлопчик" | "Ще не знаю";
+
+
+export type LoginPayload = {
+  email: string;
+  password: string;
+};

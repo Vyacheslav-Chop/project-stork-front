@@ -1,28 +1,14 @@
 "use client";
 
-import { useAuth } from "@/lib/store/authStore";
-import { useQuery } from "@tanstack/react-query";
-import { getWeekStatic, getWeekDynamic } from "@/lib/api/apiClient";
+import { WeekRes } from "@/types/babyState";
 import styles from "./BabyTodayCard.module.css";
 import Image from "next/image";
-import toast from "react-hot-toast";
 
-const BabyTodayCard = () => {
-  const { isAuthenticated } = useAuth();
+type Props = {
+  baby: WeekRes;
+};
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["babyWeekData", isAuthenticated],
-    queryFn: () => (isAuthenticated ? getWeekDynamic() : getWeekStatic()),
-  });
-
-  if (isLoading) return <div className={styles.loader}>Завантаження…</div>;
-  if (isError || !data) {
-    toast.error("Не вдалося завантажити дані про малюка");
-    return null;
-  }
-
-  const baby = data.weekData;
-
+const BabyTodayCard = ({ baby }: Props) => {
   return (
     <section className={styles.wrapper}>
       <div className={styles.container}>
@@ -31,8 +17,8 @@ const BabyTodayCard = () => {
         <div className={styles.content}>
           <div className={styles.imageBlock}>
             <Image
-              src={baby.image}
-              alt={`Тиждень ${baby.weekNumber}`}
+              src={baby.weekData.image}
+              alt={`Тиждень ${baby.weekData.weekNumber}`}
               width={287}
               height={216}
             />
@@ -40,18 +26,18 @@ const BabyTodayCard = () => {
 
           <div className={styles.infoBlock}>
             <p>
-              <strong>Розмір:</strong> Приблизно {baby.babySize} см.
+              <strong>Розмір:</strong> Приблизно {baby.weekData.babySize} см.
             </p>
             <p>
-              <strong>Вага:</strong> Близько {baby.babyWeight} грамів.
+              <strong>Вага:</strong> Близько {baby.weekData.babyWeight} грамів.
             </p>
             <p>
-              <strong>Активність:</strong> {baby.babyActivity}
+              <strong>Активність:</strong> {baby.weekData.babyActivity}
             </p>
           </div>
         </div>
 
-        <p className={styles.development}>{baby.babyDevelopment}</p>
+        <p className={styles.development}>{baby.weekData.babyDevelopment}</p>
       </div>
     </section>
   );

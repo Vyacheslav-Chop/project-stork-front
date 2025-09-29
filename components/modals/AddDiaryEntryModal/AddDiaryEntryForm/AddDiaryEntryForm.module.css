@@ -210,6 +210,8 @@
   font-size: 14px;
   color: #333;
 }
+.dateIcon {
+}
 
 @media (min-width: 768px) {
   .submitBtn {

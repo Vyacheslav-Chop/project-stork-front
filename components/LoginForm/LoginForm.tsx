@@ -91,17 +91,26 @@ export default function LoginForm() {
     } catch (err) {
       const error = err as AxiosError<{ message?: string }>;
 
-      let userMsg = "Сталася помилка. Спробуйте пізніше.";
 
-      switch (error?.response?.status) {
-        case 400:
-          userMsg = "Невірні дані. Перевірте і спробуйте ще раз.";
-          break;
-        case 401:
-          userMsg = "Невірний email або пароль.";
-          break;
+      if (error.response) {
+        const status = error.response.status;
+
+        switch (status) {
+          case 400:
+            toast.error("Невірні дані. Перевірте і спробуйте ще раз.");
+            break;
+          case 401:
+            toast.error("Невірна пошта або пароль.");
+            break;
+          default:
+            toast.error("Сталася помилка на сервері. Спробуйте пізніше.");
+        }
+      } else if (error.request) {
+        toast.error("Сервер не відповідає. Перевірте підключення до інтернету.");
+      } else {
+        toast.error("Помилка при відправці запиту.");
       }
-      toast.error(userMsg);
+
     } finally {
       setSubmitting(false);
     }

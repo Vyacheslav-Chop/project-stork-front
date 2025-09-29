@@ -64,14 +64,14 @@
   transition: background-color 0.3s ease, border-bottom 0.3s ease;
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
   background-color: #ffffff;
-  border-bottom: 4px solid #ffcbd3;
+  border-bottom: 4px solid #b2b2b2;
 }
 
 .button:active {
-  background-color: #665154;
-  border-bottom: 4px solid #665154;
+  background: #b2b2b2;
 }
 
 /* Mobile (320px) */
