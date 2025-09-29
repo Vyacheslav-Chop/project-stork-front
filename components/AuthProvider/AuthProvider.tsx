@@ -24,9 +24,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         toast.error('Будь ласка зареєструйтесь!');
       }
     };
-    fetchUser();
-    console.log('Auth provider>>>>>>');
-    
+    fetchUser();    
   }, [setUser, clearIsAuthenticated]);
 
   return children;

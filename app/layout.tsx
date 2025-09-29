@@ -8,6 +8,7 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import HeaderWrapper from "./HeaderWrapper";
 import BreadcrumbsWrapper from "./BreadcrumbsWrapper";
 
+
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],

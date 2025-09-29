@@ -60,7 +60,7 @@ main {
   main {
     padding: 0 32px;
     margin: 0;
-    /* max-width: 1128px; */
+    max-width: 100%;
   }
 
   body {

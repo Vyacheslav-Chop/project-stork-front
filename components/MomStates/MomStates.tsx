@@ -3,56 +3,61 @@
 import { MomState } from "../../types/momState"
 import css from './MomStates.module.css'
 import TasksReminderCard from "../TasksReminderCard/TasksReminderCard"
+import Image from "next/image"
 
 type MomStateProps = {
     data: MomState,
-    week: number
 }
 
-const CAT_KEY: Record<string, string> = {
-  "Харчування": "nutrition",
-  "Активність": "activity",
-  "Відпочинок": "rest"
-};
+const icons = [
+    "/icons/food.svg",
+    "/icons/activity.svg",
+    "/icons/rest.svg"
+]
 
-export default function MomStates({data, week}: MomStateProps) {
+export default function MomStates({data }: MomStateProps) {
     const feelingsStates = data?.feelings?.states ?? [];
     const sensationDescr = data?.feelings?.sensationDescr ?? "";
     const comfortTips = data?.comfortTips ?? [];
 
     return (
-        <div className={css["mom-state-container"]}>
-            <div className={css["left-column"]}>
+        <div className={css.momStateContainer}>
+            <div className={css.leftColumn}>
                 {(feelingsStates.length > 0 || !!sensationDescr) && (
-                    <div className={css["feelings-card"]}>
-                        <h3 className={css["title"]}>Як ви можете почуватись</h3>
+                    <div className={css.feelingsCard}>
+                        <h3 className={css.title}>Як ви можете почуватись</h3>
                         {feelingsStates.length > 0 && (
-                            <ul className={css["feelings-list"]}>
+                            <ul className={css.feelingsList}>
                                 {feelingsStates.map((state, index) => (
-                                    <div className={css["item-conatiner"]} key={index}>
-                                      <li className={css["feelings-item"]}>
+                                    <div className={css.itemContainer} key={index}>
+                                      <li className={css.feelingsItem}>
                                         {state}
                                       </li>
                                     </div>
                                 ))}
                             </ul>
                         )}
-                        {sensationDescr && <p className={css["sensations"]}>{sensationDescr}</p>}
+                        {sensationDescr && <p className={css.sensations}>{sensationDescr}</p>}
                     </div>
                 )}
                 {comfortTips.length > 0 && (
-                    <div className={css["tips-card"]}>
-                        <h3 className={css["title"]}>Поради для вашого комфорту</h3>
-                        <dl className={css["tips-list"]}>
+                    <div className={css.tipsCard}>
+                        <h3 className={css.title}>Поради для вашого комфорту</h3>
+                        <dl className={css.tipsList}>
                             {comfortTips.map((tip, index) => {
-                                const key = CAT_KEY[tip.category] ?? "";
                                 return (
-                                    <div key={index} className={css["tip-row"]}>
-                                        <dt className={css["category"]} data-cat={key}>
-                                            <span className={css["icon"]}/>
+                                    <div key={index} className={css.tipRow}>
+                                        <dt className={css.category}>
+                                            <Image 
+                                                src={icons[index]} 
+                                                alt={tip.category} 
+                                                width={24} 
+                                                height={24}
+                                                className={css.icon}
+                                            />
                                             {tip.category}
                                         </dt>
-                                        <dd className={css["tip"]}>{tip.tip}</dd>
+                                        <dd className={css.tip}>{tip.tip}</dd>
                                     </div>
                                 );
                             })}
@@ -60,7 +65,7 @@ export default function MomStates({data, week}: MomStateProps) {
                     </div>
                 )}
             </div>
-            <div className={css["right-column"]}>
+            <div className={css.rightColumn}>
               <TasksReminderCard />
             </div>
         </div>
