@@ -1,16 +1,11 @@
 import { nextServer } from "./api";
 import { CreateTaskProps, Task, UpdateTaskProps } from "@/types/tasks";
-import { UserResponse, NewUser, UserPayload } from "../../types/user";
-import {
-  ApiWeekResponse,
-  WeekTip,
-  WeekTipResponse,
-} from "@/types/babyWeekData";
+import { UserResponse, NewUser, UserPayload, LoginPayload } from "../../types/user";
 import { Emotion } from "@/types/emotions";
 import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
-import type { LoginResponse, LoginPayload } from "@/types/auth";
+// import type { LoginResponse, LoginPayload } from "@/types/auth";
 import { DiaryCreateData, DiaryData } from "@/types/diaries";
 import axios from 'axios';
 
@@ -22,8 +17,8 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
   return res.data.data;
 }
 
-export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
-  const res: AxiosRes<LoginResponse> = await nextServer.post("/auth/login", payload);
+export const login = async (payload: LoginPayload): Promise<void> => {
+  const res = await nextServer.post("/auth/login", payload);
   return res.data;
 };
 

@@ -47,7 +47,7 @@ const DashBoardClient = () => {
       <GreetingBlock />
       <div className={css.innerWrapper}>
         <div className={css.firstWrapper}>
-          <StatusBlock />
+          {userInfo && <StatusBlock data={userInfo} />}
           <BabyTodayCard />
           <MomTipCard />
         </div>
