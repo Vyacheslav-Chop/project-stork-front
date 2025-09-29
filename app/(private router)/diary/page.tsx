@@ -7,12 +7,12 @@ import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails"
 import { DiaryData } from "@/types/diaries";
 import { getDiaries } from "@/lib/api/apiClient";
 import styles from "./page.module.css";
+import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 export default function DiaryPage() {
   const [selectedDiary, setSelectedDiary] = useState<DiaryData | null>(null);
   const [isDesktop, setIsDesktop] = useState(false);
-  const [diaries, setDiaries] = useState<DiaryData[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -21,22 +21,21 @@ export default function DiaryPage() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    const loadDiaries = async () => {
-      try {
-        const data = await getDiaries();
-        setDiaries(data);
-      } catch (err) {
-        console.error("Помилка при завантаженні щоденника", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadDiaries();
-  }, []);
+  const {
+    data: diaries,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["diaries"],
+    queryFn: () => getDiaries(),
+  });
 
-  if (loading) {
+  if (isLoading) {
     return <div className={styles.wrapper}>Завантаження...</div>;
+  }
+
+  if (isError) {
+    return toast.error("Не вдалось завантажити дані.");
   }
 
   return (
@@ -47,7 +46,7 @@ export default function DiaryPage() {
             <GreetingBlock />
           </div>
           <div className={styles.listBlock}>
-            <DiaryList diaries={diaries} onSelect={setSelectedDiary} />
+            <DiaryList diaries={diaries ?? []} onSelect={setSelectedDiary} />
           </div>
           <div className={styles.detailsBlock}>
             {selectedDiary ? (
@@ -61,7 +60,7 @@ export default function DiaryPage() {
         <div className={styles.mobileLayout}>
           <GreetingBlock />
 
-          <DiaryList diaries={diaries} />
+          <DiaryList diaries={diaries ?? []} />
         </div>
       )}
     </div>

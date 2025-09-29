@@ -11,8 +11,8 @@ import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 import type { LoginResponse, LoginPayload } from "@/types/auth";
-import { DiaryCreateData, DiaryData } from "@/types/diaries";
-import axios from 'axios';
+import { CreateDiary, DiaryData } from "@/types/diaries";
+import axios from "axios";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<AxiosRes<UserResponse>>(
@@ -23,7 +23,10 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
 }
 
 export const login = async (payload: LoginPayload): Promise<LoginResponse> => {
-  const res: AxiosRes<LoginResponse> = await nextServer.post("/auth/login", payload);
+  const res: AxiosRes<LoginResponse> = await nextServer.post(
+    "/auth/login",
+    payload
+  );
   return res.data;
 };
 
@@ -42,9 +45,9 @@ export const getDiaries = async (): Promise<DiaryData[]> => {
   return res.data;
 };
 
-export const createDiary = async (payload: DiaryCreateData) => {
-  const res = await nextServer.post("/diaries", payload);
-  return res.data;
+export const createDiary = async (payload: CreateDiary): Promise<DiaryData> => {
+  const res = await nextServer.post<AxiosRes<DiaryData>>("/diaries", payload);
+  return res.data.data;
 };
 
 export const updateDiary = async (diaryId, payload) => {
@@ -141,7 +144,9 @@ export const getMomState = async (week: number): Promise<MomState> => {
 };
 
 export const getBabyState = async (week: number): Promise<BabyState> => {
-  const res = await nextServer.get<AxiosRes<BabyState>>(`/weeks/baby-state/${week}`);
+  const res = await nextServer.get<AxiosRes<BabyState>>(
+    `/weeks/baby-state/${week}`
+  );
 
   return res.data.data;
 };
@@ -167,12 +172,11 @@ export const getPrivateMomTips = async (): Promise<WeekTip> => {
   return res.data.data.weekData.momDailyTips;
 };
 
-
 export const fetchCurrentWeek = async (): Promise<number> => {
   try {
-    const response = await axios.get('/api/weeks/private');
+    const response = await axios.get("/api/weeks/private");
     return response.data.currentWeek;
   } catch (error) {
-    throw new Error('Не вдалося отримати поточний тиждень');
+    throw new Error("Не вдалося отримати поточний тиждень");
   }
 };
