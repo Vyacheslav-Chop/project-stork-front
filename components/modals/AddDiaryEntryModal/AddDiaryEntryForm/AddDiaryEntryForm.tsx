@@ -10,10 +10,9 @@ import { Emotion } from "@/types/emotions";
 
 interface Props {
   onClose: () => void;
-  onSuccess: () => void;
 }
 
-export default function AddDiaryEntryForm({ onClose, onSuccess }: Props) {
+export default function AddDiaryEntryForm({ onClose }: Props) {
   const [emotions, setEmotions] = useState<Emotion[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,7 +47,6 @@ export default function AddDiaryEntryForm({ onClose, onSuccess }: Props) {
 
             toast.success("✅ Новий запис створено!");
             resetForm();
-            onSuccess();
             onClose();
           } catch (err) {
             console.error(err);

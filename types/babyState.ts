@@ -17,3 +17,4 @@ export interface WeekRes {
   daysToBirth: number;
   isPersonalized: boolean;
 }
+

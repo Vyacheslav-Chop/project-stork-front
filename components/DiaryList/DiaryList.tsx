@@ -10,14 +10,9 @@ import AddDiaryEntryForm from "../modals/AddDiaryEntryModal/AddDiaryEntryForm/Ad
 interface DiaryListProps {
   diaries: DiaryData[];
   onSelect?: (diary: DiaryData) => void;
-  onRefresh?: () => void;
 }
 
-export default function DiaryList({
-  diaries,
-  onSelect,
-  onRefresh,
-}: DiaryListProps) {
+export default function DiaryList({ diaries, onSelect }: DiaryListProps) {
   const [isDesktop, setIsDesktop] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -94,13 +89,7 @@ export default function DiaryList({
 
       {isModalOpen && (
         <AddDiaryModal onClose={() => setIsModalOpen(false)}>
-          <AddDiaryEntryForm
-            onClose={() => setIsModalOpen(false)}
-            onSuccess={() => {
-              onRefresh?.();
-              setIsModalOpen(false);
-            }}
-          />
+          <AddDiaryEntryForm onClose={() => setIsModalOpen(false)} />
         </AddDiaryModal>
       )}
     </section>
