@@ -1,19 +1,11 @@
 "use client";
 
+import { WeekRes } from "@/types/babyState";
 import styles from "./BabyTodayCard.module.css";
 import Image from "next/image";
 
-type BabyData = {
-  image: string;
-  weekNumber: number;
-  babySize: number | string;
-  babyWeight: number | string;
-  babyActivity: string;
-  babyDevelopment: string;
-};
-
 type Props = {
-  baby: BabyData;
+  baby: WeekRes;
 };
 
 const BabyTodayCard = ({ baby }: Props) => {
@@ -25,8 +17,8 @@ const BabyTodayCard = ({ baby }: Props) => {
         <div className={styles.content}>
           <div className={styles.imageBlock}>
             <Image
-              src={baby.image}
-              alt={`Тиждень ${baby.weekNumber}`}
+              src={baby.weekData.image}
+              alt={`Тиждень ${baby.weekData.weekNumber}`}
               width={287}
               height={216}
             />
@@ -34,18 +26,18 @@ const BabyTodayCard = ({ baby }: Props) => {
 
           <div className={styles.infoBlock}>
             <p>
-              <strong>Розмір:</strong> Приблизно {baby.babySize} см.
+              <strong>Розмір:</strong> Приблизно {baby.weekData.babySize} см.
             </p>
             <p>
-              <strong>Вага:</strong> Близько {baby.babyWeight} грамів.
+              <strong>Вага:</strong> Близько {baby.weekData.babyWeight} грамів.
             </p>
             <p>
-              <strong>Активність:</strong> {baby.babyActivity}
+              <strong>Активність:</strong> {baby.weekData.babyActivity}
             </p>
           </div>
         </div>
 
-        <p className={styles.development}>{baby.babyDevelopment}</p>
+        <p className={styles.development}>{baby.weekData.babyDevelopment}</p>
       </div>
     </section>
   );
