@@ -3,7 +3,7 @@
 import { useRouter, useParams } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
-import css from './WeekSeletor.module.css';
+import css from './WeekSelector.module.css';
 import { fetchCurrentWeek } from '../../lib/api/apiClient'
  
 const TOTAL_WEEKS = 42;
@@ -25,7 +25,7 @@ const WeekSelector = () => {
   const handleWeekClick = (week: number) => {
     if (!currentWeek) return;
 
-    if (week > currentWeek) {
+    if (week > currentWeek && week > selectedWeek) {
       toast.error(`Тиждень ${week} ще недоступний`);
       return;
     }
@@ -58,8 +58,11 @@ const weeks: number[] = [];
                 data-week={week}
                 data-testid={`week-button-${week}`}
               >
-                <span className={css.buttonNumber}>{week}</span>
+                <div className={css.btnText}>
+                  <p className={css.buttonNumber}>{week}</p>
                 <p className={css.buttonText}>тиждень</p>
+                </div>
+                
               </button>
             </li>
           );
