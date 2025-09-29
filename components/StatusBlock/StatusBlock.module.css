@@ -11,24 +11,21 @@
   border-radius: 32px;
   padding: 16px;
   text-align: left;
-  width: 159px;
-  height: 105px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .label {
-  display: block;
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  color: #000;
   margin-bottom: 6px;
-  font-family: "Lato", sans-serif;
 }
 
 .value {
   font-weight: 700;
   font-size: 40px;
-  color: #000;
   line-height: 1.2;
   letter-spacing: 0.01em;
   font-family: "Comfortaa", sans-serif;
@@ -41,8 +38,6 @@
 
   .item {
     padding: 16px;
-    width: 336px;
-    height: 105px;
   }
 }
 
@@ -51,15 +46,10 @@
     width: 642px;
   }
 
-  .item {
-    width: 305px;
-    height: 127px;
-  }
-
   .label {
     font-size: 16px;
+    margin-bottom: 4px;
   }
-
   .value {
     font-size: 56px;
   }

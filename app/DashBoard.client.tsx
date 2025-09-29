@@ -30,8 +30,6 @@ const DashBoardClient = () => {
 
   const {
     data: privateInfo,
-    isLoading,
-    isError,
   } = useQuery({
     queryKey: ["privateInfo", dayKey],
     queryFn: () => getWeekDynamic(),

@@ -12,12 +12,12 @@ const StatusBlock = ({data}: Props) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.item}>
-        <span className={styles.label}>Тиждень</span>
-        <span className={styles.value}>{data?.currentWeek}</span>
+        <p className={styles.label}>Тиждень</p>
+        <p className={styles.value}>{data?.currentWeek}</p>
       </div>
       <div className={styles.item}>
-        <span className={styles.label}>Днів до зустрічі</span>
-        <span className={styles.value}>~{data?.daysToBirth}</span>
+        <p className={styles.label}>Днів до зустрічі</p>
+        <p className={styles.value}>~{data?.daysToBirth}</p>
       </div>
     </div>
   );
