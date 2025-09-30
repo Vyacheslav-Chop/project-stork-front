@@ -3,7 +3,6 @@
 
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-// import {  useQueryClient } from "@tanstack/react-query";
 import { Toaster } from 'react-hot-toast';
 import css from './WeekSelector.module.css';
 import { useAuth } from '../../lib/store/authStore';
@@ -11,7 +10,6 @@ import { useAuth } from '../../lib/store/authStore';
 const TOTAL_WEEKS = 42;
 
 const WeekSelector = () => {
-  // const queryClient = useQueryClient();
   const params = useParams();
   const selectedWeek = Number(params.weekNumber);
   const { currentWeek } = useAuth();
