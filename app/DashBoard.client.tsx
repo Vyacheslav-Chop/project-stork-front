@@ -35,7 +35,11 @@ const DashBoardClient = () => {
     enabled: isAuthenticated,
   });
 
-  setCurrentWeek(privateInfo?.currentWeek ?? 5);
+  useEffect(() => {
+    if (privateInfo?.currentWeek) {
+      setCurrentWeek(privateInfo.currentWeek);
+    }
+  }, [privateInfo, setCurrentWeek]);
 
   const { publicInfo } = useInfo();
 

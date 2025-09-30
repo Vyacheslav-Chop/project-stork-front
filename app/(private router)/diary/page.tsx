@@ -30,6 +30,9 @@ export default function DiaryPage() {
     queryFn: () => getDiaries(),
   });
 
+  const diaryList = diaries ?? [];
+  console.log(diaryList);
+
   if (isLoading) {
     return <div className={styles.wrapper}>Завантаження...</div>;
   }
@@ -46,7 +49,7 @@ export default function DiaryPage() {
             <GreetingBlock />
           </div>
           <div className={styles.listBlock}>
-            <DiaryList diaries={diaries ?? []} onSelect={setSelectedDiary} />
+            <DiaryList diaries={diaryList} onSelect={setSelectedDiary} />
           </div>
           <div className={styles.detailsBlock}>
             {selectedDiary ? (
@@ -60,7 +63,7 @@ export default function DiaryPage() {
         <div className={styles.mobileLayout}>
           <GreetingBlock />
 
-          <DiaryList diaries={diaries ?? []} />
+          <DiaryList diaries={diaryList} />
         </div>
       )}
     </div>

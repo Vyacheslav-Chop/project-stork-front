@@ -30,7 +30,7 @@ export const login = async (payload: LoginPayload): Promise<void> => {
   return res.data;
 };
 
-export const refresh = async () => {
+export const refresh = async (): Promise<void> => {
   const res = await nextServer.post("/auth/refresh");
 
   return res.data;
