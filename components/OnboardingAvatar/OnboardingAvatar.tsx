@@ -10,7 +10,7 @@ import { UserResponse } from "@/types/user";
 import { updateUserAvatar } from "@/lib/api/apiClient";
 
 type ProfileProps = {
-  user: UserResponse
+  user?: UserResponse
 }
 
 const OnboardingFormAvatar = ({user}: ProfileProps) => {
