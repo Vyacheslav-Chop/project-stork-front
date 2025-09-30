@@ -3,7 +3,7 @@
 import Link from "next/link";
 import css from "./Sidebar.module.css";
 import { logout } from "@/lib/api/apiClient";
-import { useRouter } from "next/navigation";
+import {  useRouter } from "next/navigation";
 import SidebarNav from "../SidebarNav/SidebarNav";
 import { useAuth } from "@/lib/store/authStore";
 import Image from "next/image";
@@ -14,6 +14,7 @@ type Props = {
 
 const Sidebar = ({ onClose }: Props) => {
   const { user, isAuthenticated } = useAuth();
+  
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -43,7 +44,7 @@ const Sidebar = ({ onClose }: Props) => {
       </div>
 
       <div className={css.inner}>
-        <SidebarNav isAuth={isAuthenticated} />
+        <SidebarNav isAuth={isAuthenticated}  />
       </div>
       <div className={css.footerLine}></div>
       <div className={css.footer}>

@@ -3,6 +3,7 @@ import Link from "next/link";
 
 interface SidebarNavProps {
   isAuth: boolean;
+
 }
 
 const SidebarNav = ({ isAuth }: SidebarNavProps) => {
@@ -19,7 +20,7 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
         </li>
         <li>
           <Link
-            href={isAuth ? "/journey" : "/auth/register"}
+            href={isAuth ? '/journey' : "/auth/register"}
             className={css.navItem}
           >
             <svg width={24} height={24}>
