@@ -3,12 +3,14 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { Metadata } from "next";
+// import { Metadata } from "next";
 import { fetchPrivateWeekDataServer } from "@/lib/api/apiServer";
 // import { WeekData } from "@/types/week";
 // import JourneyContainer from "../page";
 import JourneyDetails from './JourneyDetails.client'
 import WeekSelector from '../../../../components/WeekSelector/WeekSelector'
+
+
 type JourneyPageProps = {
   params: Promise<{ weekNumber: string }>;
 };
@@ -21,7 +23,7 @@ type JourneyPageProps = {
 //   if (!data) {
 //     return {
 //       title: "Тиждень не знайдено",
-//       description: "Дані для цього тижня відсутні",
+//       description: "Дані для цього тижняя відсутні",
 //     };
 //   }
 
