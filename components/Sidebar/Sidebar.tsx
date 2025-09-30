@@ -7,6 +7,8 @@ import SidebarNav from "../SidebarNav/SidebarNav";
 import { useAuth } from "@/lib/store/authStore";
 import Image from "next/image";
 import LogoutModal from "../modals/logOutModal/logOutModal";
+import { logout } from "@/lib/api/apiClient";
+import { useRouter } from "next/navigation";
 
 type Props = {
   onClose?: () => void;
@@ -15,13 +17,20 @@ type Props = {
 const Sidebar = ({ onClose }: Props) => {
   const { user, isAuthenticated } = useAuth();
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const router = useRouter();
 
   const openLogout = () => setIsLogoutOpen(true);
   const closeLogout = () => setIsLogoutOpen(false);
 
-  const handleLogout = () => {
-  setIsLogoutOpen(false);
-};
+  const handleLogout = async () => {
+    try {
+      await logout();
+      closeLogout();
+      router.replace("/auth/login");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    }
+  };
 
   return (
     <div className={css.sidebar}>
@@ -85,10 +94,10 @@ const Sidebar = ({ onClose }: Props) => {
       </div>
 
       <LogoutModal
-  isOpen={isLogoutOpen}
-  onClose={closeLogout}
-  onConfirm={handleLogout}
-/>
+        isOpen={isLogoutOpen}
+        onClose={closeLogout}
+        onConfirm={handleLogout}
+      />
     </div>
   );
 };
