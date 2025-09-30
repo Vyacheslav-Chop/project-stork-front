@@ -20,6 +20,7 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
   return res.data.data;
 }
 
+
 export const login = async (payload: LoginPayload): Promise<void> => {
   const res = await nextServer.post("/auth/login", payload);
   return res.data;
@@ -62,8 +63,8 @@ export const deleteDiary = async (diaryId: string) => {
 };
 
 export const getDiaryById = async (diaryId: string): Promise<DiaryData> => {
-  const res = await nextServer.get<AxiosRes<DiaryData>>(`/diaries/${diaryId}`);
-  return res.data.data;
+  const res = await nextServer.get<DiaryData>(`/diaries/${diaryId}`);
+  return res.data;
 };
 
 export const getTasks = async (): Promise<Task[]> => {
