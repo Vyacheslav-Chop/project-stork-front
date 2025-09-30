@@ -9,16 +9,12 @@ import TasksReminderCard from "@/components/TasksReminderCard/TasksReminderCard"
 import css from "./page.module.css";
 import { useEffect } from "react";
 import { useAuth } from "@/lib/store/authStore";
-import { useWeekStore } from "@/lib/store/weekStore";
-
-const DashBoardClient = () => {
+import { WeekRes } from "@/types/babyState";
+type Props = {
+  weekInfo: WeekRes;
+};
+const DashBoardClient = ({ weekInfo }: Props) => {
   const setCurrentWeek = useAuth((st) => st.setCurrentWeek);
-  const { isAuthenticated} = useAuth();
-  const { weekInfo, fetchUserInfo } = useWeekStore();
-
-  useEffect(() => {
-    fetchUserInfo(isAuthenticated);
-  }, [fetchUserInfo, isAuthenticated]);
 
   useEffect(() => {
     if (weekInfo?.currentWeek) {
