@@ -1,12 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import css from "./Sidebar.module.css";
-import { logout } from "@/lib/api/apiClient";
-import {  useRouter } from "next/navigation";
 import SidebarNav from "../SidebarNav/SidebarNav";
 import { useAuth } from "@/lib/store/authStore";
 import Image from "next/image";
+import LogoutModal from "../modals/logOutModal/logOutModal";
 
 type Props = {
   onClose?: () => void;
@@ -14,13 +14,14 @@ type Props = {
 
 const Sidebar = ({ onClose }: Props) => {
   const { user, isAuthenticated } = useAuth();
-  
-  const router = useRouter();
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
-  const handleLogout = async () => {
-    await logout();
-    router.replace("/auth/login");
-  };
+  const openLogout = () => setIsLogoutOpen(true);
+  const closeLogout = () => setIsLogoutOpen(false);
+
+  const handleLogout = () => {
+  setIsLogoutOpen(false);
+};
 
   return (
     <div className={css.sidebar}>
@@ -44,7 +45,7 @@ const Sidebar = ({ onClose }: Props) => {
       </div>
 
       <div className={css.inner}>
-        <SidebarNav isAuth={isAuthenticated}  />
+        <SidebarNav isAuth={isAuthenticated} />
       </div>
       <div className={css.footerLine}></div>
       <div className={css.footer}>
@@ -65,7 +66,7 @@ const Sidebar = ({ onClose }: Props) => {
                 <p className={css.textEmail}>{user?.email}</p>
               </div>
             </div>
-            <button className={css.logoutBtn} onClick={handleLogout}>
+            <button className={css.logoutBtn} onClick={openLogout}>
               <svg width={40} height={40}>
                 <use href="/icons/iconsSideBar.svg#icon-logout"></use>
               </svg>
@@ -82,6 +83,12 @@ const Sidebar = ({ onClose }: Props) => {
           </div>
         )}
       </div>
+
+      <LogoutModal
+  isOpen={isLogoutOpen}
+  onClose={closeLogout}
+  onConfirm={handleLogout}
+/>
     </div>
   );
 };
