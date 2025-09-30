@@ -3,7 +3,7 @@
   padding-top: 16px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
   gap: 32px;
 } 
@@ -35,7 +35,10 @@
   flex-direction: row;
   gap: 64px;
   }
-
+.wrapper {
+  min-width: 720px;
+  padding: 0 120px;
+}
 .title {
   font-size: 48px;
   padding-top: 57px;

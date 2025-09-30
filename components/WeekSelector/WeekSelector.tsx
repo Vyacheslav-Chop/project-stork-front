@@ -14,8 +14,9 @@ const WeekSelector = () => {
   const selectedWeek = Number(params.weekNumber);
   const { currentWeek } = useAuth();
 
-
-
+    // if (typeof currentWeek !== 'number') {
+    //   return null; 
+    // }
   const weeks: number[] = [];
   for (let i = 1; i <= TOTAL_WEEKS; i++) {
     weeks.push(i);

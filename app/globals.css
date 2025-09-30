@@ -48,13 +48,6 @@ main {
   }
 }
 
-.app-layout {
-  display: flex;
-}
-
-.sidebar {
-  display: none;
-}
 
 @media screen and (min-width: 1440px) {
   main {
@@ -68,7 +61,5 @@ main {
     margin: 0 auto;
   }
 
-  .sidebar {
-    display: block;
-  }
+ 
 }

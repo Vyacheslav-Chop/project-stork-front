@@ -59,7 +59,7 @@
   user-select: none;
 }
 
-.button:hover:not(.disabled) {
+.button:hover:not(:disabled) {
   background-color: #fff4f6;
 }
 
