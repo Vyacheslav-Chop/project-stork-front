@@ -44,7 +44,7 @@ export const getDiaryByIdServer = async (
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  if (!accessToken) return null;
+  if (!accessToken) throw new Error('No accessToken');
 
   const res = await nextServer.get<AxiosRes<DiaryData>>(`/diaries/${diaryId}`, {
     headers: {
@@ -52,9 +52,10 @@ export const getDiaryByIdServer = async (
       Cookie: cookieStore.toString(),
     },
   });
-  console.log("Diary res>>>>>>>>>>>>>>>>>>", res.data);
 
-  return res.data.data;
+  if (!res.data?.data) throw new Error("Diary not found");
+  
+  return res.data?.data;
 };
 
 export const getMomStateServer = async (week: number): Promise<MomState> => {

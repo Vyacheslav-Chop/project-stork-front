@@ -13,15 +13,11 @@ interface Props {
 export default async function DiaryDetailsPage({ params }: Props) {
   const { diaryId } = await params;
 
-  console.log("DIARY ID SERVER>>>>>>>", diaryId);
-
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["diary", diaryId],
     queryFn: () => getDiaryByIdServer(diaryId),
   });
-
-  console.log("DIARY QUERY >>>>>>>>>>>>", queryClient);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
