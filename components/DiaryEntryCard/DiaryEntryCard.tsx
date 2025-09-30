@@ -33,8 +33,8 @@ export default function DiaryEntryCard({ diary, onSelect }: Props) {
       </p>
 
       <div className={styles.emotions}>
-        {diary.emotions && diary.emotions.length > 0 ? (
-          diary.emotions.map((emo: Emotion) => (
+        {diary.category && diary.category.length > 0 ? (
+          diary.category.map((emo: Emotion) => (
             <span key={emo._id} className={styles.emoji}>
               {emo.title}
             </span>
