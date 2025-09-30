@@ -20,6 +20,7 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
   return res.data.data;
 }
 
+
 export const login = async (payload: LoginPayload): Promise<void> => {
   const res = await nextServer.post("/auth/login", payload);
   return res.data;
