@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import styles from "./FeelingCheckCard.module.css";
 import { useAuth } from "@/lib/store/authStore";
 import { AddDiaryModal } from "@/components/modals/AddDiaryEntryModal/AddDiaryEntryModal";
-import AddDiaryEntryForm from "../modals/AddDiaryEntryModal/AddDiaryEntryForm/AddDiaryEntryForm";
+import AddDiaryEntryForm from "@/components/modals/AddDiaryEntryModal/AddDiaryEntryForm/AddDiaryEntryForm";
 
-const FeelingCheckCard = () => {
+function FeelingCheckCard() {
   const isLoggedIn = useAuth((state) => state.isAuthenticated);
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +22,6 @@ const FeelingCheckCard = () => {
       router.push("/auth/register");
     }
   };
-
-  
 
   return (
     <div className={styles.card}>
@@ -43,11 +41,11 @@ const FeelingCheckCard = () => {
       </button>
       {isModalOpen && (
         <AddDiaryModal onClose={close}>
-          <AddDiaryEntryForm onClose={close}/>
+          <AddDiaryEntryForm onClose={close} />
         </AddDiaryModal>
       )}
     </div>
   );
-};
+}
 
 export default FeelingCheckCard;
