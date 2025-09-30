@@ -51,6 +51,7 @@ export const getDiaryByIdServer = async (
       Cookie: cookieStore.toString(),
     },
   });
+  console.log("Diary res>>>>>>>>>>>>>>>>>>", res.data);
 
   return res.data.data;
 };

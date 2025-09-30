@@ -8,6 +8,9 @@ import toast from "react-hot-toast";
 
 const Diary = () => {
   const { diaryId } = useParams<{ diaryId: string }>();
+console.log('DIARY ID>>>>>>>>>', diaryId);
+
+
   const {
     data: diary,
     isLoading,
@@ -19,6 +22,8 @@ const Diary = () => {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });
+console.log('ANSWER CLIENT API>>>>>>>>>>', diary);
+
   if (isLoading) {
     return <Loader />;
   }

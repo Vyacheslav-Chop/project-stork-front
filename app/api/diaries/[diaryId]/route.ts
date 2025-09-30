@@ -6,6 +6,9 @@ export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ diaryId: string }> }
 ) {
+
+  console.log('START PROKSI>>>>>>>>>>>>>>>>>>');
+  
   const { diaryId } = await params;
 
   const cookieStore = await cookies();
@@ -19,12 +22,13 @@ export async function GET(
     const { data } = await api.get(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
+    console.log('');
+    
     return NextResponse.json(data.data);
   } catch (err) {
     console.log("Error", err);
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 }
 
 export async function DELETE(
