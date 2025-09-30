@@ -16,7 +16,6 @@
 .title {
   font-family: var(--font-comfortaa);
   letter-spacing: 0.01em;
-  color: #000000;
   padding-bottom: 4px;
   font-size: 20px;
   font-weight: 700;
@@ -94,7 +93,6 @@
   height: 16px;
   margin: 0;
   margin-top: 2px;
-  accent-color: #000000;
   flex-shrink: 0;
 }
 
@@ -153,19 +151,16 @@
   background: #ffffff;
 }
 
-/* Hover / Focus */
 .createButton:hover,
 .createButton:focus {
   border-bottom: 4px solid #b2b2b2;
   outline: none;
 }
 
-/* Active */
 .createButton:active {
   background: #b2b2b2;
 }
 
-/* Disabled */
 .createButton:disabled {
   background: #ffdae0;
   opacity: 0.3;
@@ -174,7 +169,6 @@
   box-shadow: none;
 }
 
-/* Tablet */
 @media (min-width: 768px) {
   .createButton {
     padding: 14px 28px;
@@ -201,7 +195,6 @@
     margin-bottom: 16px;
   }
 }
-/* Desktop */
 @media (min-width: 1440px) {
   .card {
     width: 390px;
