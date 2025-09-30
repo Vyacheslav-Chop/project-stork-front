@@ -4,51 +4,65 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { Metadata } from "next";
-import { fetchPrivateWeekDataServer } from "@/lib/api/apiServer";
-// import { WeekData } from "@/types/week";
-// import JourneyContainer from "../page";
+import { getBabyStateServer, getMomStateServer } from "@/lib/api/apiServer";
 import JourneyDetails from './JourneyDetails.client'
 import WeekSelector from '../../../../components/WeekSelector/WeekSelector'
+
 type JourneyPageProps = {
   params: Promise<{ weekNumber: string }>;
 };
 
 
-// export async function generateMetadata({ params }: JourneyPageProps): Promise<Metadata> {
-//   const { weekNumber } = await params;
-//   const data = await fetchPrivateWeekDataServer(weekNumber);
+export async function generateMetadata({ params }: JourneyPageProps): Promise<Metadata> {
+  const { weekNumber } = await params;  
 
-//   if (!data) {
-//     return {
-//       title: "Тиждень не знайдено",
-//       description: "Дані для цього тижня відсутні",
-//     };
-//   }
+const weekNum = Number(weekNumber);
 
-//   return {
-//       title: `Тиждень ${weekNumber}: ${data.weekData.analogy ?? "Ваш малюк"}`,
-//     description: data.weekData.babyDevelopment,
-//    openGraph: {
-//       title: `Тиждень ${weekNumber}: ${data.weekData.analogy ?? "Ваш малюк"}`,
-//       description: data.weekData.babyDevelopment,
-//       url: `https://beckend-project-stork.onrender.com/journey/${weekNumber}`,  
-//        images: [
-//         {
-//          url: "/image/og_profile.webp",
-//        width: 1200,
-//          height: 630,
-//            alt: "Pregnancy journey Tracker",
-//          },
-//       ],
-//     },
-//        twitter: {
-//       card: "summary_large_image",
-//       title: `Тиждень ${weekNumber}: ${data.weekData.analogy ?? "Ваш малюк"}`,
-//       description: data.weekData.babyDevelopment,
-//       images: ["/image/og_profile.webp"],
-//     },
-//   }
-// }
+  const [baby, mom] = await Promise.all([
+    getBabyStateServer(weekNum),
+    getMomStateServer(weekNum),
+  ]);
+
+  if (!baby && !mom) {
+    return {
+      title: "Тиждень не знайдено",
+      description: "Дані для цього тижня відсутні",
+    };
+  }
+
+  const title = `Тиждень ${weekNum}: ${baby?.analogy ?? "Ваш малюк"}`;
+
+  const description =
+    baby?.babyDevelopment ??
+    baby?.interestingFact ??
+    mom?.feelings.sensationDescr ??
+    "Дані про розвиток малюка та зміни в тілі мами.";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://твій-домен/journey/${weekNum}`,
+      images: [
+        {
+          url: "/image/journey_week.webp",
+          width: 1200,
+          height: 630,
+          alt: "Pregnancy journey Tracker",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: ["/image/journey_week.webp"],
+    },
+  };
+}
+
 
 
 export default async function JourneyPage({ params }: JourneyPageProps) {
@@ -57,9 +71,14 @@ export default async function JourneyPage({ params }: JourneyPageProps) {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["week", weekNum],
-    queryFn: () => fetchPrivateWeekDataServer(weekNumber),
+    queryKey: ["journeyDetails", weekNum, "baby"],
+    queryFn: () => getBabyStateServer(weekNum),
   });
+
+   await queryClient.prefetchQuery({
+     queryKey: ["journeyDetails", weekNum, "mom"],
+     queryFn: () => getMomStateServer(weekNum),
+   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
