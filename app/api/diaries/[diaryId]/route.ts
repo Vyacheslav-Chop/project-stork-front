@@ -49,3 +49,29 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ diaryId: string }> }
+) {
+  const { diaryId } = await params;
+  const body = await req.json();
+
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
+  if (!accessToken) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { data } = await api.patch(`/diaries/${diaryId}`, body, {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    return NextResponse.json(data.data);
+  } catch (err) {
+    console.log("Error", err);
+  }
+
+  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+}

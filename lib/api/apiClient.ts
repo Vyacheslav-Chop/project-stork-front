@@ -12,7 +12,6 @@ import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 import type { LoginResponse, LoginPayload } from "@/types/auth";
 import { CreateDiary, DiaryData } from "@/types/diaries";
-import axios from "axios";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<AxiosRes<UserResponse>>(
@@ -23,10 +22,7 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
 }
 
 export const login = async (payload: LoginPayload): Promise<void> => {
-  const res = await nextServer.post(
-    "/auth/login",
-    payload
-  );
+  const res = await nextServer.post("/auth/login", payload);
   return res.data;
 };
 
@@ -50,8 +46,14 @@ export const createDiary = async (payload: CreateDiary): Promise<DiaryData> => {
   return res.data.data;
 };
 
-export const updateDiary = async (diaryId, payload) => {
-  const res = await nextServer.patch(`/diaries/${diaryId}`, payload);
+export const updateDiary = async (
+  diaryId: string,
+  payload: CreateDiary
+): Promise<DiaryData> => {
+  const res = await nextServer.patch<AxiosRes<DiaryData>>(
+    `/diaries/${diaryId}`,
+    payload
+  );
 
   return res.data.data;
 };
@@ -155,5 +157,3 @@ export const getEmotions = async (): Promise<Emotion[]> => {
   const res = await nextServer.get("/emotions");
   return res.data.data;
 };
-
-
