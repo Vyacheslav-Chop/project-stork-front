@@ -6,6 +6,7 @@ import { useParams } from 'next/navigation';
 import { Toaster } from 'react-hot-toast';
 import css from './WeekSelector.module.css';
 import { useAuth } from '../../lib/store/authStore';
+import { useEffect, useRef } from 'react';
 
 const TOTAL_WEEKS = 42;
 
@@ -14,7 +15,22 @@ const WeekSelector = () => {
   const selectedWeek = Number(params.weekNumber);
   const { currentWeek } = useAuth();
 
+   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
+ useEffect(() => {
+  if (
+    typeof currentWeek === 'number' &&
+    currentWeek >= 1 &&
+    currentWeek <= TOTAL_WEEKS &&
+    itemRefs.current[currentWeek - 1]
+  ) {
+    itemRefs.current[currentWeek - 1]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'center',
+    });
+  }
+}, [currentWeek]);
 
   const weeks: number[] = [];
   for (let i = 1; i <= TOTAL_WEEKS; i++) {
@@ -25,13 +41,17 @@ const WeekSelector = () => {
       <Toaster position="top-right" />
 
       <ul className={css.list}>
-        {weeks.map((week) => {
+        {weeks.map((week, index) => {
           const isDisabled = currentWeek !== null && week > currentWeek;
 
           const isSelected = week === selectedWeek;
 
           return (
-            <li key={week} className={css.listItem}>
+            <li key={week} className={css.listItem}
+            ref={(el) => {
+             itemRefs.current[index] = el;
+          }}
+            >
               {isDisabled ? (
                 <div
                   className={`${css.button} ${css.disabled}`}

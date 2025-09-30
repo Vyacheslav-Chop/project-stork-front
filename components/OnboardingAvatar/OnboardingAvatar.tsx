@@ -5,10 +5,17 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import Loader from "../Loader/Loader";
 import ErrorText from "../ErrorText/ErrorText";
+import { useAuth } from "@/lib/store/authStore";
+import { UserResponse } from "@/types/user";
+import { updateUserAvatar } from "@/lib/api/apiClient";
 
-const OnboardingFormAvatar = () => {
- 
-  const [avatar, setAvatar] = useState<string | null>( null);
+type ProfileProps = {
+  user: UserResponse
+}
+
+const OnboardingFormAvatar = ({user}: ProfileProps) => {
+  const setUser = useAuth((state) => state.setUser);
+  const [avatar, setAvatar] = useState<string | null>(user?.avatar ?? null);
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -39,6 +46,8 @@ const OnboardingFormAvatar = () => {
         setAvatar(localPreview);
         setIsLoading(true);
         try {
+          const updatedUser = await updateUserAvatar(file);
+          setUser(updatedUser);
           setAvatar(localPreview);
         } catch {
           setErr("Не вдалось завантажити фото");

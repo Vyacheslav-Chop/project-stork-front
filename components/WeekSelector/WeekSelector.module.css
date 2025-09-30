@@ -1,14 +1,13 @@
 
 .list {
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
   overflow-x: auto;
   margin-top: 24px;
   margin-bottom: 32px;
   gap: 16px;
   /* scroll-snap-type: x mandatory; */
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
   list-style: none;
   width: 100%;
 }

@@ -7,7 +7,7 @@ import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import HeaderWrapper from "./HeaderWrapper";
 import BreadcrumbsWrapper from "./BreadcrumbsWrapper";
-
+import css from './page.module.css'
 
 const lato = Lato({
   subsets: ["latin"],
@@ -49,8 +49,8 @@ export default function RootLayout({
             <div className="header-wrapper">
               <HeaderWrapper />
             </div>
-            <div className="app-layout">
-              <aside className="sidebar">{sidebar}</aside>
+            <div className={css.appLayout}>
+              <aside className={css.sidebar}>{sidebar}</aside>
 
               <main className="content">
                 <BreadcrumbsWrapper />

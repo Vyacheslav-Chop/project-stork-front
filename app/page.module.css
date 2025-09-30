@@ -16,10 +16,19 @@
   gap: 32px;
 }
 
+.appLayout {
+  display: flex;
+}
+
+.sidebar {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
   .firstWrapper {
     padding-bottom: 32px;
   }
+  
 }
 
 @media screen and (min-width: 1440px) {
@@ -29,5 +38,8 @@
   .innerWrapper {
     flex-direction: row;
     gap: 32px;
+  }
+   .sidebar {
+    display: block;
   }
 }
