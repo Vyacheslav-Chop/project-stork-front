@@ -8,8 +8,6 @@ import toast from "react-hot-toast";
 
 const Diary = () => {
   const { diaryId } = useParams<{ diaryId: string }>();
-console.log('DIARY ID>>>>>>>>>', diaryId);
-
 
   const {
     data: diary,
@@ -22,7 +20,6 @@ console.log('DIARY ID>>>>>>>>>', diaryId);
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });
-console.log('ANSWER CLIENT API>>>>>>>>>>', diary);
 
   if (isLoading) {
     return <Loader />;
@@ -32,4 +29,5 @@ console.log('ANSWER CLIENT API>>>>>>>>>>', diary);
   }
   return <>{diary && <DiaryEntryDetails diary={diary} />}</>;
 };
+
 export default Diary;

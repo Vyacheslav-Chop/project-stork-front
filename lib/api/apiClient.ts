@@ -63,8 +63,8 @@ export const deleteDiary = async (diaryId: string) => {
 };
 
 export const getDiaryById = async (diaryId: string): Promise<DiaryData> => {
-  const res = await nextServer.get<AxiosRes<DiaryData>>(`/diaries/${diaryId}`);
-  return res.data.data;
+  const res = await nextServer.get<DiaryData>(`/diaries/${diaryId}`);
+  return res.data;
 };
 
 export const getTasks = async (): Promise<Task[]> => {
