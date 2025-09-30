@@ -8,7 +8,6 @@ import { getTasks, updateTaskStatusById } from "@/lib/api/apiClient";
 import { useAuth } from "@/lib/store/authStore";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Loader from "../Loader/Loader";
-import ErrorText from "../ErrorText/ErrorText";
 import AddTaskModal from "../modals/AddTaskModal/AddTaskModal";
 import AddTaskForm from "../modals/AddTaskModal/AddTaskForm/AddTaskForm";
 import { Task } from "@/types/tasks";
@@ -28,7 +27,6 @@ export default function TasksReminderCard() {
   const {
     data: tasks = [],
     isLoading,
-    isError,
   } = useQuery<Task[]>({
     queryKey: ["tasks"],
     queryFn: () => getTasks(),

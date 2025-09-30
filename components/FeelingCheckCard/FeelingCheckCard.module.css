@@ -12,11 +12,10 @@
 }
 
 .question {
-  color: #191919;
-  font-family: "Comfortaa", sans-serif;
-  font-size: 20px;
+  font-family: var(--font-comfortaa);
   font-weight: 700;
-  line-height: 140%;
+  font-size: 20px;
+  line-height: 1.4;
   letter-spacing: 0.01em;
   margin-bottom: 8px;
 }
@@ -27,40 +26,29 @@
 }
 
 .recommendationHeading {
-  font-family: "Lato", sans-serif;
   font-weight: 600;
   font-size: 14px;
-  line-height: 160%;
-  color: #191919;
-  display: block;
+  line-height: 1.6;
 }
 
 .recommendationText {
-  font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 14px;
-  line-height: 150%;
-  color: #191919;
-  display: block;
+  line-height: 1.5;
 }
 
 .button {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 225px;
-  height: 42px;
   padding: 10px 24px;
   border-radius: 100px;
-  border: none;
   border-bottom: 4px solid #cca2a8;
   background-color: #ffcbd3;
-  color: #191919;
-  font-family: "Lato", sans-serif;
   font-size: 14px;
   font-weight: 500;
-  line-height: 160%;
-  cursor: pointer;
+  line-height: 1.6;
+  width: 100%;
   transition: background-color 0.3s ease, border-bottom 0.3s ease;
 }
 
@@ -74,25 +62,25 @@
   background: #b2b2b2;
 }
 
-/* Mobile (320px) */
-@media (max-width: 767px) {
-  .card {
-    width: 100%;
-    max-width: 335px;
-  }
-}
-
-/* Tablet (768px) */
-@media (min-width: 768px) {
-  .card {
-    max-width: 704px;
-  }
-}
-
-/* Desktop (1440px) */
-@media (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
   .card {
     width: 390px;
     height: 210px;
+  }
+
+  .question {
+    font-size: 24px;
+  }
+
+  .recommendationHeading {
+    font-size: 16px;
+  }
+  .recommendationText {
+    font-size: 16px;
+  }
+
+  .button {
+    font-size: 16px;
+    width: 250px;
   }
 }

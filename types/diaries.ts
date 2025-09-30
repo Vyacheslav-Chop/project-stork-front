@@ -18,3 +18,4 @@ export interface CreateDiary {
   category?: string[];
   description?: string;
 }
+
