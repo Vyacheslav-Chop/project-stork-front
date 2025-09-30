@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import type { AxiosError } from "axios";
 import Link from "next/link";
@@ -15,7 +15,6 @@ import NavBarLogo from "../NavBarLogo/NavBarLogo";
 import Image from "next/image";
 import { useEffect } from "react";
 
-
 type LoginFormValues = {
   email: string;
   password: string;
@@ -26,16 +25,14 @@ const initialValues: LoginFormValues = {
   password: "",
 };
 
-
 const validationSchema = Yup.object({
   email: Yup.string()
-    .email('Введіть коректний email')
+    .email("Введіть коректний email")
     .required("Пошта є обов’язковою"),
   password: Yup.string()
     .min(8, "Мінімум 8 символів")
     .required("Пароль є обов’язковим"),
 });
-
 
 const loadSavedValues = (): LoginFormValues => {
   if (typeof window === "undefined") return initialValues;
@@ -47,20 +44,15 @@ const loadSavedValues = (): LoginFormValues => {
   return initialValues;
 };
 
-
 function PersistLoginForm() {
   const { values } = useFormikContext<LoginFormValues>();
 
   useEffect(() => {
-    localStorage.setItem(
-      "loginForm",
-      JSON.stringify({ email: values.email })
-    );
+    localStorage.setItem("loginForm", JSON.stringify({ email: values.email }));
   }, [values.email]);
 
   return null;
 }
-
 
 export default function LoginForm() {
   const router = useRouter();
@@ -91,7 +83,6 @@ export default function LoginForm() {
     } catch (err) {
       const error = err as AxiosError<{ message?: string }>;
 
-
       if (error.response) {
         const status = error.response.status;
 
@@ -106,18 +97,19 @@ export default function LoginForm() {
             toast.error("Сталася помилка на сервері. Спробуйте пізніше.");
         }
       } else if (error.request) {
-        toast.error("Сервер не відповідає. Перевірте підключення до інтернету.");
+        toast.error(
+          "Сервер не відповідає. Перевірте підключення до інтернету."
+        );
       } else {
         toast.error("Помилка при відправці запиту.");
       }
-
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <main className={css.mainContent}>
+    <section className={css.mainContent}>
       <div className={css.logo}>
         <NavBarLogo />
       </div>
@@ -142,8 +134,9 @@ export default function LoginForm() {
                     type="email"
                     autoComplete="email"
                     placeholder="Пошта"
-                    className={`${css.input} ${errors.email && touched.email ? css.inputError : ""
-                      }`}
+                    className={`${css.input} ${
+                      errors.email && touched.email ? css.inputError : ""
+                    }`}
                   />
                 </div>
                 <ErrorMessage
@@ -161,10 +154,9 @@ export default function LoginForm() {
                     type="password"
                     autoComplete="current-password"
                     placeholder="Пароль"
-                    className={`${css.input} ${errors.password && touched.password
-                      ? css.inputError
-                      : ""
-                      }`}
+                    className={`${css.input} ${
+                      errors.password && touched.password ? css.inputError : ""
+                    }`}
                   />
                 </div>
                 <ErrorMessage
@@ -174,9 +166,7 @@ export default function LoginForm() {
                 />
               </div>
 
-              {serverError && (
-                <p>{serverError}</p>
-              )}
+              {serverError && <p>{serverError}</p>}
 
               <button
                 type="submit"
@@ -209,6 +199,6 @@ export default function LoginForm() {
           priority
         />
       </div>
-    </main>
+    </section>
   );
 }
