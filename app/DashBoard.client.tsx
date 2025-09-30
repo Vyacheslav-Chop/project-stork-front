@@ -13,12 +13,12 @@ import { useWeekStore } from "@/lib/store/weekStore";
 
 const DashBoardClient = () => {
   const setCurrentWeek = useAuth((st) => st.setCurrentWeek);
-  const { isAuthenticated, isLoadingAuth } = useAuth();
+  const { isAuthenticated} = useAuth();
   const { weekInfo, fetchUserInfo } = useWeekStore();
 
   useEffect(() => {
-    fetchUserInfo(isAuthenticated, isLoadingAuth);
-  }, [isAuthenticated, isLoadingAuth, fetchUserInfo]);
+    fetchUserInfo(isAuthenticated);
+  }, [fetchUserInfo, isAuthenticated]);
 
   useEffect(() => {
     if (weekInfo?.currentWeek) {

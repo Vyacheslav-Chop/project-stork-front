@@ -5,33 +5,22 @@ import { WeekRes } from "@/types/babyState";
 interface WeekState {
   weekInfo: WeekRes | null;
   dayKey: string | null;
-  isLoading: boolean;
-  fetchUserInfo: (
-    isAuthenticated: boolean,
-    isLoadingAuth: boolean
-  ) => Promise<void>;
+  fetchUserInfo: (isAuthenticated: boolean) => Promise<void>;
 }
 
 export const useWeekStore = create<WeekState>((set, get) => ({
   weekInfo: null,
   dayKey: null,
-  isLoading: false,
-  fetchUserInfo: async (isAuthenticated, isLoadingAuth) => {
-    if (isLoadingAuth) return;
-
+  fetchUserInfo: async (isAuthenticated) => {
+    
     const todayKey = new Date().toISOString().slice(0, 10);
-
     if (get().dayKey === todayKey && get().weekInfo) return;
 
-    set({ isLoading: true });
+    let data;
 
-    try {
-      const data = isAuthenticated
-        ? await getWeekDynamic()
-        : await getWeekStatic();
-      set({ weekInfo: data, dayKey: todayKey, isLoading: false });
-    } catch {
-      set({ weekInfo: null, isLoading: false });
-    }
+    if (isAuthenticated) data = await getWeekDynamic();
+    if (!isAuthenticated) data = await getWeekStatic();
+
+    set({ weekInfo: data, dayKey: todayKey });
   },
 }));
