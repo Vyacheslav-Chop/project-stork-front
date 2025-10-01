@@ -10,9 +10,16 @@
   margin-top: 20px;
 }
 
+.diaryContentBlock {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+}
+
 .listBlock {
   flex: 1;
   max-width: 400px;
+  height: fit-content;
 }
 
 .detailsBlock {
@@ -25,7 +32,10 @@
 .placeholder {
   border: 2px dashed #ddd;
   border-radius: 12px;
-  min-height: 200px;
+  min-height: 180px;
+  width: 643px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .mobileLayout {
@@ -33,4 +43,10 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
+}
+
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    padding-left: 32px;
+  }
 }

@@ -1,7 +1,7 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 300px;
   height: 100vh;
 }
 
@@ -90,7 +90,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      /* розкидає header зверху, footer знизу */
       width: 300px;
       height: 100vh;
   
@@ -99,7 +98,6 @@
       left: 0;
   
       background: #fff;
-      /* щоб не просвічувався фон */
       border-right: 1px solid rgba(0, 0, 0, 0.15);
       z-index: 1000;
     }
@@ -107,11 +105,9 @@
         .inner {
           flex: 1 1 auto;
           overflow-y: auto;
-          /* прокрутка тільки для контенту */
         }
 
                 .pageContent {
                   margin-left: 300px;
-                  /* щоб контент не заходив під sidebar */
                 }
 }

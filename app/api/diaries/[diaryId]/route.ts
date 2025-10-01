@@ -33,9 +33,9 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ diaryId: string }> }
+  { params }: { params: { diaryId: string } }
 ) {
-  const { diaryId } = await params;
+  const { diaryId } = params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -48,11 +48,14 @@ export async function DELETE(
     await api.delete(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
+
+    return new NextResponse(null, { status: 204 });
   } catch (err) {
-    console.log("Error", err);
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    console.error("Error deleting diary:", err);
+    return NextResponse.json({ error: "Failed to delete diary" }, { status: 500 });
   }
 }
+
 
 export async function PATCH(
   req: NextRequest,

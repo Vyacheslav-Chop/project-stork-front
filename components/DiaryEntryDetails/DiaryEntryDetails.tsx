@@ -1,28 +1,69 @@
+"use client";
+
 import { DiaryData } from "@/types/diaries";
 import styles from "./DiaryEntryDetails.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDiary } from "@/lib/api/apiClient";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useMediaQuery } from "react-responsive";
 
 interface Props {
   diary: DiaryData;
+  onSelect?: (diary: DiaryData | null) => void;
 }
 
-export default function DiaryEntryDetails({ diary }: Props) {
+export default function DiaryEntryDetails({ diary, onSelect }: Props) {
   const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const isMobileOrTablet = useMediaQuery({ maxWidth: 1440 });
 
   const deleteDiaryMutation = useMutation({
     mutationFn: (id: string) => deleteDiary(id),
+    onMutate: async (id) => {
+      await queryClient.cancelQueries({ queryKey: ["diaries"] });
+
+      const prevDiaries = queryClient.getQueryData<DiaryData[]>(["diaries"]);
+
+      queryClient.setQueryData<DiaryData[]>(["diaries"], (old) =>
+        old ? old.filter((d) => d._id !== id) : []
+      );
+
+      return { prevDiaries };
+    },
+    onError: (_err, _id, context) => {
+      if (context?.prevDiaries) {
+        queryClient.setQueryData(["diaries"], context.prevDiaries);
+      }
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["diaries"] });
+      toast.success("Запис видалено");
+
+      if (isMobileOrTablet) {
+        router.push("/diary");
+      } else {
+        onSelect?.(null);
+      }
     },
   });
+
+  const handleUpdate = (updatedDiary: DiaryData) => {
+    onSelect?.(updatedDiary);
+    toast.success("Запис оновлено");
+  };
 
   return (
     <article className={styles.card}>
       <header className={styles.header}>
         <div className={styles.titleBlock}>
           <h1 className={styles.title}>{diary.title}</h1>
-          <button className={styles.editBtn}>
+          <button
+            className={styles.editBtn}
+            onClick={() =>
+              handleUpdate({ ...diary, title: diary.title + " ✏️" })
+            }
+          >
             <svg className={styles.icon} width={24} height={24}>
               <use href="/icons/icon-update.svg"></use>
             </svg>
