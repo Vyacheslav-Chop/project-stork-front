@@ -54,7 +54,7 @@ const Sidebar = ({ onClose }: Props) => {
       </div>
 
       <div className={css.inner}>
-        <SidebarNav isAuth={isAuthenticated} />
+        <SidebarNav isAuth={isAuthenticated} onClose={onClose} />
       </div>
       <div className={css.footerLine}></div>
       <div className={css.footer}>
