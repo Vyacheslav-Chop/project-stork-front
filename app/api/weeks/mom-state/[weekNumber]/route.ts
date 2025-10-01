@@ -4,12 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { weekNumber: string } }
+  context: { params: Promise<{ weekNumber: string }> }
 ) {
+  const { weekNumber } = await context.params;
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
-
-  const { weekNumber } = params;
 
   try {
     const { data } = await api.get(`/weeks/mom-state/${weekNumber}`, {
@@ -18,8 +17,12 @@ export async function GET(
       },
     });
     if (data) return NextResponse.json(data);
-  } catch (err) {
-    console.log("Error", err);
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 
   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

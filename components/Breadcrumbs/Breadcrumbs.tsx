@@ -55,7 +55,7 @@ export default function Breadcrumbs({ lastLabel }: Props) {
     getUser()
       .then((resp) => {
         if (!mounted) return;
-        const u = resp?.data;
+        const u = resp;
         const first = toFirstName(u?.name);
         setUserName(first);
       })

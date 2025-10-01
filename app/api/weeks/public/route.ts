@@ -8,8 +8,12 @@ export async function GET() {
     const { data } = await api.get("/weeks/public", {
     });
     if (data) return NextResponse.json(data);
-  } catch (err) {
-    console.log("Error", err);
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 
   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

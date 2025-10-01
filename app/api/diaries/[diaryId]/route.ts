@@ -3,10 +3,10 @@ import { cookies } from "next/headers";
 import { api } from "../../api";
 
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { diaryId: string } }
+  request: NextRequest,
+  context: { params: Promise<{ diaryId: string }> }
 ) {
-  const { diaryId } = params;
+  const { diaryId } = await context.params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -19,20 +19,22 @@ export async function GET(
     const { data } = await api.get(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    console.log("");
 
     return NextResponse.json(data.data);
-  } catch (err) {
-    console.log("Error", err);
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { diaryId: string } }
+  request: NextRequest,
+  context: { params: Promise<{ diaryId: string }> }
 ) {
-  const { diaryId } = params;
+  const { diaryId } = await context.params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -45,18 +47,21 @@ export async function DELETE(
     await api.delete(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-  } catch (err) {
-    console.log("Error", err);
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
 export async function PATCH(
-  req: NextRequest,
-  { params }: { params: { diaryId: string } }
+  request: NextRequest,
+  context: { params: Promise<{ diaryId: string }> }
 ) {
-  const { diaryId } = params;
-  const body = await req.json();
+  const { diaryId } = await context.params;
+  const body = await request.json();
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -70,9 +75,11 @@ export async function PATCH(
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return NextResponse.json(data.data);
-  } catch (err) {
-    console.log("Error", err);
-  }
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-  return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  }
 }

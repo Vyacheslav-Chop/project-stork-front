@@ -15,8 +15,12 @@ export async function GET() {
       },
     });
     if (data) return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -39,10 +43,11 @@ export async function PATCH(request: Request) {
       { error: "Failed to update user" },
       { status: 500 }
     );
-  } catch {
-    return NextResponse.json(
-      { error: "Failed to update user" },
-      { status: 500 }
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
