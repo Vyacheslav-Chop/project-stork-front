@@ -34,6 +34,7 @@
   gap: 24px;
   margin-bottom: 24px;
   width: 100%;
+  justify-content: center;
 }
 
 .formGroup {
@@ -49,6 +50,7 @@
 }
 
 .input {
+ 
   padding: 8px 12px;
   border: 2px solid rgba(255, 255, 255, 0);
   border-radius: 12px;
@@ -71,9 +73,8 @@
 }
 
 .input:focus {
-  border: 2px solid #ff96d5;
+   border-color: #ffcbd3;
   outline: none;
-  background-color: #fff;
 }
 .input:active {
   border: 2px solid #ffcbd3;
@@ -82,6 +83,7 @@
 .submitButton {
   display: flex;
   align-items: center;
+  justify-content: center;
   justify-content: center;
   font-weight: 500;
   font-size: 14px;
@@ -96,18 +98,17 @@
 
 .submitButton:hover,
 .submitButton:focus {
-  background-color: #fff4f6;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color:  #fff4f6;
 }
 
 .submitButton:active {
-  background-color:  rgba(0, 0, 0, 0.05);
+  background-color:   #ffcbd3;
   box-shadow: none;            
-  transform: translateY(2px);  
+  transform: translateY(2px); 
+ 
 }
-.submitButton:disabled {
-  background-color: #b2b2b2;
-  cursor: not-allowed;
-}
+
 .submitButton:disabled {
   background-color: #ffdae0;              
   border-bottom: 4px solid #ffcbd3; 
@@ -192,8 +193,10 @@
   padding: 0 120px;
 }
 .form {
-
   width: 480px;
+}
+.formTitle {
+  padding-top: 190px;
 }
 .imageWrapper {
   display: block;

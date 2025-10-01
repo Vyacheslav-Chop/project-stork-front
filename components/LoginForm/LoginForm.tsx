@@ -109,11 +109,12 @@ export default function LoginForm() {
   };
 
   return (
-    <section className={css.mainContent}>
-      <div className={css.logo}>
+    <div className={css.mainContent}>
+      
+      <div className={css.wrapper}>
+     <div className={css.logo}>
         <NavBarLogo />
       </div>
-      <div className={css.wrapper}>
         <h1 className={css.title}>Вхід</h1>
 
         <Formik<LoginFormValues>
@@ -199,6 +200,6 @@ export default function LoginForm() {
           priority
         />
       </div>
-    </section>
+    </div>
   );
 }
