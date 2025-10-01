@@ -2,16 +2,43 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-bottom: 24px;
   width: 100%;
+  justify-content: center;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: "Lato", sans-serif;
   gap: 8px;
-  width: 100%;
+  transition: border-color 0.2s;
 }
 
+
+.input {
+ 
+  padding: 8px 12px;
+  border: 2px solid rgba(255, 255, 255, 0);
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 100%;
+  height: 40px;
+  transition: background-color 0.2s ease;
+  
+}
+
+.input:focus {
+   border-color: #ffcbd3;
+  outline: none;
+}
+.input:active {
+  border: 2px solid #ffcbd3;
+  background-color: rgba(0, 0, 0, 0.05);
+}
 .selectWrap {
   position: relative;
   width: 100%;
@@ -116,7 +143,8 @@
 
 .submitButton:hover,
 .submitButton:focus {
-  background-color: #fff4f6;
+  border-bottom: 4px solid rgba(0, 0, 0, 0.15);
+  background-color:  #fff4f6;
 }
 
 .submitButton:active {
@@ -147,8 +175,21 @@
 
 
 @media only screen and (min-width: 768px) {
+  .wrapper {
+   width: 480px;
+  }
+  .formLabel {
+    /* font-weight: 700;
+   font-size: 36px;
+   line-height: 1.2;
+   letter-spacing: 0.01em; */
+  }
 .input {
   height: 37px;
+  min-width: 480px;
+}
+.formTitle {
+  padding-top: 197px;
 }
 }
 
