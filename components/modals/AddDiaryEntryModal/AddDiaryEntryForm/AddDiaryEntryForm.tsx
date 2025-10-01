@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import css from "./AddDiaryEntryForm.module.css";
-import { createDiary, getEmotions, updateDiary } from "@/lib/api/apiClient";
+import { createDiary,  updateDiary } from "@/lib/api/apiClient";
 import toast from "react-hot-toast";
-import { Emotion } from "@/types/emotions";
 import { DiaryData } from "@/types/diaries";
 import { useQueryClient } from "@tanstack/react-query";
 import { validationDiarySchema } from "./validation";
 import CustomCheckBoxForm from "./CustomCheckBoxForm";
+import { useEmotion } from "@/lib/store/emotionsStore";
 
 interface Props {
   onClose: () => void;
@@ -18,20 +17,9 @@ interface Props {
 }
 
 export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
-  const [emotions, setEmotions] = useState<Emotion[]>([]);
   const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getEmotions();
-        setEmotions(data);
-      } catch (err) {
-        console.error("Помилка при завантаженні емоцій", err);
-      }
-    };
-    fetchData();
-  }, []);
+  const emotions = useEmotion((s) => s.emotions)
 
   return (
     <Formik
