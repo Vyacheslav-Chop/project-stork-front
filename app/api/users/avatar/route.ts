@@ -38,11 +38,11 @@ export async function PATCH(request: Request) {
       { error: "Не вдалося оновити аватар користувача" },
       { status: 500 }
     );
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json(
-      { error: "Не вдалося оновити аватар користувача" },
-      { status: 500 }
-    );
+  } catch (error) {
+   if (error instanceof Error) {
+     return NextResponse.json({ error: error.message }, { status: 500 });
+   }
+
+   return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
