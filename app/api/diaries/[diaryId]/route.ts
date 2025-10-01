@@ -45,11 +45,14 @@ export async function DELETE(
     await api.delete(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
+
+    return new NextResponse(null, { status: 204 });
   } catch (err) {
-    console.log("Error", err);
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    console.error("Error deleting diary:", err);
+    return NextResponse.json({ error: "Failed to delete diary" }, { status: 500 });
   }
 }
+
 
 export async function PATCH(
   req: NextRequest,

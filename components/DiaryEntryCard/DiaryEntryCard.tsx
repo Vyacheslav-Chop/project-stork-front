@@ -14,7 +14,7 @@ export default function DiaryEntryCard({ diary, onSelect }: Props) {
   const router = useRouter();
 
   const handleClick = () => {
-    if (window.innerWidth < 1024) {
+    if (window.innerWidth < 1440) {
       router.push(`/diary/${diary._id}`);
     } else {
       onSelect?.(diary);

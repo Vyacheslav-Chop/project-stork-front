@@ -15,7 +15,7 @@ export default function DiaryPage() {
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1440);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -31,14 +31,14 @@ export default function DiaryPage() {
   });
 
   const diaryList = diaries ?? [];
-  console.log(diaryList);
 
   if (isLoading) {
     return <div className={styles.wrapper}>Завантаження...</div>;
   }
 
   if (isError) {
-    return toast.error("Не вдалось завантажити дані.");
+    toast.error("Не вдалось завантажити дані.");
+    return null;
   }
 
   return (
@@ -48,22 +48,26 @@ export default function DiaryPage() {
           <div className={styles.greetingBlock}>
             <GreetingBlock />
           </div>
-          <div className={styles.listBlock}>
-            <DiaryList diaries={diaryList} onSelect={setSelectedDiary} />
-          </div>
-          <div className={styles.detailsBlock}>
-            {selectedDiary ? (
-              <DiaryEntryDetails diary={selectedDiary} />
-            ) : (
-              <div className={styles.placeholder}></div>
-            )}
+          <div className={styles.diaryContentBlock}>
+            <div className={styles.listBlock}>
+              <DiaryList diaries={diaryList} onSelect={setSelectedDiary} />
+            </div>
+            <div className={styles.detailsBlock}>
+              {selectedDiary ? (
+                <DiaryEntryDetails
+                  diary={selectedDiary}
+                  onSelect={setSelectedDiary}
+                />
+              ) : (
+                <div className={styles.placeholder}></div>
+              )}
+            </div>
           </div>
         </div>
       ) : (
         <div className={styles.mobileLayout}>
           <GreetingBlock />
-
-          <DiaryList diaries={diaryList} />
+          <DiaryList diaries={diaryList} onSelect={setSelectedDiary} />
         </div>
       )}
     </div>
