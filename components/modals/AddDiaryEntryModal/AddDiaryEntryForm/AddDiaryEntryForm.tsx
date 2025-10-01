@@ -2,13 +2,15 @@
 
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import css from "./AddDiaryEntryForm.module.css";
-import { createDiary,  updateDiary } from "@/lib/api/apiClient";
+import { createDiary, updateDiary } from "@/lib/api/apiClient";
 import toast from "react-hot-toast";
 import { DiaryData } from "@/types/diaries";
 import { useQueryClient } from "@tanstack/react-query";
 import { validationDiarySchema } from "./validation";
 import CustomCheckBoxForm from "./CustomCheckBoxForm";
 import { useEmotion } from "@/lib/store/emotionsStore";
+import { useDiaryDraftStore } from "@/lib/store/diaryDraftStore";
+import { useMemo } from "react";
 
 interface Props {
   onClose: () => void;
@@ -18,16 +20,25 @@ interface Props {
 
 export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
   const queryClient = useQueryClient();
+  const emotions = useEmotion((s) => s.emotions);
+  const { draft, setDraft, clearDraft } = useDiaryDraftStore();
 
-  const emotions = useEmotion((s) => s.emotions)
+  const isEdit = Boolean(diary);
+
+  const initialValues = useMemo(() => {
+    return {
+      title: isEdit ? diary?.title || "" : draft.title || "",
+      emotions: isEdit
+        ? (diary?.category ?? []).map((c) => c._id)
+        : draft.emotions || [],
+      description: isEdit ? diary?.description || "" : draft.description || "",
+    };
+  }, [isEdit, diary, draft]);
 
   return (
     <Formik
-      initialValues={{
-        title: diary?.title || "",
-        emotions: diary?.category.map((c) => c._id) || [],
-        description: diary?.description || "",
-      }}
+      enableReinitialize
+      initialValues={initialValues}
       validationSchema={validationDiarySchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
@@ -47,6 +58,7 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
               category: values.emotions,
             });
             toast.success("Новий запис створено!");
+            clearDraft();
           }
 
           queryClient.invalidateQueries({ queryKey: ["diaries"] });
@@ -59,57 +71,76 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
         }
       }}
     >
-      {({ isSubmitting }) => (
-        <Form className={css.form}>
-          <h2 className={css.title}>
-            {diary ? "Редагування запису" : "Новий запис"}
-          </h2>
+      {({ isSubmitting, handleChange }) => {
+        const updateDraft = (
+          patch: Partial<{ title: string; description: string }>
+        ) => {
+          if (!isEdit) setDraft(patch);
+        };
+        return (
+          <Form className={css.form}>
+            <h2 className={css.title}>
+              {diary ? "Редагування запису" : "Новий запис"}
+            </h2>
 
-          <label className={css.label}>
-            Заголовок
-            <Field
-              type="text"
-              name="title"
-              className={css.input}
-              placeholder="Введіть заголовок запису"
-            />
-            <ErrorMessage name="title" component="div" className={css.error} />
-          </label>
+            <label className={css.label}>
+              Заголовок
+              <Field
+                type="text"
+                name="title"
+                className={css.input}
+                placeholder="Введіть заголовок запису"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange(event);
+                  updateDraft({ title: event.target.value });
+                }}
+              />
+              <ErrorMessage
+                name="title"
+                component="div"
+                className={css.error}
+              />
+            </label>
 
-          <label className={css.label}>
-            Категорії
-            <CustomCheckBoxForm name="emotions" emotions={emotions} />
-            <ErrorMessage
-              name="emotions"
-              component="div"
-              className={css.error}
-            />
-          </label>
+            <label className={css.label}>
+              Категорії
+              <CustomCheckBoxForm name="emotions" emotions={emotions} />
+              <ErrorMessage
+                name="emotions"
+                component="div"
+                className={css.error}
+              />
+            </label>
 
-          <label className={css.label}>
-            Запис
-            <Field
-              as="textarea"
-              name="description"
-              className={css.textarea}
-              placeholder="Запишіть, як ви себе відчуваєте"
-            />
-            <ErrorMessage
-              name="description"
-              component="div"
-              className={css.error}
-            />
-          </label>
+            <label className={css.label}>
+              Запис
+              <Field
+                as="textarea"
+                name="description"
+                className={css.textarea}
+                placeholder="Запишіть, як ви себе відчуваєте"
+                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  handleChange(event);
+                  updateDraft({ description: event.target.value });
+                }}
+              />
+              <ErrorMessage
+                name="description"
+                component="div"
+                className={css.error}
+              />
+            </label>
 
-          <button
-            type="submit"
-            className={css.submitBtn}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? "Збереження..." : diary ? "Оновити" : "Зберегти"}
-          </button>
-        </Form>
-      )}
+            <button
+              type="submit"
+              className={css.submitBtn}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Збереження..." : diary ? "Оновити" : "Зберегти"}
+            </button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 }
