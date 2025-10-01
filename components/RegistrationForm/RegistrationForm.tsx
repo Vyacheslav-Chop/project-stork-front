@@ -139,6 +139,7 @@ const RegistrationForm = () => {
     </div>
   )}
 </Field>
+              
           <button
               type="submit"
               disabled={!dirty || !isValid || isSubmitting}
