@@ -7,7 +7,7 @@ import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import HeaderWrapper from "./HeaderWrapper";
 import BreadcrumbsWrapper from "./BreadcrumbsWrapper";
-import css from './page.module.css'
+import css from "./page.module.css";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -22,13 +22,43 @@ const comfortaa = Comfortaa({
 });
 
 export const metadata: Metadata = {
-  title: "Leleka",
-  description: "Зручний онлайн-трекер для майбутніх мам",
+  title: "Лелека — онлайн-трекер для майбутніх мам",
+  icons: {
+    icon: "/icons/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
+  },
+  description:
+    "Ведіть щоденник вагітності, відстежуйте завдання та насолоджуйтесь шляхом до материнства разом із Лелекою.",
+  keywords: [
+    "вагітність",
+    "щоденник вагітності",
+    "трекер вагітності",
+    "онлайн для мам",
+    "майбутні мами",
+  ],
   openGraph: {
-    title: "Leleka",
-    description: "Зручний онлайн-трекер для майбутніх мам",
-    url: "https://Leleka.app",
-    images: "",
+    title: "Лелека — онлайн-трекер для майбутніх мам",
+    description:
+      "Зручний інструмент для відстеження вагітності, завдань і щоденних нотаток.",
+    url: "https://project-stork-front.vercel.app",
+    siteName: "Лелека",
+    images: [
+      {
+        url: "/image/meta_main.png",
+        width: 1200,
+        height: 630,
+        alt: "Лелека — онлайн-трекер для майбутніх мам",
+      },
+    ],
+    type: "website",
+    locale: "uk_UA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Лелека — онлайн-трекер для майбутніх мам",
+    description:
+      "Щоденник вагітності з корисними завданнями та нагадуваннями для майбутніх мам.",
+    images: ["/image/meta_main.png"],
   },
 };
 
@@ -46,15 +76,15 @@ export default function RootLayout({
       <body className={`${lato.variable} ${comfortaa.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <div className="header-wrapper">
+            <div>
               <HeaderWrapper />
             </div>
             <div className={css.appLayout}>
               <aside className={css.sidebar}>{sidebar}</aside>
 
-              <main className="content">
+              <main>
                 <BreadcrumbsWrapper />
-                <div className="page-content">{children}</div>
+                <div>{children}</div>
               </main>
             </div>
             {modal}

@@ -44,7 +44,7 @@ const weekNum = Number(weekNumber);
     openGraph: {
       title,
       description,
-      url: `https://твій-домен/journey/${weekNum}`,
+      url: `https://project-stork-front.vercel.app/journey/${weekNum}`,
       images: [
         {
           url: "/image/journey_week.webp",
