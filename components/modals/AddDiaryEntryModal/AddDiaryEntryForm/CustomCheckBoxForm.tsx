@@ -8,9 +8,14 @@ import { Category } from "@/types/diaries";
 interface CustomCheckBoxFormProps {
   name: string;
   emotions: Category[];
+  onChange?: (changed: string[]) => void;
 }
 
-const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
+const CustomCheckBoxForm = ({
+  name,
+  emotions,
+  onChange,
+}: CustomCheckBoxFormProps) => {
   const [open, setOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -71,6 +76,7 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
                     ? field.value.filter((v) => v !== emo._id)
                     : [...field.value, emo._id];
                   form.setFieldValue(name, updated);
+                  onChange?.(updated);
                 };
 
                 return (
