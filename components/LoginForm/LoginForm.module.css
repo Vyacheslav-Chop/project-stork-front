@@ -46,7 +46,6 @@
 }
 
 .input {
-  all: unset;
   border: 2px solid transparent;
   border-radius: 12px;
   padding: 8px 12px;

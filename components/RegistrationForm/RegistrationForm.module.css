@@ -34,6 +34,7 @@
   gap: 24px;
   margin-bottom: 24px;
   width: 100%;
+  justify-content: center;
 }
 
 .formGroup {
@@ -49,7 +50,7 @@
 }
 
 .input {
-  all: unset;
+ 
   padding: 8px 12px;
   border: 2px solid rgba(255, 255, 255, 0);
   border-radius: 12px;
@@ -83,6 +84,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-content: center;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.6;
@@ -103,7 +105,8 @@
 .submitButton:active {
   background-color:   #ffcbd3;
   box-shadow: none;            
-  transform: translateY(2px);  
+  transform: translateY(2px); 
+ 
 }
 
 .submitButton:disabled {
