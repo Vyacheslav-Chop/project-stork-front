@@ -2,7 +2,7 @@
   background-color: #fff5f7;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  width: 335px;
+  min-width: 288px;
   padding: 16px;
   height: auto;
   padding-top: 32px;
@@ -87,24 +87,6 @@
     padding: 24px 16px;
     width: 357px;
     height: 727px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: #ffcbd3 rgba(0, 0, 0, 0.2);
-  }
-
-  .wrapper::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .wrapper::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-  }
-
-  .wrapper::-webkit-scrollbar-thumb {
-    background-color: #ffcbd3;
-    border: 2px solid #ffcbd3;
-    border-radius: 4px;
   }
 
   .header {
@@ -125,6 +107,29 @@
     font-size: 16px;
     font-weight: 400;
     border: 1px solid #ddd;
+  }
+  .list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 690px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffcbd3 rgba(0, 0, 0, 0.2);
+}
+  .list::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .list::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .list::-webkit-scrollbar-thumb {
+    background-color: #ffcbd3;
+    border: 2px solid #ffcbd3;
+    border-radius: 4px;
   }
 }
 
