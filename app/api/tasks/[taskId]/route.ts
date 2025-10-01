@@ -17,10 +17,7 @@ export async function PATCH(
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return NextResponse.json(data);
-  } catch (er) {
-    return NextResponse.json(
-      { error: er.message },
-      { status: er.status || 500 }
-    );
+  } catch {
+    return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 }

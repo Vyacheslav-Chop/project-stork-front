@@ -4,12 +4,9 @@ import { api } from "../../api";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ diaryId: string }> }
+  { params }: { params: { diaryId: string } }
 ) {
-
-  console.log('START PROKSI>>>>>>>>>>>>>>>>>>');
-  
-  const { diaryId } = await params;
+  const { diaryId } = params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -22,8 +19,8 @@ export async function GET(
     const { data } = await api.get(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
-    console.log('');
-    
+    console.log("");
+
     return NextResponse.json(data.data);
   } catch (err) {
     console.log("Error", err);
@@ -33,9 +30,9 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ diaryId: string }> }
+  { params }: { params: { diaryId: string } }
 ) {
-  const { diaryId } = await params;
+  const { diaryId } = params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -56,9 +53,9 @@ export async function DELETE(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: Promise<{ diaryId: string }> }
+  { params }: { params: { diaryId: string } }
 ) {
-  const { diaryId } = await params;
+  const { diaryId } = params;
   const body = await req.json();
 
   const cookieStore = await cookies();
