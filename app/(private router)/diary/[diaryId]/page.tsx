@@ -10,6 +10,22 @@ interface Props {
   params: Promise<{ diaryId: string }>;
 }
 
+export async function generateMetadata({ params }: Props) {
+
+const { diaryId } = await params; 
+
+  const diary = await getDiaryByIdServer(diaryId);
+
+  return {
+    title: diary?.title,
+    description: diary?.description,
+    openGraph: {
+      title: diary?.title,
+      description: diary?.description,
+    },
+  };
+}
+
 export default async function DiaryDetailsPage({ params }: Props) {
   const { diaryId } = await params;
 
