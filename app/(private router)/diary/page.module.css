@@ -27,7 +27,26 @@
   background: transparent;
   min-height: 300px;
   border-radius: 32px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffcbd3 rgba(0, 0, 0, 0.2);
+  height: 727px;
 }
+
+.detailsBlock::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .detailsBlock::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .detailsBlock::-webkit-scrollbar-thumb {
+    background-color: #ffcbd3;
+    border: 2px solid #ffcbd3;
+    border-radius: 4px;
+  }
 
 .placeholder {
   border: 2px dashed #ddd;
