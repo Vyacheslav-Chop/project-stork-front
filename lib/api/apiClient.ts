@@ -26,7 +26,7 @@ export const login = async (payload: LoginPayload): Promise<void> => {
   return res.data;
 };
 
-export const refresh = async (): Promise<void> => {
+export const refresh = async () => {
   const res = await nextServer.post("/auth/refresh");
 
   return res.data;
