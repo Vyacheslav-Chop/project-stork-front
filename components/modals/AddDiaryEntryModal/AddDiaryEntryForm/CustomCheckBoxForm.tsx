@@ -2,7 +2,7 @@
 
 import { Field, FieldProps } from "formik";
 import React, { useEffect, useRef, useState } from "react";
-import css from "./AddDiaryEntryForm.module.css";
+import css from "./CustomCheckBoxForm.module.css";
 import { Category } from "@/types/diaries";
 
 interface CustomCheckBoxFormProps {
@@ -18,11 +18,8 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
-
     window.addEventListener("keydown", handleEsc);
-    return () => {
-      window.removeEventListener("keydown", handleEsc);
-    };
+    return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
   useEffect(() => {
@@ -34,7 +31,6 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
         setOpen(false);
       }
     };
-
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
@@ -70,31 +66,25 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
             <ul className={css.dropdown}>
               {emotions.map((emo) => {
                 const checked = field.value.includes(emo._id);
-
-                const handleChange = () => {
-                  const updated = new Set(field.value);
-                  if (updated.has(emo._id)) {
-                    updated.delete(emo._id);
-                  } else {
-                    updated.add(emo._id);
-                  }
-
-                  form.setFieldValue(name, Array.from(updated));
+                const handleToggle = () => {
+                  const updated = checked
+                    ? field.value.filter((v) => v !== emo._id)
+                    : [...field.value, emo._id];
+                  form.setFieldValue(name, updated);
                 };
 
                 return (
-                  <li key={emo._id} className={css.item}>
-                    <label className={css.checkboxLabel}>
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={handleChange}
-                      />
-                      {emo.title}
-                      {/* <svg className="check-icon">
-                        <use href="#icon-check"></use>
-                      </svg> */}
-                    </label>
+                  <li key={emo._id} className={css.item} onClick={handleToggle}>
+                    <div
+                      className={`${css.customCheckbox} ${
+                        checked ? css.checked : ""
+                      }`}
+                    >
+                      <svg className={css.checkIcon} viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    </div>
+                    <span>{emo.title}</span>
                   </li>
                 );
               })}
