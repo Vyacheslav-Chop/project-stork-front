@@ -4,9 +4,9 @@ import { api } from "../../api";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { diaryId: string } }
+  { params }: { params: Promise<{ diaryId: string }> }
 ) {
-  const { diaryId } = params;
+  const { diaryId } = await params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -30,9 +30,9 @@ export async function GET(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { diaryId: string } }
+  { params }: { params: Promise<{ diaryId: string }> }
 ) {
-  const { diaryId } = params;
+  const { diaryId } = await params;
 
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
@@ -53,9 +53,9 @@ export async function DELETE(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { diaryId: string } }
+  { params }: { params: Promise<{ diaryId: string }> }
 ) {
-  const { diaryId } =  params;
+  const { diaryId } = await  params;
   const body = await req.json();
 
   const cookieStore = await cookies();
