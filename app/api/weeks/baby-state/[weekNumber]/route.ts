@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ weekNumber: string }> }
+  { params }: { params: { weekNumber: string } }
 ) {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
 
-  const { weekNumber } = await params;
+  const { weekNumber } = params;
 
   try {
     const { data } = await api.get(`/weeks/baby-state/${weekNumber}`, {
