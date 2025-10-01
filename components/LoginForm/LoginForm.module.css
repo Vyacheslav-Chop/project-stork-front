@@ -1,16 +1,13 @@
-.wrapper {
+.mainContent {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  height: 711px;
+  flex-direction: column;  
+  width: 100%;
+  margin: 0 auto;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 32px;
+.wrapper{
+  align-items: center;
+  justify-content: center; 
 }
 
 .logo {
@@ -25,6 +22,17 @@
   line-height: 1.2;
   letter-spacing: 0.01em;
   text-align: center;
+  margin-bottom: 32px;
+  padding-top: 222px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
 .control {
@@ -33,13 +41,14 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
-  position: relative;
+  gap: 8px;
+  transition: border-color 0.2s;
 }
 
 .input {
   border: 2px solid transparent;
   border-radius: 12px;
-  padding: 12px 14px;
+  padding: 8px 12px;
   background: rgba(0, 0, 0, 0.05);
   font-size: 14px;
   line-height: 1.5;
@@ -54,12 +63,12 @@
 }
 
 .submitButton {
+  display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.6;
-  padding: 10px 24px;
   background-color: #ffdae0;
   border: none;
   border-bottom: 4px solid #ffcbd3;
@@ -72,11 +81,11 @@
 .submitButton:hover,
 .submitButton:focus {
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color:  #fff4f6;
 }
 
 .submitButton:active {
-  background-color: #b2b2b2;
+  background-color:  #ffcbd3;
   box-shadow: none;
   transform: translateY(2px);
 }
@@ -96,48 +105,54 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  margin-top: 24px;
   gap: 5px;
-}
-.contenText {
   font-weight: 400;
   font-size: 14px;
-  line-height: 1.5;
-  text-align: center;
+  text-align: center; 
 }
 
 .link {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.6;
-  text-align: center;
   text-decoration: none;
+  text-decoration-skip-ink: none;
 }
 
 .link:hover,
 .link:focus {
   text-decoration: underline;
-  text-decoration-skip-ink: none;
 }
 
 .link:active {
-  color: #ffcbd3;
-  text-decoration: none;
   text-decoration: underline;
+  border-bottom: 1px solid #ffcbd3;
+  color: #ffcbd3;
+  transform: translateY(1px); 
 }
-
+.link:disabled {
+  text-decoration: none;
+  opacity: 0.3;
+  color: #b2b2b2;
+  cursor: not-allowed;
+}
 .errorText {
-  margin-top: 4px;
-  margin-left: 8px;
-  font-size: 10px;
-  line-height: 1.2;
-  color: #c60000;
-  font-weight: 400;
+  min-height: 1px;
+  color: #dc3545;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 2px;
+  margin-bottom: 0;
+  transition: opacity 0.2s ease;
 }
 
 .inputError {
-  border: 1px solid #c60000;
-  background: rgba(0, 0, 0, 0.05);
+  border-color: red;
+  color: red;
+}
+
+.inputError::placeholder {
+  color: red;
+}
+.labelError {
+  color: red;
 }
 
 .imageWrapper {
@@ -145,53 +160,42 @@
 }
 
 @media only screen and (min-width: 768px) {
-  .form {
-    align-items: center;
-  }
-
-  .wrapper {
-  }
-
-  .input {
-    width: 480px;
-  }
-
-  .submitButton {
-    width: 480px;
-  }
-
-  .imageWrapper {
-    display: none;
-  }
+ .input {
+  height: 37px;
+  min-width: 480px;
 }
+.title {
+  padding-top: 280px;
+}
+}
+
 
 @media only screen and (min-width: 1440px) {
-  .mainContent {
-    position: relative;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    gap: 64px;
-    justify-content: center;
-  }
-  .wrapper {
-    width: 100%;
-  }
-  .logo {
-    position: absolute;
-    top: 0px;
-    left: 44px;
-  }
+   .mainContent {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 
-  .input {
-    height: 40px;
-  }
-
-  .submitButton {
-    height: 44px;
-  }
-
-  .imageWrapper {
-    display: block;
-  }
 }
+
+.wrapper {
+  min-width: 720px;
+  padding: 0 120px;
+}
+.form {
+  width: 480px;
+}
+.title {
+  padding-top: 266px;
+}
+.imageWrapper {
+  display: block;
+  
+}
+.image {
+  border-radius: 12px;
+} 
+
+}
+
+

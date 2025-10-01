@@ -10,9 +10,16 @@
   margin-top: 20px;
 }
 
+.diaryContentBlock {
+  display: flex;
+  gap: 32px;
+  width: 100%;
+}
+
 .listBlock {
   flex: 1;
   max-width: 400px;
+  height: fit-content;
 }
 
 .detailsBlock {
@@ -20,12 +27,34 @@
   background: transparent;
   min-height: 300px;
   border-radius: 32px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ffcbd3 rgba(0, 0, 0, 0.2);
+  height: 727px;
 }
+
+.detailsBlock::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .detailsBlock::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+
+  .detailsBlock::-webkit-scrollbar-thumb {
+    background-color: #ffcbd3;
+    border: 2px solid #ffcbd3;
+    border-radius: 4px;
+  }
 
 .placeholder {
   border: 2px dashed #ddd;
   border-radius: 12px;
-  min-height: 200px;
+  min-height: 180px;
+  width: 643px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .mobileLayout {
@@ -33,4 +62,10 @@
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
+}
+
+@media screen and (min-width: 1440px) {
+  .wrapper {
+    padding-left: 32px;
+  }
 }

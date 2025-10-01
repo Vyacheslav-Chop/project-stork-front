@@ -21,7 +21,9 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
 }
 
 
+
 export const login = async (payload: LoginPayload) => {
+
   const res = await nextServer.post("/auth/login", payload);
   return res.data;
 };

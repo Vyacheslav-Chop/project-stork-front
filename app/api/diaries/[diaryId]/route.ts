@@ -47,6 +47,9 @@ export async function DELETE(
     await api.delete(`/diaries/${diaryId}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
+
+
+    return new NextResponse(null, { status: 204 });
   } catch (error) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
@@ -55,6 +58,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
+
 
 export async function PATCH(
   request: NextRequest,
