@@ -10,6 +10,9 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import css from "./OnboardingForm.module.css";
 import CustomSelect from "../ProfileEditForm/CustomSelectProfileEditForm";
+import { updateUser } from '@/lib/api/apiClient';
+import { useAuth } from '@/lib/store/authStore';
+import {  Gender,UserPayload, UserResponse } from "@/types/user";
 
 const OnboardingSchema = Yup.object().shape({
   dueDate: Yup.date(),
@@ -18,16 +21,22 @@ const OnboardingSchema = Yup.object().shape({
 
 type InitialValuesProps = {
   dueDate: string;
-  babyGender: string;
+  babyGender: Gender | "";
 };
 
-export default function OnboardingPageForm() {
+interface EditFormProps {
+  user?: UserResponse;
+}
+
+export default function OnboardingPageForm({ user }: EditFormProps) {
   const router = useRouter();
   const fieldId = useId();
+  const setUser = useAuth(state => state.setUser);
+
 
   const initialValues: InitialValuesProps = {
-    babyGender: "",
-    dueDate: "",
+    babyGender: user?.babyGender ?? "",
+    dueDate: user?.dueDate ?? format(new Date(), "dd.MM.yyyy"),
   };
 
   const getSelectedDate = (dueDate?: string) => {
@@ -53,16 +62,23 @@ export default function OnboardingPageForm() {
 
   const handleSubmit = async (values: InitialValuesProps) => {
     try {
-      const payload = {
-        babyGender: values.babyGender,
-        dueDate: values.dueDate,
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      const payload: UserPayload = {
+        babyGender:
+          values.babyGender === "Хлопчик" ||
+          values.babyGender === "Дівчинка" ||
+          values.babyGender === "Ще не знаю"
+            ? values.babyGender
+            : undefined,
+        dueDate: values.dueDate || undefined,
       };
-
+    const res = await updateUser(payload);
       console.log("Submitting payload:", payload);
-
-      toast.success('Дані успішно збережено');
-      router.push('/');
-
+      if (res) {
+        setUser(res);
+        toast.success('Дані успішно збережено');
+        router.push('/');
+      }
     } catch {
       toast.error("Помилка при збереженні даних");
     }
@@ -144,8 +160,8 @@ export default function OnboardingPageForm() {
           </button>
           
              <button
-              type="submit"
-              disabled={isSubmitting}
+              type="button"
+              onClick={() => router.push('/')}
               className={css.submitButton}
             >
               Пропустити

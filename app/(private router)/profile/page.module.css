@@ -9,7 +9,7 @@
 
 @media screen and (min-width: 1440px) {
   .profileCard {
-    display: flex;
-    width: 580px;
+    width: 644px;
+    padding: 0 32px;
   }
 }

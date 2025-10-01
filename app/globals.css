@@ -35,7 +35,7 @@ button {
 }
 
 main {
-  padding: 0 20px;
+  padding: 0 20px 32px;
   margin: 0 auto;
   min-width: 320px;
   max-width: 375px;
@@ -43,33 +43,23 @@ main {
 
 @media screen and (min-width: 768px) {
   main {
-    padding: 0 32px;
+    padding: 0 32px 32px;
     max-width: 768px;
   }
 }
 
-.app-layout {
-  display: flex;
-}
-
-.sidebar {
-  display: none;
-}
 
 @media screen and (min-width: 1440px) {
   main {
-    padding: 0 32px;
+    padding: 0;
     margin: 0;
     max-width: 100%;
   }
 
   body {
-    display: flex;
     width: 1440px;
     margin: 0 auto;
   }
 
-  .sidebar {
-    display: block;
-  }
+ 
 }
