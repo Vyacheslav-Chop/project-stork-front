@@ -8,11 +8,10 @@ import { getUser } from "@/lib/api/apiClient";
 type Props = { lastLabel?: string };
 
 const HIDE_ON = [/^\/sign-in(?:\/|$)/, /^\/sign-up(?:\/|$)/, /^\/auth(?:\/|$)/];
-const DIARY_ALIASES = ["diary"];
 
 const LABELS: Record<string, string> = {
   "": "Лелека",
-  "my-day": "Мій день",
+  myday: "Мій день",
   diary: "Щоденник",
   journey: "Подорож",
   profile: "Профіль",
@@ -46,18 +45,13 @@ export default function Breadcrumbs({ lastLabel }: Props) {
     .filter(Boolean)
     .filter((s: string) => !s.startsWith("@") && !/^\(.+\)$/.test(s));
 
-  const isDiaryDetail = segs.length === 2 && DIARY_ALIASES.includes(segs[0]);
-  const isProfilePage = segs.includes("profile");
-
   useEffect(() => {
     if (isHidden) return;
     let mounted = true;
     getUser()
       .then((resp) => {
         if (!mounted) return;
-        const u = resp?.data;
-        const first = toFirstName(u?.name);
-        setUserName(first);
+        setUserName(toFirstName(resp?.name));
       })
       .catch(() => {
         if (!mounted) return;
@@ -68,15 +62,24 @@ export default function Breadcrumbs({ lastLabel }: Props) {
     };
   }, [pathname, isHidden]);
 
-  const crumbs = [{ href: "/", label: LABELS[""] }];
-  segs.forEach((seg: string, i: number) => {
-    const href = "/" + segs.slice(0, i + 1).join("/");
-    let label = LABELS[seg] ?? decodeURIComponent(seg).replace(/[-_]+/g, " ");
-    if (i === segs.length - 1 && lastLabel) label = lastLabel;
-    crumbs.push({ href, label });
-  });
-
   if (isHidden) return null;
+
+  const crumbs: { href: string; label: string }[] = [
+    { href: "/", label: LABELS[""] },
+  ];
+
+  if (pathname === "/" && lastLabel) {
+    crumbs.push({ href: "/", label: lastLabel });
+  } else {
+    segs.forEach((seg, i) => {
+      const href = "/" + segs.slice(0, i + 1).join("/");
+      let label = LABELS[seg] ?? decodeURIComponent(seg).replace(/[-_]+/g, " ");
+      if (i === segs.length - 1 && lastLabel) {
+        label = lastLabel;
+      }
+      crumbs.push({ href, label });
+    });
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -85,11 +88,11 @@ export default function Breadcrumbs({ lastLabel }: Props) {
           {crumbs.map((c, i) => {
             const isLast = i === crumbs.length - 1;
             return (
-              <li key={c.href} className={styles.item}>
+              <li key={i} className={styles.item}>
                 {i > 0 && (
-                  <span className={styles.sep} aria-hidden>
-                    ›
-                  </span>
+                  <svg width={8} height={12}>
+                    <use href="/icons/icon-arrow.svg#"></use>
+                  </svg>
                 )}
                 {isLast ? (
                   <span className={styles.current} aria-current="page">

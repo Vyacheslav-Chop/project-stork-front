@@ -6,9 +6,9 @@ export const dynamic = "force-dynamic";
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { taskId: string } }
+  context: { params: Promise<{ taskId: string }> }
 ) {
-  const { taskId } = params;
+  const { taskId } = await context.params;
   try {
     const cookieStore = await cookies();
     const accessToken = cookieStore.get("accessToken")?.value;
@@ -18,7 +18,11 @@ export async function PATCH(
     });
 
     return NextResponse.json(data);
-  } catch {
-    return NextResponse.json({ error: er.message }, { status: er.status });
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

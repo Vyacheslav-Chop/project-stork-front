@@ -3,15 +3,19 @@ import Link from "next/link";
 
 interface SidebarNavProps {
   isAuth: boolean;
-
+  onClose?: () => void;
 }
 
-const SidebarNav = ({ isAuth }: SidebarNavProps) => {
+const SidebarNav = ({ isAuth, onClose }: SidebarNavProps) => {
   return (
     <nav>
       <ul className={css.navList}>
         <li>
-          <Link href={isAuth ? "/" : "/auth/register"} className={css.navItem}>
+          <Link
+            href={isAuth ? "/" : "/auth/register"}
+            className={css.navItem}
+            onClick={onClose}
+          >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-myDay"></use>
             </svg>
@@ -20,8 +24,9 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
         </li>
         <li>
           <Link
-            href={isAuth ? '/journey' : "/auth/register"}
+            href={isAuth ? "/journey" : "/auth/register"}
             className={css.navItem}
+            onClick={onClose}
           >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-travel"></use>
@@ -33,6 +38,7 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           <Link
             href={isAuth ? "/diary" : "/auth/register"}
             className={css.navItem}
+            onClick={onClose}
           >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-book"></use>
@@ -44,6 +50,7 @@ const SidebarNav = ({ isAuth }: SidebarNavProps) => {
           <Link
             href={isAuth ? "/profile" : "/auth/register"}
             className={css.navItem}
+            onClick={onClose}
           >
             <svg width={24} height={24}>
               <use href="/icons/iconsSideBar.svg#icon-account"></use>

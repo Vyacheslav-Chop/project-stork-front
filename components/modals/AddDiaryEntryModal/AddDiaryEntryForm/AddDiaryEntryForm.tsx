@@ -1,68 +1,87 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { validationDiarySchema } from "./validation";
 import css from "./AddDiaryEntryForm.module.css";
-import { createDiary, getEmotions } from "@/lib/api/apiClient";
+import { createDiary, updateDiary } from "@/lib/api/apiClient";
 import toast from "react-hot-toast";
-import { Emotion } from "@/types/emotions";
-import CustomCheckBoxForm from "./CustomCheckBoxForm";
+import { DiaryData } from "@/types/diaries";
 import { useQueryClient } from "@tanstack/react-query";
+import { validationDiarySchema } from "./validation";
+import CustomCheckBoxForm from "./CustomCheckBoxForm";
+import { useEmotion } from "@/lib/store/emotionsStore";
+import { useDiaryDraftStore } from "@/lib/store/diaryDraftStore";
+import { useMemo } from "react";
 
 interface Props {
   onClose: () => void;
+  diary?: DiaryData;
+  onSave?: (updated: DiaryData) => void;
 }
 
-export default function AddDiaryEntryForm({ onClose }: Props) {
-  const [emotions, setEmotions] = useState<Emotion[]>([]);
+export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
   const queryClient = useQueryClient();
+  const emotions = useEmotion((s) => s.emotions);
+  const { draft, setDraft, clearDraft } = useDiaryDraftStore();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getEmotions();
-        setEmotions(data);
-      } catch (err) {
-        console.error("Помилка при завантаженні емоцій", err);
-      }
+  const isEdit = Boolean(diary);
+
+  const initialValues = useMemo(() => {
+    return {
+      title: isEdit ? diary?.title || "" : draft.title || "",
+      emotions: isEdit
+        ? (diary?.category ?? []).map((c) => c._id)
+        : draft.emotions || [],
+      description: isEdit ? diary?.description || "" : draft.description || "",
     };
-    fetchData();
-  }, []);
+  }, [isEdit, diary, draft]);
 
   return (
-    <div className={css.container}>
-      <Formik
-        initialValues={{
-          title: "",
-          emotions: [] as string[],
-          description: "",
-        }}
-        validationSchema={validationDiarySchema}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
-          try {
+    <Formik
+      enableReinitialize
+      initialValues={initialValues}
+      validationSchema={validationDiarySchema}
+      onSubmit={async (values, { setSubmitting }) => {
+        try {
+          if (diary) {
+            const updated = await updateDiary(diary._id, {
+              title: values.title,
+              description: values.description,
+              category: values.emotions,
+            });
+            toast.success("Запис оновлено!");
+            queryClient.invalidateQueries({ queryKey: ["diaries"] });
+            onSave?.(updated);
+          } else {
             await createDiary({
               title: values.title,
               description: values.description,
               category: values.emotions,
             });
-
-            queryClient.invalidateQueries({ queryKey: ["diaries"] });
-
             toast.success("Новий запис створено!");
-            resetForm();
-            onClose();
-          } catch (err) {
-            console.error(err);
-            toast.error("Помилка при створенні запису");
-          } finally {
-            setSubmitting(false);
+            clearDraft();
           }
-        }}
-      >
-        {({ isSubmitting }) => (
+
+          queryClient.invalidateQueries({ queryKey: ["diaries"] });
+          onClose();
+        } catch (err) {
+          console.error(err);
+          toast.error("Помилка при збереженні запису");
+        } finally {
+          setSubmitting(false);
+        }
+      }}
+    >
+      {({ isSubmitting, handleChange }) => {
+        const updateDraft = (
+          patch: Partial<{ title: string; description: string }>
+        ) => {
+          if (!isEdit) setDraft(patch);
+        };
+        return (
           <Form className={css.form}>
-            <h2 className={css.title}>Новий запис</h2>
+            <h2 className={css.title}>
+              {diary ? "Редагування запису" : "Новий запис"}
+            </h2>
 
             <label className={css.label}>
               Заголовок
@@ -71,6 +90,10 @@ export default function AddDiaryEntryForm({ onClose }: Props) {
                 name="title"
                 className={css.input}
                 placeholder="Введіть заголовок запису"
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange(event);
+                  updateDraft({ title: event.target.value });
+                }}
               />
               <ErrorMessage
                 name="title"
@@ -96,6 +119,10 @@ export default function AddDiaryEntryForm({ onClose }: Props) {
                 name="description"
                 className={css.textarea}
                 placeholder="Запишіть, як ви себе відчуваєте"
+                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                  handleChange(event);
+                  updateDraft({ description: event.target.value });
+                }}
               />
               <ErrorMessage
                 name="description"
@@ -109,11 +136,11 @@ export default function AddDiaryEntryForm({ onClose }: Props) {
               className={css.submitBtn}
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Збереження..." : "Зберегти"}
+              {isSubmitting ? "Збереження..." : diary ? "Оновити" : "Зберегти"}
             </button>
           </Form>
-        )}
-      </Formik>
-    </div>
+        );
+      }}
+    </Formik>
   );
 }

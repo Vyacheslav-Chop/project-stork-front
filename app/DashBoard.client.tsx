@@ -10,11 +10,25 @@ import css from "./page.module.css";
 import { useEffect } from "react";
 import { useAuth } from "@/lib/store/authStore";
 import { WeekRes } from "@/types/babyState";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
+import { useEmotion } from "@/lib/store/emotionsStore";
+import { getEmotions } from "@/lib/api/apiClient";
 type Props = {
   weekInfo: WeekRes;
 };
+const l = "Мій день";
 const DashBoardClient = ({ weekInfo }: Props) => {
   const setCurrentWeek = useAuth((st) => st.setCurrentWeek);
+  const setEmotions = useEmotion((s) => s.setEmotions);
+  
+  useEffect(() => {
+    const loadEmotions = async () => {
+      const res = await getEmotions();
+      if (res) setEmotions(res);
+    };
+
+    loadEmotions();
+  }, [setEmotions]);
 
   useEffect(() => {
     if (weekInfo?.currentWeek) {
@@ -24,7 +38,9 @@ const DashBoardClient = ({ weekInfo }: Props) => {
 
   return (
     <div className={css.mainWrapper}>
+      <Breadcrumbs lastLabel={l} />
       <GreetingBlock />
+
       <div className={css.innerWrapper}>
         <div className={css.firstWrapper}>
           {weekInfo && <StatusBlock data={weekInfo} />}

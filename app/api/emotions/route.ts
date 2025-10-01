@@ -11,10 +11,11 @@ export async function GET() {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
     return NextResponse.json(data);
-  } catch (er) {
-    return NextResponse.json(
-      { error: er.message },
-      { status: er.response?.status || 500 }
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

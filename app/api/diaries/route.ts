@@ -12,11 +12,12 @@ export async function GET() {
     });
 
     return NextResponse.json(data.data);
-  } catch (err) {
-    return NextResponse.json(
-      { error: err.message },
-      { status: err.response?.status || 500 }
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -32,11 +33,11 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(data, { status: 201 });
-  } catch (err) {
-    const error = err;
-    return NextResponse.json(
-      { error: error.message || "Server error" },
-      { status: error.response?.status || 500 }
-    );
+  } catch (error) {
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
