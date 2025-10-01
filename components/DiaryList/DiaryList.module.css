@@ -2,7 +2,7 @@
   background-color: #fff5f7;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  min-width: 288px;
+  min-width: 320px;
   padding: 16px;
   height: auto;
   padding-top: 32px;
@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   gap: 62px;
-  padding-bottom: 50px;
+  padding-bottom: 16px;
 }
 
 .desc_btn {
@@ -112,7 +112,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  height: 690px;
+  height: 626px;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #ffcbd3 rgba(0, 0, 0, 0.2);

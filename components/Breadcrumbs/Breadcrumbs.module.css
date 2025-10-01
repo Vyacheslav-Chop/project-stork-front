@@ -1,6 +1,7 @@
 .wrapper {
   margin-left: 0;
   padding-top: 24px;
+  padding-bottom: 16px;
 }
 
 .list {
@@ -9,7 +10,6 @@
   gap: 16px;
   font-size: 14px;
   line-height: 1.4;
-  padding-bottom: 18.5px;
 }
 
 .item {
