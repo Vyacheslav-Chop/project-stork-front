@@ -91,6 +91,9 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
                         onChange={handleChange}
                       />
                       {emo.title}
+                      {/* <svg className="check-icon">
+                        <use href="#icon-check"></use>
+                      </svg> */}
                     </label>
                   </li>
                 );
