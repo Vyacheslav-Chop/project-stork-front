@@ -6,7 +6,7 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 16px;
   font-size: 14px;
   line-height: 1.4;
   padding-bottom: 18.5px;
@@ -15,7 +15,7 @@
 .item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
 }
 
 .link {

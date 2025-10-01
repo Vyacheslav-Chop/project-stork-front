@@ -1,4 +1,5 @@
 "use client";
+import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
 import Loader from "@/components/Loader/Loader";
 import { getDiaryById } from "@/lib/api/apiClient";
@@ -24,10 +25,17 @@ const Diary = () => {
   if (isLoading) {
     return <Loader />;
   }
-  if (isError) {
-    return toast.error("Не вдалось завантажити запис!");
+  if (isError || !diary) {
+    toast.error("Не вдалось завантажити запис!");
+    return null;
   }
-  return <>{diary && <DiaryEntryDetails diary={diary} />}</>;
+
+  return (
+    <>
+      <Breadcrumbs lastLabel={diary.title} />
+      <DiaryEntryDetails diary={diary} />
+    </>
+  );
 };
 
 export default Diary;
