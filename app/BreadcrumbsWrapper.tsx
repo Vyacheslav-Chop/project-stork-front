@@ -6,7 +6,12 @@ import Breadcrumbs from "@/components/Breadcrumbs/Breadcrumbs";
 export default function BreadcrumbsWrapper() {
   const pathname = usePathname();
 
-  if (pathname.startsWith("/auth") || pathname.startsWith("/profile/edit")) {
+  if (
+    pathname === "/" ||
+    pathname.startsWith("/auth") ||
+    pathname.startsWith("/profile/edit") ||
+    pathname.startsWith("/diary/")
+  ) {
     return null;
   }
 
