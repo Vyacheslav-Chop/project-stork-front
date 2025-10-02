@@ -119,7 +119,6 @@ export const updateUser = async (
 
 export const updateUserAvatar = async (file: File): Promise<UserResponse> => {
   const formData = new FormData();
-  console.log(file instanceof File);
 
   formData.append("avatar", file, file.name);
 

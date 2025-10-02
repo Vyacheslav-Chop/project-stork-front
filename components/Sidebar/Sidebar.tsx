@@ -7,9 +7,10 @@ import SidebarNav from "../SidebarNav/SidebarNav";
 import { useAuth } from "@/lib/store/authStore";
 import Image from "next/image";
 import LogoutModal from "../modals/logOutModal/logOutModal";
-import { logout } from "@/lib/api/apiClient";
+import { getUser, logout } from "@/lib/api/apiClient";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader/Loader";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 type Props = {
   onClose?: () => void;
@@ -23,6 +24,12 @@ const Sidebar = ({ onClose }: Props) => {
 
   const openLogout = () => setIsLogoutOpen(true);
   const closeLogout = () => setIsLogoutOpen(false);
+
+  const { data: newUser } = useQuery({
+    queryKey: ["user", user],
+    queryFn: () => getUser(),
+    placeholderData: keepPreviousData,
+  });
 
   const handleLogout = async () => {
     try {
@@ -68,7 +75,7 @@ const Sidebar = ({ onClose }: Props) => {
             <div className={css.infoWrap}>
               <div className={css.avatarWrapper}>
                 <Image
-                  src={user?.avatar ?? "/image/profile/default_avatar.webp"}
+                  src={newUser?.avatar ?? "/image/profile/default_avatar.webp"}
                   alt="User Avatar"
                   width={40}
                   height={40}
@@ -76,8 +83,8 @@ const Sidebar = ({ onClose }: Props) => {
                 />
               </div>
               <div className={css.profileInfo}>
-                <p className={css.textName}>{user?.name}</p>
-                <p className={css.textEmail}>{user?.email}</p>
+                <p className={css.textName}>{newUser?.name}</p>
+                <p className={css.textEmail}>{newUser?.email}</p>
               </div>
             </div>
             <button className={css.logoutBtn} onClick={openLogout}>
