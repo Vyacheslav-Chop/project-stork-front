@@ -182,6 +182,7 @@ const ProfileEditForm = ({ user }: EditFormProps) => {
                 minDate={new Date()}
                 className={css.dateInput}
                 wrapperClassName={css.dateWrapper}
+                popperPlacement="top-start"
                 onChangeRaw={(e) => {
                   if (e) e.preventDefault();
                 }}
