@@ -41,11 +41,15 @@ export default function DiaryPageClient() {
       return;
     }
 
-    if (!selectedDiary || !diaryList.some((d) => d._id === selectedDiary._id)) {
+    if (selectedDiary) {
+      const updated = diaryList.find((d) => d._id === selectedDiary._id);
+      if (updated && updated !== selectedDiary) {
+        setSelectedDiary(updated);
+      }
+    } else {
       setSelectedDiary(diaryList[0]);
     }
   }, [isDesktop, diaryList, selectedDiary]);
-
   if (isLoading) {
     return (
       <div className={styles.wrapper}>
