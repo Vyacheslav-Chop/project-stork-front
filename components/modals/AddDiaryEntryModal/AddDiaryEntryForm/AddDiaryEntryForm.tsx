@@ -49,8 +49,13 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
               description: values.description,
               category: values.emotions,
             });
+
             toast.success("Запис оновлено!");
+
+            queryClient.invalidateQueries({ queryKey: ["diary", diary._id] });
+
             queryClient.invalidateQueries({ queryKey: ["diaries"] });
+
             onSave?.(updated);
           } else {
             await createDiary({
@@ -116,6 +121,7 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
                   className={css.error}
                 />
               </div>
+
               <div className={css.inputWrap}>
                 <label htmlFor={`${fieldId}-emotions`} className={css.label}>
                   Категорії
@@ -136,6 +142,7 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
                   className={css.error}
                 />
               </div>
+
               <div className={css.inputWrap}>
                 <label htmlFor={`${fieldId}-description`} className={css.label}>
                   Запис
@@ -163,6 +170,7 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
                   className={css.error}
                 />
               </div>
+
               <button
                 type="submit"
                 className={css.submitBtn}
