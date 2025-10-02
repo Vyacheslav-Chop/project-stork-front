@@ -52,10 +52,8 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
 
             toast.success("Запис оновлено!");
 
-            // Інвалідуємо конкретний запис
             queryClient.invalidateQueries({ queryKey: ["diary", diary._id] });
 
-            // Інвалідуємо список
             queryClient.invalidateQueries({ queryKey: ["diaries"] });
 
             onSave?.(updated);
