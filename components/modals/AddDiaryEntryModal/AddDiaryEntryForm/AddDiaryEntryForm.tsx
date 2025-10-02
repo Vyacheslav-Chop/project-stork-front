@@ -1,6 +1,6 @@
 "use client";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldProps } from "formik";
 import css from "./AddDiaryEntryForm.module.css";
 import { createDiary, updateDiary } from "@/lib/api/apiClient";
 import toast from "react-hot-toast";
@@ -10,7 +10,7 @@ import { validationDiarySchema } from "./validation";
 import CustomCheckBoxForm from "./CustomCheckBoxForm";
 import { useEmotion } from "@/lib/store/emotionsStore";
 import { useDiaryDraftStore } from "@/lib/store/diaryDraftStore";
-import { useMemo } from "react";
+import { useId, useMemo } from "react";
 
 interface Props {
   onClose: () => void;
@@ -22,6 +22,7 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
   const queryClient = useQueryClient();
   const emotions = useEmotion((s) => s.emotions);
   const { draft, setDraft, clearDraft } = useDiaryDraftStore();
+  const fieldId = useId();
 
   const isEdit = Boolean(diary);
 
@@ -71,7 +72,7 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
         }
       }}
     >
-      {({ isSubmitting, handleChange, setFieldValue }) => {
+      {({ isSubmitting, setFieldValue }) => {
         const updateDraft = (
           patch: Partial<{
             title: string;
@@ -87,68 +88,93 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
               {diary ? "Редагування запису" : "Новий запис"}
             </h2>
 
-            <label className={css.label}>
-              Заголовок
-              <Field
-                type="text"
-                name="title"
-                className={css.input}
-                placeholder="Введіть заголовок запису"
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleChange(event);
-                  updateDraft({ title: event.target.value });
-                }}
-              />
-              <ErrorMessage
-                name="title"
-                component="div"
-                className={css.error}
-              />
-            </label>
+            <div className={css.entryForm}>
+              <div className={css.inputWrap}>
+                <label htmlFor={`${fieldId}-title`} className={css.label}>
+                  Заголовок
+                </label>
 
-            <label className={css.label}>
-              Категорії
-              <CustomCheckBoxForm
-                name="emotions"
-                emotions={emotions}
-                onChange={(changed: string[]) => {
-                  setFieldValue("emotions", changed);
-                  updateDraft({ emotions: changed });
-                }}
-              />
-              <ErrorMessage
-                name="emotions"
-                component="div"
-                className={css.error}
-              />
-            </label>
+                <Field name="title">
+                  {({ field, meta }: FieldProps<string>) => (
+                    <input
+                      {...field}
+                      id={`${fieldId}-title`}
+                      placeholder="Введіть заголовок запису"
+                      className={`${css.input} ${
+                        meta.touched && meta.error ? css.inputError : ""
+                      }`}
+                      onChange={(event) => {
+                        field.onChange(event);
+                        updateDraft({ title: event.target.value });
+                      }}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="title"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+              <div className={css.inputWrap}>
+                <label htmlFor={`${fieldId}-emotions`} className={css.label}>
+                  Категорії
+                </label>
 
-            <label className={css.label}>
-              Запис
-              <Field
-                as="textarea"
-                name="description"
-                className={css.textarea}
-                placeholder="Запишіть, як ви себе відчуваєте"
-                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
-                  handleChange(event);
-                  updateDraft({ description: event.target.value });
-                }}
-              />
-              <ErrorMessage
-                name="description"
-                component="div"
-                className={css.error}
-              />
-            </label>
+                <CustomCheckBoxForm
+                  name="emotions"
+                  id={`${fieldId}-emotions`}
+                  emotions={emotions}
+                  onChange={(changed: string[]) => {
+                    setFieldValue("emotions", changed);
+                    updateDraft({ emotions: changed });
+                  }}
+                />
+                <ErrorMessage
+                  name="emotions"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+              <div className={css.inputWrap}>
+                <label htmlFor={`${fieldId}-description`} className={css.label}>
+                  Запис
+                </label>
 
-            <button
-              type="submit"
-              className={css.submitBtn}
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Збереження..." : diary ? "Оновити" : "Зберегти"}
-            </button>
+                <Field name="description">
+                  {({ field, meta }: FieldProps<string>) => (
+                    <textarea
+                      {...field}
+                      id={`${fieldId}-description`}
+                      placeholder="Запишіть, як ви себе відчуваєте"
+                      className={`${css.textarea} ${
+                        meta.touched && meta.error ? css.inputError : ""
+                      }`}
+                      onChange={(event) => {
+                        field.onChange(event);
+                        updateDraft({ description: event.target.value });
+                      }}
+                    />
+                  )}
+                </Field>
+                <ErrorMessage
+                  name="description"
+                  component="div"
+                  className={css.error}
+                />
+              </div>
+              <button
+                type="submit"
+                className={css.submitBtn}
+                disabled={isSubmitting}
+              >
+                {isSubmitting
+                  ? "Збереження..."
+                  : diary
+                  ? "Оновити"
+                  : "Зберегти"}
+              </button>
+            </div>
           </Form>
         );
       }}
