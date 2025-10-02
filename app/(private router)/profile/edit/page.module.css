@@ -1,9 +1,15 @@
 
+.mainContent {
+  display: flex;
+  flex-direction: column;  
+  width: 100%;
+}
+
+
 .wrapper {
   padding-top: 16px;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: center;
   gap: 32px;
 } 
@@ -27,20 +33,21 @@
 @media screen and (min-width: 768px){
 .title {
   padding-top: 110px;
+  width: 480px;
 } 
 }
  @media screen and (min-width: 1440px){
-.mainContent {
+  .mainContent {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
-  gap: 64px;
-  }
+
+}
 .wrapper {
   min-width: 720px;
   padding: 0 120px;
 }
 .title {
-  font-size: 48px;
   padding-top: 57px;
   }
 
