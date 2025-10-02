@@ -11,6 +11,7 @@ import { BabyState, WeekRes } from "@/types/babyState";
 import { MomState } from "@/types/momState";
 import { AxiosRes } from "@/types/generic";
 import { CreateDiary, DiaryData } from "@/types/diaries";
+import { useAuth } from "../store/authStore";
 
 export async function register(newUser: NewUser): Promise<UserResponse> {
   const res = await nextServer.post<AxiosRes<UserResponse>>(
@@ -20,11 +21,13 @@ export async function register(newUser: NewUser): Promise<UserResponse> {
   return res.data.data;
 }
 
-
-
 export const login = async (payload: LoginPayload) => {
-
   const res = await nextServer.post("/auth/login", payload);
+
+  if (res.data.user) {
+    useAuth.getState().setUser(res.data.user);
+  }
+
   return res.data;
 };
 
