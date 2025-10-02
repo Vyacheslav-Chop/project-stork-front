@@ -8,7 +8,6 @@ import Loader from "../Loader/Loader";
 import { useAuth } from "@/lib/store/authStore";
 import ErrorText from "../ErrorText/ErrorText";
 import { UserResponse } from "@/types/user";
-import { useRouter } from "next/navigation";
 
 type ProfileProps = {
   user: UserResponse
@@ -20,7 +19,6 @@ const ProfileAvatar = ({user}: ProfileProps) => {
   const [err, setErr] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const router = useRouter();
 
   const handleClickBtn = (e: React.MouseEvent<HTMLButtonElement>) => {
     fileInputRef.current?.click();
@@ -50,7 +48,6 @@ const ProfileAvatar = ({user}: ProfileProps) => {
         try {
           const updatedUser = await updateUserAvatar(file);
           setUser(updatedUser);
-          router.refresh();
         } catch {
           setErr("Не вдалось завантаження фото!");
         } finally {
