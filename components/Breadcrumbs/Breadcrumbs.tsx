@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./Breadcrumbs.module.css";
 import { getUser } from "@/lib/api/apiClient";
+import Loader from "../Loader/Loader";
 
 type Props = { lastLabel?: string };
 
@@ -38,6 +39,7 @@ function toFirstName(raw?: unknown): string | null {
 export default function Breadcrumbs({ lastLabel }: Props) {
   const pathname = usePathname();
   const [userName, setUserName] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const isHidden = HIDE_ON.some((rx) => rx.test(pathname));
 
@@ -52,6 +54,7 @@ export default function Breadcrumbs({ lastLabel }: Props) {
   useEffect(() => {
     if (isHidden) return;
     let mounted = true;
+    setIsLoading(true);
     getUser()
       .then((resp) => {
         if (!mounted) return;
@@ -62,6 +65,9 @@ export default function Breadcrumbs({ lastLabel }: Props) {
       .catch(() => {
         if (!mounted) return;
         setUserName(null);
+      })
+      .finally(() => {
+        if (mounted) setIsLoading(false);
       });
     return () => {
       mounted = false;
@@ -77,6 +83,7 @@ export default function Breadcrumbs({ lastLabel }: Props) {
   });
 
   if (isHidden) return null;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.wrapper}>

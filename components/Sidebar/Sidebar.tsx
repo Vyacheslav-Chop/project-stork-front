@@ -9,6 +9,7 @@ import Image from "next/image";
 import LogoutModal from "../modals/logOutModal/logOutModal";
 import { logout } from "@/lib/api/apiClient";
 import { useRouter } from "next/navigation";
+import Loader from "../Loader/Loader";
 
 type Props = {
   onClose?: () => void;
@@ -17,6 +18,7 @@ type Props = {
 const Sidebar = ({ onClose }: Props) => {
   const { user, isAuthenticated } = useAuth();
   const [isLogoutOpen, setIsLogoutOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const openLogout = () => setIsLogoutOpen(true);
@@ -29,11 +31,14 @@ const Sidebar = ({ onClose }: Props) => {
       router.replace("/auth/login");
     } catch (err) {
       console.error("Logout failed:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={css.sidebar}>
+      {loading && <Loader />}
       <div className={css.header}>
         <Link href="/" className={css.logoBlock}>
           <svg className={css.logoSvg} width={30} height={30}>

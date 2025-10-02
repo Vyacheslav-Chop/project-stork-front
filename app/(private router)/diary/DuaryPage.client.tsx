@@ -9,6 +9,7 @@ import { getDiaries } from "@/lib/api/apiClient";
 import styles from "./page.module.css";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import Loader from "@/components/Loader/Loader";
 
 export default function DiaryPageClient() {
   const [selectedDiary, setSelectedDiary] = useState<DiaryData | null>(null);
@@ -33,7 +34,11 @@ export default function DiaryPageClient() {
   const diaryList = diaries ?? [];
 
   if (isLoading) {
-    return <div className={styles.wrapper}>Завантаження...</div>;
+    return (
+      <div className={styles.wrapper}>
+        <Loader />
+      </div>
+    );
   }
 
   if (isError) {
