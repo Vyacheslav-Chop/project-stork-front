@@ -9,6 +9,7 @@ import { getDiaries } from "@/lib/api/apiClient";
 import styles from "./page.module.css";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import Loader from "@/components/Loader/Loader";
 
 export default function DiaryPageClient() {
   const [selectedDiary, setSelectedDiary] = useState<DiaryData | null>(null);
@@ -33,13 +34,24 @@ export default function DiaryPageClient() {
   const diaryList = useMemo(() => diaries ?? [], [diaries]);
 
   useEffect(() => {
-    if (isDesktop && diaryList.length > 0 && !selectedDiary) {
+    if (!isDesktop) return;
+
+    if (diaryList.length === 0) {
+      setSelectedDiary(null);
+      return;
+    }
+
+    if (!selectedDiary || !diaryList.some((d) => d._id === selectedDiary._id)) {
       setSelectedDiary(diaryList[0]);
     }
   }, [isDesktop, diaryList, selectedDiary]);
 
   if (isLoading) {
-    return <div className={styles.wrapper}>Завантаження...</div>;
+    return (
+      <div className={styles.wrapper}>
+        <Loader />
+      </div>
+    );
   }
 
   if (isError) {

@@ -52,8 +52,6 @@ export const getDiaryByIdServer = async (
       Cookie: cookieStore.toString(),
     },
   });
-
-  if (!res.data?.data) throw new Error("Diary not found");
   
   return res.data?.data;
 };

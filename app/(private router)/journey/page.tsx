@@ -3,6 +3,7 @@
 import { useAuth } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
+import Loader from "@/components/Loader/Loader";
 
 export default function JourneyContainer() {
   const { currentWeek } = useAuth();
@@ -16,7 +17,9 @@ export default function JourneyContainer() {
     }
   }, [currentWeek, router]);
 
+  if (!currentWeek) {
+    return <Loader />;
+  }
+
   return null;
 }
-
-

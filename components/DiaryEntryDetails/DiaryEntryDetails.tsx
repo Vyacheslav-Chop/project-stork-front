@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { useMediaQuery } from "react-responsive";
 import DiaryEntryForm from "../modals/AddDiaryEntryModal/AddDiaryEntryForm/AddDiaryEntryForm";
 import AddDiaryModal from "../modals/AddDiaryEntryModal/AddDiaryEntryModal";
+import Loader from "../Loader/Loader";
 
 interface Props {
   diary: DiaryData;
@@ -50,6 +51,7 @@ export default function DiaryEntryDetails({ diary, onSelect }: Props) {
   return (
     <>
       <article className={styles.card}>
+        {deleteDiaryMutation.isPending && <Loader />}
         <header className={styles.header}>
           <div className={styles.titleBlock}>
             <h1 className={styles.title}>{diary.title}</h1>

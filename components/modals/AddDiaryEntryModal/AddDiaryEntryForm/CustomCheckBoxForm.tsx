@@ -8,9 +8,16 @@ import { Category } from "@/types/diaries";
 interface CustomCheckBoxFormProps {
   name: string;
   emotions: Category[];
+  id?: string;
+  onChange?: (changed: string[]) => void;
 }
 
-const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
+const CustomCheckBoxForm = ({
+  name,
+  emotions,
+  onChange,
+  id,
+}: CustomCheckBoxFormProps) => {
   const [open, setOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -38,29 +45,41 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
   return (
     <Field name={name}>
       {({ field, form }: FieldProps<string[]>) => (
-        <div className={css.multiSelectWrapper} ref={selectRef}>
-          <div
-            className={css.multiSelectTrigger}
-            onClick={() => setOpen((prev) => !prev)}
-          >
-            {field.value.length > 0 ? (
-              <div className={css.tags}>
-                {field.value.map((id) => {
-                  const emo = emotions.find((e) => e._id === id);
-                  return (
-                    <span key={id} className={css.tag}>
-                      {emo?.title}
-                    </span>
-                  );
-                })}
-              </div>
-            ) : (
-              <span className={css.placeholder}>Обрати категорію</span>
-            )}
-            <svg width={24} height={24} className={css.dateIcon}>
-              <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
-            </svg>
-          </div>
+        <>
+          <input
+            type="hidden"
+            id={id}
+            name={field.name}
+            value={field.value.join(",")}
+            readOnly
+          />
+          <div className={css.multiSelectWrapper} ref={selectRef}>
+            <div
+              className={`${css.multiSelectTrigger} ${open ? css.open : ""}`}
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              {field.value.length > 0 ? (
+                <div className={css.tags}>
+                  {field.value.map((id) => {
+                    const emo = emotions.find((e) => e._id === id);
+                    return (
+                      <span key={id} className={css.tag}>
+                        {emo?.title}
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <span className={css.placeholder}>Обрати категорію</span>
+              )}
+              <svg
+                width={24}
+                height={24}
+                className={`${css.dateIcon} ${open ? css.open : ""}`}
+              >
+                <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
+              </svg>
+            </div>
 
           {open && (
             <ul className={css.dropdown}>
