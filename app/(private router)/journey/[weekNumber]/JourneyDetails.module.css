@@ -1,7 +1,10 @@
 
 .container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 1rem;
 }
 
 .btnGroup {
@@ -13,7 +16,7 @@
   max-width: 100%; 
   margin: 0 auto 16px;
   height: 42px;
-  background: #FFF4F6;
+  background-color: #FFF4F6;
   border-radius: 100px;
   gap: 4px;
 }
@@ -21,13 +24,14 @@
 .btnActive,
 .btnInactive {
   flex: 1 1 auto; 
+  font-family: "Lato", sans-serif;
   min-width: 0;
   height: 42px;
   padding: 8px 14px;
   border-radius: 100px;
   font-weight: 500;
+  line-height: 1.6;
   font-size: 14px;
-  color: #000;
   border: 1px solid transparent;
   background: transparent;
   white-space: nowrap;
@@ -39,11 +43,6 @@
 }
 
 
-@media (max-width: 320px){
-  .btnGroup{ gap: 4px; padding: 3px; }
-  .btnActive, .btnInactive{ padding: 8px 14px; }
-}
-
 .cardContainer{
   display: flex;
   flex-direction: column;
@@ -52,31 +51,33 @@
 
 
 @media (min-width: 768px){
-  .btnGroup{
-    width: 704px;
-    max-width: 704px;       
-  }
+ 
   .btnActive,
-  .btnInactive{
+  .btnInactive {
     flex: 0 0 auto;        
   }
-  .btnActive{  
+  .btnActive {  
     width: 348px; 
   }
 
-  .btnInactive{
+  .btnInactive {
     width: 348px; 
   }
 }
 
 @media (min-width: 1440px){
+  .container {
+    padding-bottom: 73px;
+  }
   .btnGroup{
     width: 572px;
     max-width: 572px;     
   }
-  .btnActive{  
-    width: 295px; }
-  .btnInactive{
-    width: 273px; }
+  .btnActive  {  
+    width: 295px; 
+  }
+  .btnInactive {
+    width: 273px; 
+  }
 
 }

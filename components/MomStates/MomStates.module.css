@@ -24,22 +24,19 @@
 }
 
 .title {
-  font-family: 'Comfortaa';
-  font-style: normal;
+font-family: "Comfortaa", sans-serif;
   font-weight: 700;
   font-size: 18px;
-  line-height: 140%;
+  line-height: 1.4;
   letter-spacing: 0.01em;
-  color: #000;
 }
 
 .sensations {
-  font-family: 'Lato';
-  font-style: normal;
+  font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
-  color: #000;
+  
 }
 
 .feelingsList {
@@ -47,8 +44,6 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
 
@@ -58,20 +53,17 @@
   padding: 4px 10px;
   background: rgba(0, 0, 0, 0.05);
   border-radius: 100px;
-  font-family: 'Lato';
-  font-style: normal;
+  font-family: "Lato", sans-serif;
   font-weight: 600;
   font-size: 12px;
   line-height: 160%;
-  color: #000;
+
 }
 
 .tipsList {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   gap: 8px;
-  margin: 0;
 }
 
 .category {
@@ -79,12 +71,10 @@
   align-items: center;
   gap: 8px;
   white-space: nowrap;
-  font-family: 'Lato';
-  font-style: normal;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 160%;
-  color: #000;
 }
 
 .icon {
@@ -96,28 +86,21 @@
 }
 
 .tip {
-  font-family: 'Lato';
-  font-style: normal;
+  font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 150%;
-  color: #000;
   margin-left: 32px;
 }
 
 @media (min-width: 768px) {
   .feelingsCard,
   .tipsCard {
-    width: 704px;
     max-width: none;
   }
 }
 
 @media (min-width: 1440px) {
-  :root {
-    --feelings-h: 260px;
-    --tips-h: 360px;
-  }
 
   .momStateContainer {
     grid-template-columns: 1fr auto;
@@ -131,7 +114,6 @@
   .feelingsCard,
   .tipsCard {
     width: 650px;
-    max-width: none;
     overflow: hidden; 
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
