@@ -71,9 +71,13 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
         }
       }}
     >
-      {({ isSubmitting, handleChange }) => {
+      {({ isSubmitting, handleChange, setFieldValue }) => {
         const updateDraft = (
-          patch: Partial<{ title: string; description: string }>
+          patch: Partial<{
+            title: string;
+            emotions: string[];
+            description: string;
+          }>
         ) => {
           if (!isEdit) setDraft(patch);
         };
@@ -104,7 +108,14 @@ export default function DiaryEntryForm({ onClose, diary, onSave }: Props) {
 
             <label className={css.label}>
               Категорії
-              <CustomCheckBoxForm name="emotions" emotions={emotions} />
+              <CustomCheckBoxForm
+                name="emotions"
+                emotions={emotions}
+                onChange={(changed: string[]) => {
+                  setFieldValue("emotions", changed);
+                  updateDraft({ emotions: changed });
+                }}
+              />
               <ErrorMessage
                 name="emotions"
                 component="div"
