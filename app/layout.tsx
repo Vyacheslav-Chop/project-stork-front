@@ -1,6 +1,5 @@
 import "modern-normalize";
 import "./globals.css";
-import { Lato, Comfortaa } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
@@ -8,18 +7,6 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import HeaderWrapper from "./HeaderWrapper";
 import BreadcrumbsWrapper from "./BreadcrumbsWrapper";
 import css from "./page.module.css";
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
-  variable: "--font-lato",
-});
-
-const comfortaa = Comfortaa({
-  subsets: ["latin"],
-  weight: ["500", "700"],
-  variable: "--font-comfortaa",
-});
 
 export const metadata: Metadata = {
   title: "Лелека — онлайн-трекер для майбутніх мам",
@@ -73,7 +60,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body className={`${lato.variable} ${comfortaa.variable}`}>
+      <body>
         <TanStackProvider>
           <AuthProvider>
             <div>

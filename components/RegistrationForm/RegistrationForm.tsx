@@ -11,6 +11,7 @@ import { Formik, Form, Field, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import Image from 'next/image';
 import NavBarLogo from '../NavBarLogo/NavBarLogo'
+import Loader from '../Loader/Loader';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -69,7 +70,8 @@ const RegistrationForm = () => {
       >
        {({ dirty, isValid, isSubmitting }) => (      
         <Form className={css.form}>
-          
+          {isSubmitting && <Loader />}
+
          <Field name="name">
   {({ field, meta }: FieldProps<string>) => (
     <div className={css.formGroup}>
@@ -144,7 +146,7 @@ const RegistrationForm = () => {
               type="submit"
               disabled={!dirty || !isValid || isSubmitting}
               className={css.submitButton}>
-              Зареєструватись
+              {isSubmitting ? "Реєстрація..." : "Зареєструватись"}
             </button>     
 
      {errorMessage && <p className={css.errorMessage}>{errorMessage}</p>}

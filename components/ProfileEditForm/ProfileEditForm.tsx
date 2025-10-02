@@ -13,6 +13,7 @@ import css from "./ProfileEditForm.module.css";
 import { Gender, UserPayload, UserResponse } from "@/types/user";
 import CustomSelect from "./CustomSelectProfileEditForm";
 import { useRouter } from "next/navigation";
+import Loader from "../Loader/Loader";
 
 const ProfileSchema = Yup.object().shape({
   username: Yup.string()
@@ -111,6 +112,7 @@ const ProfileEditForm = ({ user }: EditFormProps) => {
     >
       {({ values, setFieldValue, isSubmitting, resetForm }) => (
         <Form className={css.form}>
+          {isSubmitting && <Loader />}
           <div className={css.formGroup}>
             <label className={css.formLabel} htmlFor={`${fieldId}-username`}>
               Ім&apos;я
@@ -209,7 +211,7 @@ const ProfileEditForm = ({ user }: EditFormProps) => {
               disabled={isSubmitting}
               className={css.submitBtn}
             >
-              Зберегти зміни
+              {isSubmitting ? "Збереження..." : "Зберегти зміни"}
             </button>
           </div>
         </Form>

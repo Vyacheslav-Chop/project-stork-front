@@ -30,7 +30,7 @@
   border: 2px solid rgba(255, 255, 255, 0);
   border-radius: 12px;
   padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
   font-weight: 400;
   font-size: 14px;
   line-height: 1.5;
