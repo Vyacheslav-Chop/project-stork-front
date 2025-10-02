@@ -24,7 +24,7 @@ const Header = () => {
           </svg>
         </Link>
 
-        <button className={styles.burger} onClick={open}>
+        <button className={styles.burger} onClick={open} aria-label="Open Menu">
           <svg width={32} height={32}>
             <use href="/icons/header-icons.svg#icon-burger"></use>
           </svg>
