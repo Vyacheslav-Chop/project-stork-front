@@ -10,7 +10,6 @@
   padding-top: 16px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 32px;
 } 
 .logo {
@@ -48,6 +47,7 @@
   padding: 0 120px;
 }
 .title {
+  font-size: 48px;
   padding-top: 57px;
   }
 
