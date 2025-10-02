@@ -1,4 +1,4 @@
-import DiaryPageClient from "./DuaryPage.client";
+import DiaryPageClient from "./DiaryPage.client";
 
 export default function DiaryPage() {
 

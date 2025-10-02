@@ -67,18 +67,19 @@ const CustomCheckBoxForm = ({ name, emotions }: CustomCheckBoxFormProps) => {
               {emotions.map((emo) => {
                 const checked = field.value.includes(emo._id);
                 const handleToggle = () => {
-                  const updated = checked
-                    ? field.value.filter((v) => v !== emo._id)
-                    : [...field.value, emo._id];
-                  form.setFieldValue(name, updated);
+                  let updated: string[];
+                  if (checked) {
+                    updated = field.value.filter((v) => v !== emo._id);
+                  } else {
+                    updated = [...(field.value || []), emo._id];
+                  }
+                  form.setFieldValue(name, updated, true);
                 };
-
                 return (
                   <li key={emo._id} className={css.item} onClick={handleToggle}>
                     <div
-                      className={`${css.customCheckbox} ${
-                        checked ? css.checked : ""
-                      }`}
+                      className={`${css.customCheckbox} ${checked ? css.checked : ""
+                        }`}
                     >
                       <svg className={css.checkIcon} viewBox="0 0 24 24">
                         <polyline points="20 6 9 17 4 12" />

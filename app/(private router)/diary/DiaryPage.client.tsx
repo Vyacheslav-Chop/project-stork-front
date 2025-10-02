@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import GreetingBlock from "@/components/GreetingBlock/GreetingBlock";
 import DiaryList from "@/components/DiaryList/DiaryList";
 import DiaryEntryDetails from "@/components/DiaryEntryDetails/DiaryEntryDetails";
@@ -30,7 +30,13 @@ export default function DiaryPageClient() {
     queryFn: () => getDiaries(),
   });
 
-  const diaryList = diaries ?? [];
+  const diaryList = useMemo(() => diaries ?? [], [diaries]);
+
+  useEffect(() => {
+    if (isDesktop && diaryList.length > 0 && !selectedDiary) {
+      setSelectedDiary(diaryList[0]);
+    }
+  }, [isDesktop, diaryList, selectedDiary]);
 
   if (isLoading) {
     return <div className={styles.wrapper}>Завантаження...</div>;
