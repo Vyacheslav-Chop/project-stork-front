@@ -1,4 +1,3 @@
-/* AddDiaryModal.module.css */
 .backdrop {
   position: fixed;
   inset: 0;
@@ -6,9 +5,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 16px;
+  padding: 20px;
   z-index: 1000;
 }
+
 .modalWrap {
   position: relative;
   z-index: 1001;
@@ -17,6 +17,7 @@
   width: 100%;
   max-width: 704px;
 }
+
 .iconWrap {
   position: absolute;
   top: 24px;
@@ -30,6 +31,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .iconClose {
   width: 14px;
   height: 14px;
@@ -46,7 +48,7 @@
 }
 @media (min-width: 1440px) {
   .modalWrap {
-    max-width: 768px;
+    max-width: 786px;
   }
   .iconWrap {
     top: 29px;

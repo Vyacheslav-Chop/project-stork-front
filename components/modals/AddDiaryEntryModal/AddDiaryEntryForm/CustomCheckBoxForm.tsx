@@ -8,6 +8,7 @@ import { Category } from "@/types/diaries";
 interface CustomCheckBoxFormProps {
   name: string;
   emotions: Category[];
+  id?: string;
   onChange?: (changed: string[]) => void;
 }
 
@@ -15,6 +16,7 @@ const CustomCheckBoxForm = ({
   name,
   emotions,
   onChange,
+  id,
 }: CustomCheckBoxFormProps) => {
   const [open, setOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
@@ -43,60 +45,77 @@ const CustomCheckBoxForm = ({
   return (
     <Field name={name}>
       {({ field, form }: FieldProps<string[]>) => (
-        <div className={css.multiSelectWrapper} ref={selectRef}>
-          <div
-            className={css.multiSelectTrigger}
-            onClick={() => setOpen((prev) => !prev)}
-          >
-            {field.value.length > 0 ? (
-              <div className={css.tags}>
-                {field.value.map((id) => {
-                  const emo = emotions.find((e) => e._id === id);
+        <>
+          <input
+            type="hidden"
+            id={id}
+            name={field.name}
+            value={field.value.join(",")}
+            readOnly
+          />
+          <div className={css.multiSelectWrapper} ref={selectRef}>
+            <div
+              className={`${css.multiSelectTrigger} ${open ? css.open : ""}`}
+              onClick={() => setOpen((prev) => !prev)}
+            >
+              {field.value.length > 0 ? (
+                <div className={css.tags}>
+                  {field.value.map((id) => {
+                    const emo = emotions.find((e) => e._id === id);
+                    return (
+                      <span key={id} className={css.tag}>
+                        {emo?.title}
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <span className={css.placeholder}>Обрати категорію</span>
+              )}
+              <svg
+                width={24}
+                height={24}
+                className={`${css.dateIcon} ${open ? css.open : ""}`}
+              >
+                <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
+              </svg>
+            </div>
+
+            {open && (
+              <ul className={css.dropdown}>
+                {emotions.map((emo) => {
+                  const checked = field.value.includes(emo._id);
+                  const handleToggle = () => {
+                    const updated = checked
+                      ? field.value.filter((v) => v !== emo._id)
+                      : [...field.value, emo._id];
+                    form.setFieldValue(name, updated);
+                    onChange?.(updated);
+                  };
+
                   return (
-                    <span key={id} className={css.tag}>
-                      {emo?.title}
-                    </span>
+                    <li
+                      key={emo._id}
+                      className={css.item}
+                      onClick={handleToggle}
+                    >
+                      <div
+                        className={`${css.customCheckbox} ${
+                          checked ? css.checked : ""
+                        }`}
+                      >
+                        <svg className={css.checkIcon} viewBox="0 0 24 24">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                      </div>
+                      <span>{emo.title}</span>
+                    </li>
                   );
                 })}
-              </div>
-            ) : (
-              <span className={css.placeholder}>Обрати категорію</span>
+              </ul>
             )}
-            <svg width={24} height={24} className={css.dateIcon}>
-              <use href="/icons/iconsSideBar.svg#keyboard_arrow_down"></use>
-            </svg>
           </div>
-
-          {open && (
-            <ul className={css.dropdown}>
-              {emotions.map((emo) => {
-                const checked = field.value.includes(emo._id);
-                const handleToggle = () => {
-                  const updated = checked
-                    ? field.value.filter((v) => v !== emo._id)
-                    : [...field.value, emo._id];
-                  form.setFieldValue(name, updated);
-                  onChange?.(updated);
-                };
-
-                return (
-                  <li key={emo._id} className={css.item} onClick={handleToggle}>
-                    <div
-                      className={`${css.customCheckbox} ${
-                        checked ? css.checked : ""
-                      }`}
-                    >
-                      <svg className={css.checkIcon} viewBox="0 0 24 24">
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    </div>
-                    <span>{emo.title}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
+        </>
       )}
     </Field>
   );
