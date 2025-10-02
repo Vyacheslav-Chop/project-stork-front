@@ -141,3 +141,17 @@
 .customCheckbox.checked .checkIcon {
   transform: scale(1);
 }
+
+@media screen and (min-width: 1440px) {
+  .multiSelectTrigger {
+    font-size: 16px;
+  }
+
+  .tag {
+    font-size: 16px;
+  }
+
+  .item {
+    font-size: 14px;
+  }
+}
