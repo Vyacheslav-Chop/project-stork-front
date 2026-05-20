@@ -32,9 +32,13 @@ export const login = async (payload: LoginPayload) => {
 };
 
 export const refresh = async () => {
-  const res = await nextServer.post("/auth/refresh");
+  try {
+    const res = await nextServer.post("/auth/refresh");
 
-  return res.data;
+    return res.data.success;
+  } catch {
+    return false;
+  }
 };
 
 export async function logout(): Promise<void> {
