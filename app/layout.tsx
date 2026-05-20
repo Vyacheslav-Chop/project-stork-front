@@ -1,4 +1,4 @@
-import "modern-normalize";
+import "modern-normalize/modern-normalize.css";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import type { Metadata } from "next";
